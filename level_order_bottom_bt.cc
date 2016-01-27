@@ -1,29 +1,30 @@
 class Solution {
 public:
   vector<vector<int> > levelOrderBottom(TreeNode *root) {
-    // Start typing your C/C++ solution below
-    // DO NOT write int main() function
-    vector<TreeNode *> curr_level_nodes, next_level_nodes;
-    vector<int> curr_level_values;
     vector<vector<int> > result;
-    if (root != NULL) {
-      curr_level_nodes.push_back(root);
+    if (root == nullptr) {
+      return result;	    
     }
-    while (!curr_level_nodes.empty()) {
-      for (int i = 0; i < curr_level_nodes.size(); ++i) {
-	TreeNode* curr_node = curr_level_nodes[i];
-	curr_level_values.push_back(curr_node->val);
-	if (curr_node->left != NULL) {
-	  next_level_nodes.push_back(curr_node->left);
+    TreeNode *tmp = nullptr;
+    int curr_level_count = 0;
+    queue<TreeNode *> myqueue;
+    myqueue.push(root);
+    while (!myqueue.empty()) {
+      curr_level_count = myqueue.size();
+      vector<int> curr_level;
+      while (curr_level_count) {
+        tmp = myqueue.front();
+	curr_level.push_back(tmp->val);
+	if (tmp->left != nullptr) {
+          myqueue.push(tmp->left);		
+        }
+	if (tmp->right != nullptr) {
+          myqueue.push(tmp->right);		
 	}
-	if (curr_node->right != NULL) {
-	  next_level_nodes.push_back(curr_node->right);
-	}
+	myqueue.pop();
+	curr_level_count -= 1;
       }
-      result.insert(result.begin(), curr_level_values);
-      curr_level_values.clear();
-      curr_level_nodes.clear();
-      swap(curr_level_nodes, next_level_nodes);
+      result.insert(result.begin(), curr_level);
     }
     return result;
   }

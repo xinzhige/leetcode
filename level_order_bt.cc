@@ -1,28 +1,33 @@
 class Solution {
 public:
-  vector<vector<int> > levelOrder(TreeNode *root) {
-    vector<vector<int> > result;
-    queue<TreeNode*> curr_level, next_level;
-    vector<int> curr_values;
-    if (root != nullptr) {
-      curr_level.push(root);
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> result;
+        queue<TreeNode *> myqueue;
+        if (root != nullptr) {
+            myqueue.push(root);
+        }
+        TreeNode *temp = nullptr;
+        int curr_level_count = 0;
+        while (!myqueue.empty())
+        {
+            curr_level_count = myqueue.size();
+            vector<int> curr_level;
+            while (curr_level_count > 0)
+            {
+                temp = myqueue.front();
+                curr_level.push_back(temp->val);
+                if (temp->left != nullptr) {
+                    myqueue.push(temp->left);
+                }
+                if (temp->right != nullptr) {
+                    myqueue.push(temp->right);
+                }
+                myqueue.pop();
+                curr_level_count -= 1;
+            }
+            result.push_back(curr_level);
+        }
+
+        return result;
     }
-    while (!curr_level.empty()) {
-      TreeNode* curr_node = curr_level.front();
-      curr_level.pop();
-      curr_values.push_back(curr_node->val);
-      if (curr_node->left != nullptr) {
-	next_level.push(curr_node->left);
-      }
-      if (curr_node->right != nullptr) {	
-	next_level.push(curr_node->right);
-      }               
-      if (curr_level.empty()) {
-	result.push_back(curr_values);
-	curr_values.clear();
-	swap(curr_level, next_level);
-      }
-    }
-    return result;
-  }
 };

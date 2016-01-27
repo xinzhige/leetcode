@@ -1,33 +1,34 @@
 class Solution {  
 public:  
   vector<vector<int> > threeSum(vector<int> &num) {
-    vector<vector<int>> result;
-    if (num.size() < 3) {
-      return result;
-    }
     sort(num.begin(), num.end());
-    const int target = 0;
-    auto last = num.end();
-    for (auto a = num.begin(); a < last-2; ++a) {
-      if(a != num.begin() && *a == *(a-1)) {
-	continue;  
+    vector<vector<int>> result;
+    size_t num_len = num.size();
+    for (int i = 0; i < num_len; i++) {
+      if ((i > 0) && (num[i] == num[i - 1])) {
+        continue;
       }
-      auto b = next(a);
-      auto c = prev(last);
-      while (b < c) {
-	if (*a + *b + *c < target) {
-	  ++b;
-	} else if (*a + *b + *c > target) {
-	  --c;
-	} else {
-	  result.push_back({ *a, *b, *c });
-	  ++b;
-	  --c;
-	} 
+      int l = i + 1;
+      int r = num_len - 1;
+      while (l < r) {
+        int s = num[i] + num[l] + num[r];
+        if (s > 0) {
+          r -= 1;
+        } else if (s < 0) {
+          l += 1;
+        } else {
+          result.push_back(vector<int> {num[i], num[l], num[r]});
+          while (num[l] == num[l + 1]) {
+            l += 1;
+          }
+          while (num[r] == num[r - 1]) {
+            r -= 1;
+          }
+          l += 1; 
+          r -= 1;
+        }
       }
     }
-    sort(result.begin(), result.end());
-    result.erase(unique(result.begin(), result.end()), result.end());
-    return result; 
-  }  
+    return result;
+  }
 };
