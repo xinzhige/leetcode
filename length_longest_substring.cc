@@ -1,26 +1,20 @@
 class Solution {
 public:
   int lengthOfLongestSubstring(string s) {
-    // IMPORTANT: Please reset any member data you declared, as
-    // the same Solution instance will be reused for each test case.
-    int s_length = s.size();
-    int left = 0, right = 0;
+    const int kMaxChars = 256;
+    vector<int> mymap(kMaxChars, -1);
     int max_len = 0;
-    bool existed[256] = { false };
-    while (right < s_length) {
-      if (existed[s[right]]) {
-	max_len = max(max_len, right-left);
-	while (s[left] != s[right]) {
-	  existed[s[left]] = false;
-	  left++;
-	}
-	left++;
-      } else {
-	existed[s[right]] = true;
+    int last_repeat_pos = -1;
+    for (int i = 0; i < s.size(); i++) {
+      if (mymap[s[i]] != -1 && last_repeat_pos < mymap[s[i]]) {
+        last_repeat_pos = mymap[s[i]];	      
+      }	   
+      int curr_len = i - last_repeat_pos;
+      if (curr_len > max_len) {
+        max_len = curr_len;	      
       }
-      right++;
+      mymap[s[i]] = i; 
     }
-    max_len = max(max_len, s_length-left);
     return max_len;
   }
 };
