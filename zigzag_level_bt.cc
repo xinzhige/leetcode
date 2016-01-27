@@ -45,39 +45,31 @@ class Solution {
 public:
   vector<vector<int> > zigzagLevelOrder(TreeNode *root) {
     vector<vector<int> > result;
-    if (nullptr == root) {
-      return result;
+    if (root == nullptr) {
+      return result;	    
     }
-    queue<TreeNode*> q;
-    bool left_to_right = true;
-    vector<int> level;
-    q.push(root);
-    q.push(nullptr);  // level separator
-    while (!q.empty()) {
-      TreeNode *curr = q.front();
-      q.pop();
-      if (curr) {
-	level.push_back(curr->val);
-	if (curr->left) {
-	  q.push(curr->left);
-	}
-	if (curr->right) {
-	  q.push(curr->right);
-	}
-      } else {
-	if (left_to_right) {
-	  result.push_back(level);
-	} else {
-	  reverse(level.begin(), level.end());
-	  result.push_back(level);
-	}
-	level.clear();
-	left_to_right = !left_to_right;
-	if (q.size() > 0) {
-	  q.push(nullptr);
-	}
+    int level = 0;
+    TreeNode *last = root;
+    queue<TreeNode *> myqueue;
+    myqueue.push(root);
+    result.push_back(vector<int> ());
+    while (!myqueue.empty()) {
+      TreeNode *curr = myqueue.front();
+      myqueue.pop();
+      result[level].insert((level % 2) ? result[level].begin() : result[level].end(), curr->val); 
+      if (curr->left) {
+        myqueue.push(curr->left);	      
       }
+      if (curr->right) {
+        myqueue.push(curr->right);	      
+      }
+      if (curr == last) {
+        level += 1;
+	last = myqueue.back();
+	result.push_back(vector<int> ());
+      } 
     }
+    result.pop_back();
     return result;
   }
 };
