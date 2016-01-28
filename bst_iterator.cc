@@ -1,12 +1,3 @@
-/**
- * Definition for binary tree
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
 class BSTIterator {
 private:
   stack<TreeNode *> mystack;
@@ -39,8 +30,35 @@ public:
   }
 };
 
-/**
- * Your BSTIterator will be called like this:
- * BSTIterator i = BSTIterator(root);
- * while (i.hasNext()) cout << i.next();
- */
+// use more space--one more array to store all the values of nodes but 
+// more efficient on next()
+class BSTIterator {
+private:
+  vector<int> values;
+  int pos;
+public:
+  BSTIterator(TreeNode *root) {
+    pos = 0;
+    stack<TreeNode *> mystack;
+    while (!mystack.empty() || root != nullptr) {
+      if (root != nullptr) {
+        mystack.push(root);
+	root = root->left;
+      }	else {
+        root = mystack.top();
+	mystack.pop();
+        values.push_back(root->val);
+	root = root->right;
+      }   
+    }
+  }
+  
+  bool hasNext() {
+    return pos < values.size(); 
+  }
+  
+  int next() {
+    pos += 1;
+    return v[pos - 1];
+  }
+};
