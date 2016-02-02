@@ -1,33 +1,35 @@
 class Solution {
 public:
-  void printResult(vector<int> A, int n, vector<vector<string> >& result){
-    vector<string> curr_row;
-    for(int i = 0; i < n; ++i) {
+  void addResult(vector<int> &A, int n, vector<vector<string> > &result) {
+    vector<string> solution; 
+    for (int row = 0; row < n; row++) {
       string str(n, '.');
-      str[A[i]] = 'Q';
-      curr_row.push_back(str);
-    }
-    result.push_back(curr_row);
-  }
-  bool isValid(vector<int> A, int row){
-    for (int i = 0; i < row; ++i) {
-      if ((A[i] == A[row]) || (abs(A[i] - A[row]) == (row - i))){
-	    return false;
-      }
+      str[A[row]] = 'Q';
+      solution.push_back(str);
+    }	 
+    result.push_back(solution);
+  } 
+  bool isValid(vector<int> &A, int row) {
+    for (int i = 0; i < row; i++) {
+      if (A[i] == A[row] ||
+	  (abs(A[i] - A[row]) == row - i)) {
+        return false;
+      }	    
     }
     return true;
   }
-  void nQueens(vector<int> A, int curr, int n, vector<vector<string> >& result){
-    if (curr == n) {
-      printResult(A, n, result);
+  void nQueens(vector<int> A, int row, int n, vector<vector<string> > &result) {
+    if (row == n) {
+      addResult(A, n, result);
+      return;
     } else {
-      for (int i = 0; i < n; ++i) {
-    	A[curr] = i;
-    	if (isValid(A, curr)) {
-    	  nQueens(A, curr+1, n, result);
-    	}
-      }
-    }
+      for (int col = 0; col < n; col++) {
+        A[row] = col;
+	if (isValid(A, row)) {
+          nQueens(A, row + 1, n, result);		
+        }
+      }	    
+    } 
   }
   vector<vector<string> > solveNQueens(int n) {
     vector<vector<string> > result;
