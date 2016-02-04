@@ -1,4 +1,4 @@
-// Recursive
+// Recursive: invert left tree and store it then invert right tree and assign it to left child lastly assign the temp to right child
 class Solution {
 public:
   TreeNode* invertTree(TreeNode* root) {
