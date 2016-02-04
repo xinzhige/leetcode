@@ -1,11 +1,9 @@
+// if one node has not left child, then its minDepth must be the minDepth of its right child and so does its right child.
 class Solution {
 public:
   int minDepth(TreeNode *root) {
     if (root == nullptr) {
       return 0;
-    }
-    if (root->left == nullptr && root->right == nullptr) {
-      return 1;
     }
     int left_height = minDepth(root->left);
     int right_height = minDepth(root->right);
