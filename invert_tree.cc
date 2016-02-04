@@ -15,11 +15,6 @@ public:
 // Non-recursive
 class Solution {
 public:
-  void swapTree(TreeNode *&x, TreeNode *&y) {
-    TreeNode *tmp = x;
-    x = y;
-    y = tmp;
-  }
   TreeNode* invertTree(TreeNode* root) {
     if (root == nullptr) {
       return root;
@@ -29,7 +24,7 @@ public:
     while (!mystack.empty()) {
       TreeNode* curr = mystack.top();
       mystack.pop();
-      swapTree(curr->left, curr->right);
+      swap(curr->left, curr->right);
       if (curr->left != nullptr) {
         mystack.push(curr->left);
       }
