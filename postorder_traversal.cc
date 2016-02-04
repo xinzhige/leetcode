@@ -25,26 +25,29 @@ public:
 // traditional way by tracking a last node visited
 class Solution {
 public:
-  vector<int> postorderTraversal(TreeNode *root) {
-    vector<int> result;
-    stack<TreeNode *> mystack;
-    TreeNode *last_visited = nullptr;
-    TreeNode *node = root;
-    while (!mystack.empty() || node != nullptr) {
-      if (node != nullptr) {
-        mystack.push(node);
-	node = node->left;
-      } else {
-        TreeNode *curr = mystack.top(); 
-	if (curr->right != nullptr && last_visited != curr->right) {
-          node = curr->right;		
+    vector<int> postorderTraversal(TreeNode *root) {
+      vector<int> result;
+      if (root == nullptr) {
+        return result;	  
+      }
+      stack<TreeNode *> mystack;
+      TreeNode* last_visited = nullptr;
+      while (!mystack.empty() || root != nullptr) {
+        if (root != nullptr) {
+          mystack.push(root);
+          root = root->left;
         } else {
-	  result.push_back(curr->val);
-	  mystack.pop();
-	  last_visited = curr;
-        } 
-      } 
+          TreeNode* node = mystack.top();
+          if (node->right != nullptr &&
+    	  last_visited != node->right) {
+            root = node->right; 
+          } else {
+            mystack.pop();
+    	    result.push_back(node->val);
+    	    last_visited = node;
+          }
+        }
+      }
+      return result;
     }
-    return result;
-  }
 };
