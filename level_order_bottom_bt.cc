@@ -2,30 +2,26 @@ class Solution {
 public:
   vector<vector<int> > levelOrderBottom(TreeNode *root) {
     vector<vector<int> > result;
-    if (root == nullptr) {
-      return result;	    
-    }
-    TreeNode *tmp = nullptr;
-    int curr_level_count = 0;
     queue<TreeNode *> myqueue;
-    myqueue.push(root);
+    if (root != nullptr) {
+      myqueue.push(root);	    
+    }
     while (!myqueue.empty()) {
-      curr_level_count = myqueue.size();
-      vector<int> curr_level;
-      while (curr_level_count) {
-        tmp = myqueue.front();
-	curr_level.push_back(tmp->val);
-	if (tmp->left != nullptr) {
-          myqueue.push(tmp->left);		
+      vector<int> level;
+      for (int i = myqueue.size(); i > 0; i--) {
+        TreeNode* node = myqueue.front();
+	level.push_back(node->val);
+	if (node->left != nullptr) {
+          myqueue.push(node->left);		
         }
-	if (tmp->right != nullptr) {
-          myqueue.push(tmp->right);		
+	if (node->right != nullptr) {
+          myqueue.push(node->right);		
 	}
 	myqueue.pop();
-	curr_level_count -= 1;
       }
-      result.insert(result.begin(), curr_level);
+      result.push_back(level);
     }
+    reverse(result.begin(), result.end()); 
     return result;
   }
 };
