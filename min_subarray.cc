@@ -8,7 +8,7 @@ public:
       int min_len = INT_MAX;
       int sum = 0;
       int left = 0;
-      int right = 0;
+      int right = -1;
       while (right < nums_len) {
         while (sum < s && right < num_len) {
           right += 1;
