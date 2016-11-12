@@ -2,17 +2,17 @@ class Solution {
 public:
   void reverseWords(string &s) {
     string result;
-    int pos = 0;
-    for (int i = 0; i < s.size(); ++i) {
-      if (s[i] == ' ') {
-	if (i > pos) {
-	  result = s.substr(pos, i - pos) + " " + result;
-	}
-	pos = i + 1;
-      } else if (i == s.size() - 1) {
-	result = s.substr(pos, s.size() - pos) + " " + result;
-      }
+    int j = s.size();
+    for (int i = s.size(); i >= 0; i--) {
+        if (s[i] == ' ') {
+            j = i; 
+        } else if (i == 0 || s[i - 1] == ' ') {
+            if (!result.empty()) {
+                result.append(" "); 
+            } 
+            result.append(s.substr(i, j - i));
+        } 
     }
-    s = result.substr(0, result.size() - 1);
+    s = result;
   }
 };
