@@ -5,7 +5,7 @@ public:
         long high = n;
         while (low < high) {
             long mid = low + (high - low) / 2 + 1;
-            if ((mid + 1) * mid / 2.0 <= n) {
+            if (0.5 * mid * (mid + 1) <= n) {
                 low = mid;
             } else {
                 high = mid - 1;
