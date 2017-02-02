@@ -7,7 +7,7 @@ public:
         int result = 0;
         for (auto house : houses) {
             for (; i < heaters.size() - 1 && 
-                   heaters[i] + heaters[i + 1] <= 2 * house; ++i); 
+                   abs(heaters[i+1] - house) <= abs(heaters[i] - house); ++i); 
             result = max(result, abs(heaters[i] - house));
         }
         return result;
