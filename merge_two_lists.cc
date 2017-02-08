@@ -1,6 +1,3 @@
-#include <iostream>
-#include "list_node.h"
-
 // recursive way
 /*
 class Solution {
@@ -27,29 +24,23 @@ public:
 };
 */
 
-// avoid using the double pointer
+// non-recursive 
 class Solution {
 public:
   ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    ListNode *dummy = new ListNode(0);
-    ListNode* head = &dummy;
+    ListNode dummy(0);
+    ListNode* curr = &dummy;
     while (l1 != nullptr && l2 != nullptr) {
       if (l1->val < l2->val) {
-      	head->next = l1;
+      	curr->next = l1;
       	l1 = l1->next;
       } else {
-      	head->next = l2;
+      	curr->next = l2;
       	l2 = l2->next;
       }
-      head = head->next;
+      curr = curr->next;
     }
-    if (l1 != nullptr) {
-      head->next = l1;
-    } else {
-      head->next = l2;
-    }
-    head = dummy->next;
-    delete dummy;
-    return head;
+    head->next = (l1 != nullptr) ? l1 : l2;
+    return dummy.next;
   }
 };
