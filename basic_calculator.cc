@@ -14,7 +14,7 @@ public:
                 }
                 result += sign.top() * num;
                 sign.pop();
-                --i;
+                --i;  // // Back one digit because of inner for loop
             } else if (c == ')') {
                 sign.pop(); 
             } else if (c != ' ') {
