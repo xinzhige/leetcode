@@ -10,7 +10,7 @@ public:
 	                dirs.pop_back();
 	            }
             } else if (!current.empty() && current != ".") {
-	            dirs.push_back(current);
+	            dirs.emplace_back(current);
             }
         }
         for (auto s : dirs) {
