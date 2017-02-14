@@ -1,17 +1,17 @@
-// Use a stack and a list
+// Two stacks
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode *root) {
         vector<int> result;
         stack<TreeNode*> mystack;
-        list<int> mylist;
+        stack<int> nums;
         if (root != nullptr) {
             mystack.push(root);
         }
         while (!mystack.empty()) {
             TreeNode* node = mystack.top();
             mystack.pop();
-            mylist.emplace_front(node->val);
+            nums.emplace(node->val);
             if (node->left != nullptr) {
                 mystack.push(node->left);
             }
@@ -19,26 +19,23 @@ public:
                 mystack.push(node->right);
             }
         }
-        for (auto value : mylist) {
-            result.emplace_back(value); 
+        for (; !nums.empty(); nums.pop()) {
+            result.emplace_back(nums.top()); 
         }
         return result;
     }
 };
 
-// traditional way by tracking a last node visited
+// Tracking a last visited node
 class Solution {
 public:
     vector<int> postorderTraversal(TreeNode *root) {
         vector<int> result;
-        if (root == nullptr) {
-            return result;	  
-        }
         stack<TreeNode *> mystack;
         TreeNode* last_visited = nullptr;
         while (!mystack.empty() || root != nullptr) {
             if (root != nullptr) {
-                mystack.push(root);
+                mystack.emplace(root);
                 root = root->left;
             } else {
                 TreeNode* node = mystack.top();
@@ -47,7 +44,7 @@ public:
                     root = node->right; 
                 } else {
                     mystack.pop();
-                    result.push_back(node->val);
+                    result.emplace_back(node->val);
                     last_visited = node;
                 }
             }
