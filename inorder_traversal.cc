@@ -28,21 +28,20 @@ public:
 // iterative
 class Solution {
 public:
-  vector<int> inorderTraversal(TreeNode *root) {
-    vector<int> result;
-    stack<TreeNode*> my_stack;
-    TreeNode* curr_node = root;
-    while (!my_stack.empty() || curr_node != NULL) {
-      if (curr_node != NULL) {
-	my_stack.push(curr_node);
-	curr_node = curr_node->left;
-      } else {
-	curr_node = my_stack.top();
-	my_stack.pop();
-	result.push_back(curr_node->val);
-	curr_node = curr_node->right;
-      }
+    vector<int> inorderTraversal(TreeNode *root) {
+        vector<int> result;
+        stack<TreeNode*> my_stack;
+        while (root != nullptr || !my_stack.empty()) {
+            if (root != nullptr) {
+                my_stack.emplace(root);
+                root = root>left;
+            } else {
+                root = my_stack.top();
+                my_stack.pop();
+                result.emplace_back(root->val);
+                root = root->right;
+            }
+        }
+        return result;
     }
-    return result;
-  }
 };
