@@ -1,16 +1,16 @@
 // recursive way
 class Solution {
 public:
-    bool isSymmetricHelper(TreeNode* a, TreeNode* b) {
-        if (a == nullptr && b == nullptr) {
+    bool isSymmetricHelper(TreeNode* l, TreeNode* r) {
+        if (l == nullptr && r == nullptr) {
             return true;
         }
-        if (a == nullptr || b == nullptr) {
+        if (l == nullptr || r == nullptr) {
             return false;
         }
-        if (a->val == b->val) {
-            return isSymmetricHelper(a->left, b->right) && 
-	            isSymmetricHelper(a->right, b->left);
+        if (l->val == r->val) {
+            return isSymmetricHelper(l->left, r->right) && 
+	            isSymmetricHelper(l->right, r->left);
         }
         return false;
     }
