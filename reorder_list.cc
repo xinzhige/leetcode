@@ -1,15 +1,16 @@
 class Solution {
 private:
-  ListNode *reverse(ListNode *head) {
-    ListNode *new_head = nullptr;
-    ListNode *post;
-    while (head != nullptr) {
-      post = head->next;
-      head->next = new_head;
-      new_head = head;
-      head = post;
+  ListNode *reverseList(ListNode *head) {
+    ListNode *prev = nullptr;
+    ListNode *curr = head;
+    ListNode *post = nullptr;
+    while (curr != nullptr) {
+      post = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = post;
     }
-    return new_head;
+    return prev;
   }
 
   ListNode *find_middle(ListNode *head) {
@@ -53,7 +54,7 @@ public:
       return;
     }
     ListNode *middle = find_middle(head);
-    ListNode *tail = reverse(middle->next);
+    ListNode *tail = reverseList(middle->next);
     middle->next = nullptr;
     merge(head, tail);
   }

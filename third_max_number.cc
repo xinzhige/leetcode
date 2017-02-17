@@ -1,29 +1,20 @@
 class Solution {
 public:
     int thirdMax(vector<int>& nums) {
-        int max1 = nums[0];
-        int max2 = nums[0];
-        int max3 = nums[0];
-        int count = 0; 
-        for (const auto &num : nums) {
-            if ((num == max1 && count > 0) ||
-                (num == max2 && count > 1) ||
-                (num == max3 && count > 2)) {
-                continue;     
+        vector<long> top(3, LONG_MIN);
+        for (auto num : nums) {
+            if (num <= top[2] || num == top[1] || num == top[0]) {
+                continue;
             }
-            if (count == 0 || num > max1) {
-                max3 = max2;
-                max2 = max1;
-                max1 = num;
-            } else if (count == 1 || num > max2) {
-                max3 = max2;
-                max2 = num;
-            } else if (count == 2 || num > max3) {
-                max3 = num; 
+            top[2] = num;
+            if (top[1] < top[2]) {
+                swap(top[1], top[2]);
             }
-            count = min(count + 1, 3);
+            if (top[0] < top[1]) {
+                swap(top[0], top[1]);
+            }
         }
-        return count == 3 ? max3 : max1;
+        return top[2] == LONG_MIN ? top[0] : top[2];
     }
 };
 

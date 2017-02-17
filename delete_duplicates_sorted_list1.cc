@@ -8,19 +8,19 @@
  */
 class Solution {
 public:
-    ListNode* removeElements(ListNode* head, int val) {
-        ListNode *dummy = new ListNode(0);
-        dummy->next = head;
-        ListNode *prev = dummy;
-        for (ListNode *curr = head; curr != nullptr; curr = prev->next) {
-            if (curr->val == val) {
-                ListNode *tmp = curr;
+    ListNode* deleteDuplicates(ListNode* head) {
+        if (head == nullptr) {
+            return head;
+        }
+        ListNode *prev = head;
+        for (ListNode *curr = head->next; curr != nullptr; curr = curr->next) {
+            if (curr->val == prev->val) {
                 prev->next = curr->next;
                 delete curr;
             } else {
                 prev = curr;
             }
         }
-        return dummy->next;
+        return head;
     }
 };

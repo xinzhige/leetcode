@@ -8,15 +8,15 @@ public:
     // int end = 0;
     for (int i = 1; i < n; ++i) {
       if (max_ending_here < 0) {
-	max_ending_here = A[i];
-	// begin_temp = i;
+	    max_ending_here = A[i];
+	    // begin_temp = i;
       } else {
-	max_ending_here += A[i];
+	    max_ending_here += A[i];
       }
       if (max_ending_here > max_so_far) {
-	max_so_far = max_ending_here;
-	// begin = begin_temp;
-	// end = i;
+	    max_so_far = max_ending_here;
+	    // begin = begin_temp;
+	    // end = i;
       }
     }
     return max_so_far;

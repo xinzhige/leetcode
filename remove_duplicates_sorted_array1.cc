@@ -7,8 +7,8 @@ public:
     int end = 0;
     for (int i = 1; i < n; ++i) {
       if (A[i] != A[end]) {
-	A[end+1] = A[i];
-	++end;
+	    A[end+1] = A[i];
+	    ++end;
       }
     }
     return end+1;
