@@ -1,3 +1,7 @@
+/* There are two links need to connected: 
+ * 1. from left child to right child
+ * 2. from right child to left child of right sibling
+ */
 class Solution {
 public:
     void connect(TreeLinkNode *root) {
