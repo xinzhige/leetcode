@@ -1,28 +1,27 @@
-// space: O(1)
 class Solution {
 public:
-  void connect(TreeLinkNode* n) {
-    while (n != nullptr) {
-      TreeLinkNode* first_next_level = nullptr; // the first node of next level
-      TreeLinkNode* prev_node = nullptr; // previous node on the same level
-      for (; n != nullptr; n = n->next) {
-	if (first_next_level == nullptr) {
-	  first_next_level = (n->left != nullptr ? n->left : n->right);
-	}
-	if (n->left != nullptr) {
-	  if (prev_node != nullptr) {
-	    prev_node->next = n->left;
-	  }
-	  prev_node = n->left;
-	}
-	if (n->right != nullptr) {
-	  if (prev_node != nullptr) {
-	    prev_node->next = n->right;
-	  }
-	  prev_node = n->right;
-	}
-      }
-      n = first_next_level; // turn to next level
+    void connect(TreeLinkNode* root) {
+        while (root != nullptr) {
+            TreeLinkNode* next_first = nullptr;  // the first node of next level
+            TreeLinkNode* prev_node = nullptr;  // previous node on the next level
+            for (; root != nullptr; root = root->next) {
+	            if (next_first == nullptr) {
+	                next_first = (root->left != nullptr ? root->left : root->right);
+	            }
+	            if (root->left != nullptr) {
+	                if (prev_node != nullptr) {
+	                    prev_node->next = root->left;
+	                }
+	                prev_node = root->left;
+	            }
+	            if (root->right != nullptr) {
+	                if (prev_node != nullptr) {
+	                    prev_node->next = root->right;
+	                }
+	                prev_node = root->right;
+	            }
+            }
+            root = next_first;  // turn to next level
+        }
     }
-  }
 };
