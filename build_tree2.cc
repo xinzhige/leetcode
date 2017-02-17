@@ -44,8 +44,8 @@ public:
         int rootval = *(pend - 1);
         TreeNode *res = new TreeNode(rootval);
         Iter iterroot = find(istart, iend, rootval);
-        res->left = buildTreeHelper(istart, iterroot, pstart, pstart + (iterroot - istart);
-        res->right = buildTreeHelper(iterroot + 1, iend, pstart + (iterroot - istart), pend - 1);
+        res->left = buildTreeHelper(istart, iterroot, pstart, pstart + (iterroot - istart));
+        res->right = buildTreeHelper(iterroot + 1, iend, pstart + (iterroot - istart), pend - 1));
         return res;
     }
 };
