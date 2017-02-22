@@ -1,20 +1,18 @@
 class Solution {
 public:
     string addBinary(string a, string b) {
-        string result;
-        size_t n = a.size() > b.size() ? a.size() : b.size();
-        int carry = 0;
-        for (size_t i = 0; i < n; i++) {
-            int ai = i < a.size() ? a[a.size() - i - 1] - '0' : 0;
-            int bi = i < b.size() ? b[b.size() - i - 1] - '0' : 0;
-            int val = (ai + bi + carry) % 2;
-            carry = (ai + bi + carry) / 2;
-            result.push_back(val + '0');
+        string s("");
+        long c = 0;
+        long i = a.size() - 1;
+	long j = b.size() - 1;
+        while (i >= 0 || j >= 0 || c == 1) {
+            c += i >= 0 ? a[i] - '0' : 0;
+	    i -= 1;
+            c += j >= 0 ? b[j] - '0' : 0;
+	    j -= 1;
+            s = std::to_string(c % 2) + s;
+            c /= 2;
         }
-        if (carry == 1) {
-            result.push_back('1');
-        }
-        reverse(result.begin(), result.end());
-        return result;
+        return s;
     }
 };
