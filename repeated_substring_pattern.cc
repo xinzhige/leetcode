@@ -12,7 +12,7 @@ public:
             if (str[i] == str[j]) {
                 i += 1;
                 j += 1;
-                dp[i]=j;
+                dp[i] = j;
             } else if (j == 0) {
                 i += 1;
             } else {
