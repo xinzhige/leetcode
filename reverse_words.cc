@@ -1,18 +1,16 @@
 class Solution {
 public:
-  void reverseWords(string &s) {
-    string result;
-    int j = s.size();
-    for (int i = s.size(); i >= 0; i--) {
-        if (s[i] == ' ') {
-            j = i; 
-        } else if (i == 0 || s[i - 1] == ' ') {
-            if (!result.empty()) {
-                result.append(" "); 
-            } 
-            result.append(s.substr(i, j - i));
-        } 
-    }
-    s = result;
-  }
+    void reverseWords(string &s) {
+        reverse(s.begin(), s.end());
+        int storeIndex = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] != ' ') {
+                if (storeIndex != 0) s[storeIndex++] = ' ';
+                int j = i;
+                while (j < s.size() && s[j] != ' ') { s[storeIndex++] = s[j++]; }
+                reverse(s.begin() + storeIndex - (j - i), s.begin() + storeIndex);
+                i = j;
+            }
+        }
+        s.erase(s.begin() + storeIndex, s.end());
 };
