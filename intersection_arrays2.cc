@@ -4,14 +4,17 @@ public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         unordered_map<int, int> mymap;
         vector<int> result;
-        for (int i = 0; i < nums1.size(); ++i) {
-            mymap[nums1[i]] += 1; 
+        for (auto &n : nums1) {
+            if (mymap.find(n) == mymap.end()) {
+                mymap[n] = 1; 
+            } else {
+                mymap[n] += 1; 
+            } 
         }
-        for (int i = 0; i < nums2.size(); ++i) {
-            if (mymap.find(nums2[i]) != mymap.end() &&
-                mymap[nums2[i]] >= 1) {
-                result.emplace_back(nums2[i]);     
-                mymap[nums2[i]] -= 1;
+        for (auto &n : nums2) {
+            if (mymap.find(n) != mymap.end() && mymap[n] > 0) {
+                result.emplace_back(n);     
+                mymap[n] -= 1;
             } 
         }
         return result;
