@@ -17,8 +17,8 @@ public:
                     l += 1;
                 } else {
                     result.emplace_back(vector<int> {nums[i], nums[l], nums[r]});
-                    for (; nums[l] == nums[l + 1]; ++l); 
-                    for (; nums[r] == nums[r - 1]; --r); 
+                    for (; l < nums.size() - 1 && nums[l] == nums[l + 1]; ++l); 
+                    for (; r > 0 && nums[r] == nums[r - 1]; --r); 
                     l += 1; 
                     r -= 1;
                 }
