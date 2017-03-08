@@ -8,11 +8,9 @@ public:
             for (int j = 0; j < nums.size(); ++j) {
                 if (bitInKth(nums[j], i) == 0) {
                     num0 += 1; 
-                } else {
-                    num1 += 1; 
                 } 
             } 
-            sum += num0 * num1;
+            sum += num0 * (nums.size() - num0);
         }
         return sum;
     }
