@@ -16,7 +16,7 @@ public:
         auto* p = root;
         for (const auto& c : word) {
             if (p->children.find(c) == p->children.end()) {
-                p->children[c] = new TrieNode; 
+                p->children[c] = new TrieNode(); 
             } 
             p = p->children[c];
         }
