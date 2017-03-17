@@ -26,4 +26,4 @@ public:
 private:
     int min_diff = INT_MAX;
     int val = -1;
-};
+};t 
