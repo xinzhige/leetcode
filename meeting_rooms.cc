@@ -20,7 +20,10 @@ public:
     }
 
 private:
-    static bool compare(const Interval& a, const Interval& b) {
-        return a.start < b.start; 
+  class Compare {
+  public:
+    bool operator() (const Interval & a, const Interval & b) {
+      return a.start < b.start;
     }
+  }compare;
 };

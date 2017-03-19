@@ -4,8 +4,8 @@ public:
     string result;
     for (; n > 0; n /= 26) {
       n -= 1;
-      result += n % 26 + 'A';
+      result = char(n % 26 + 'A') + result;
     }
-    return string(result.rbegin(), result.rend());
+    return result;
   }
 };
