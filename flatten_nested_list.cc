@@ -36,9 +36,9 @@ public:
                 return true;
             }
             mystack.pop();
-            auto curr_list = curr.getList();
-            for (int i = curr_list.size() - 1; i >= 0; --i) {
-                mystack.emplace(curr_list[i]);
+            auto currList = curr.getList();
+            for (int i = currList.size() - 1; i >= 0; --i) {
+                mystack.emplace(currList[i]);
             }
         }
         return false;
