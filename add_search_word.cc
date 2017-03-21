@@ -15,7 +15,7 @@ public:
   void addWord(string word) {
     auto p = root;
     for (const auto& c : word) {
-      if (p->children.find(c) == p->children.end()) {
+      if (p->children.count(c) == 0) {
 	p->children[c] = new TrieNode(); 
       } 
       p = p->children[c];
@@ -33,7 +33,7 @@ public:
     if (word.size() == l) {
       return node->isString; 
     } 
-    if (node->children.find(word[l]) != node->children.end()) {
+    if (node->children.count(word[l])) {
       return search(word, node->children[word[l]], l + 1); 
     } else if (word[l] == '.') {
       for (const auto& curr : node->children) {
