@@ -1,38 +1,20 @@
-// DP
-class Solution { 
+class Solution {
 public:
-  bool wordBreak(string s, unordered_set<string> &dict) {
-    vector<bool> word(s.size() + 1, false);
-    word[0] = true;
-    for (int i = 1; i < s.size() + 1; i++) {
-      for (int j = i - 1; j >= 0; j--) {
-      	if (word[j] && dict.find(s.substr(j, i - j)) != dict.end()) {
-      	  word[i] = true;
-      	  break;
-      	}
+  bool wordBreak(string s, vector<string>& wordDict) {
+    vector<bool> result(s.size() + 1, false);
+    unordered_map<string, bool> mymap;
+    for (const auto & word : wordDict) {
+      mymap[word] = true;
+    }
+    result[0] = true;
+    for (int i = 0; i <= s.size(); ++i) {
+      for (int j = 0; j < i; ++j) {
+	if (result[j] && mymap.count(s.substr(j, i-j))) {
+	  result[i] = true;
+	  break;
+	}
       }
     }
-    return word[s.size()];
-  }
-};
-
-// in case the length of dict is far less than that of string s
-class Solution { 
-public:
-  bool wordBreak(string s, unordered_set<string> &dict) {
-    vector<bool> wb(s.size() + 1, false);
-    wb[0] = true;
-    for(int i = 1; i <= s.size(); ++i) {
-      for(unordered_set<string>::iterator it = dict.begin(); 
-          it != dict.end(); ++it) {
-        int length = (*it).size();
-	      if((i - length >= 0) && wb[i - length] && 
-           (s.substr(i - length, length) == *it)) {
-	        wb[i] = true;
-	        break;
-	      }
-      }
-    }
-    return wb[s.size()];
+    return result[s.size()];
   }
 };
