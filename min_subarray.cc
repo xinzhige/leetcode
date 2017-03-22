@@ -1,25 +1,70 @@
+// O(n)
 class Solution {
 public:
-    int minSubArrayLen(int s, vector<int>& nums) {
-      int nums_len = nums.size();
-      if (nums_len == 0) {
-        return 0;	      
+  int minSubArrayLen(int s, vector<int>& nums) {
+    int result = INT_MAX;
+    int left = 0;
+    int sum = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+      sum += nums[i];
+      for (; left <= i && sum >= s; ++left) {
+	result = min(result, i - left + 1);
+	sum -= nums[left];
       }
-      int min_len = INT_MAX;
-      int sum = 0;
-      int left = 0;
-      int right = -1;
-      while (right < nums_len) {
-        while (sum < s && right < num_len) {
-          right += 1;
-	  sum += nums[right];
-	}
-	if (sum >= s) {
-          min_len = min(min_len, right - left + 1);
-	  sum -= nums[left];
-	  left += 1;
-	}
-      }
-      return min_len > len ? 0 : min_len;
     }
+    return result == INT_MAX ? 0 : result;
+  }
+};
+
+// O(nlgn)
+class Solution {
+public:
+  int minSubArrayLen(int s, vector<int>& nums) {
+    // O(n)
+class Solution {
+public:
+  int minSubArrayLen(int s, vector<int>& nums) {
+    int result = INT_MAX;
+    int left = 0;
+    int sum = 0;
+    for (int i = 0; i < nums.size(); ++i) {
+      sum += nums[i];
+      for (; left <= i && sum >= s; ++left) {
+	result = min(result, i - left + 1);
+	sum -= nums[left];
+      }
+    }
+    return result == INT_MAX ? 0 : result;
+  }
+};
+
+// O(nlgn)
+class Solution {
+public:
+  int minSubArrayLen(int s, vector<int>& nums) {
+    int result = INT_MAX;
+    int n = nums.size();
+    vector<int> sums(n + 1, 0);
+    for (int i = 1; i <= n; ++i) {
+      sums[i] = sums[i - 1] + nums[i - 1];
+    }
+    for (int i = 0; i < n; ++i) {
+      int left = i + 1;
+      int right = n;
+      int t = sums[i] + s;
+      while (left <= right) {
+	int mid = left + (right - left) / 2;
+	if (sums[mid] < t) {
+	  left = mid + 1;
+	} else {
+	  right = mid - 1;
+	}
+      }
+      if (left == n + 1) {
+	break;
+      }
+      result = min(result, left - i);
+    }
+    return result == INT_MAX ? 0 : result;
+  }
 };
