@@ -10,7 +10,7 @@
 class Solution {
   public:
   TreeNode* upsideDownBinaryTree(TreeNode* root) {
-    if (root == nullptr || (root->left == nullptr && root->right == nullptr)) {
+    if (root == nullptr || root->left == nullptr) {
       return root; 
     }                           
     TreeNode *new_root = upsideDownBinaryTree(root->left);
