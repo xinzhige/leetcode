@@ -10,15 +10,12 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        if (p->val < q->val) {
-            return lowestCommonAncestorHelper(root, p, q);
-        } else {
-            return lowestCommonAncestorHelper(root, q, p);
+        if (p == nullptr || q == nullptr) {
+            return nullptr 
         }
-    }
-
-private:
-    TreeNode* lowestCommonAncestorHelper(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (p->val > q->val) {
+            swap(p, q); 
+        }
         while (root != nullptr) {
             if (root->val < p->val) {
                 root = root->right;

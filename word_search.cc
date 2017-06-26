@@ -1,11 +1,9 @@
 // Suppose the board only contains the alphabet
 class Solution {
 public:
-  bool exist(vector<vector<char> > &board, string word) {
-    const int m = board.size();
-    const int n = board[0].size();
-    for (int i = 0; i < m; ++i) {
-      for (int j = 0; j < n; ++j) {
+  bool exist(vector<vector<char>> &board, string word) {
+    for (int i = 0; i < board.size(); ++i) {
+      for (int j = 0; j < board[0].size(); ++j) {
     	if (dfs(board, word, 0, i, j)) {
     	  return true;
     	}
@@ -14,7 +12,7 @@ public:
     return false;
   }
 private:
-  bool dfs(vector<vector<char> > &board, const string &word, 
+  bool dfs(vector<vector<char>> &board, const string &word, 
 	   int index, int x, int y) {
     if (index == word.size()) {
       return true;

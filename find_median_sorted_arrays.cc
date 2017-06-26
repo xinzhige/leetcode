@@ -1,32 +1,30 @@
 class Solution {
 public:
-  double FindKthSmallest(int A[], int m, int B[], int n, int k){
-    if (m > n) {
-      return FindKthSmallest(B,n,A,m,k);
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int N1 = nums1.size();
+        int N2 = nums2.size();
+        if (N1 < N2) {
+            return findMedianSortedArrays(nums2, nums1);	// Make sure A2 is the shorter one.
+        } 
+        if (N2 == 0) {
+            return ((double)nums1[(N1-1)/2] + (double)nums1[N1/2])/2;  // If A2 is empty
+        }
+        int low = 0, high = N2 * 2;
+        while (low <= high) {
+            int mid2 = (low + high) / 2;   // Cut 2 
+            int mid1 = N1 + N2 - mid2;  // Calculate Cut 1 accordingly
+            double L1 = (mid1 == 0) ? INT_MIN : nums1[(mid1-1)/2];	// Get L1, R1, L2, R2 respectively
+            double L2 = (mid2 == 0) ? INT_MIN : nums2[(mid2-1)/2];
+            double R1 = (mid1 == N1 * 2) ? INT_MAX : nums1[(mid1)/2];
+            double R2 = (mid2 == N2 * 2) ? INT_MAX : nums2[(mid2)/2];
+            if (L1 > R2) {
+                low = mid2 + 1;		// A1's lower half is too big; need to move C1 left (C2 right)
+            } else if (L2 > R1) {
+                high = mid2 - 1;	// A2's lower half too big; need to move C2 left.
+            } else {
+                return (max(L1,L2) + min(R1, R2)) / 2;            
+            }
+        }
+        return -1;
     }
-    if (m == 0) { 
-      return B[k-1];
-    }
-    if (k == 1) { 
-      return min(A[0],B[0]);
-    }
-    int pa = min(k/2,m);
-    int pb = k-pa;
-    if (A[pa-1] <= B[pb-1]) {
-      return FindKthSmallest(A+pa,m-pa,B,n,k-pa);
-    } else {
-      return FindKthSmallest(A,m,B+pb,n-pb,k-pb);
-    }
-  }
-  double findMedianSortedArrays(int A[], int m, int B[], int n) {
-    // Start typing your C/C++ solution below
-    // DO NOT write int main() function
-    int total = m + n;
-    if (total % 2 == 1) {
-      return FindKthSmallest(A,m,B,n,total/2+1);
-    } else {
-      return (FindKthSmallest(A,m,B,n,total/2)+
-	      FindKthSmallest(A,m,B,n,total/2+1))/2;
-    }  
-  }
 };

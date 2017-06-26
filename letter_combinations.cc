@@ -1,43 +1,57 @@
-// recursive
 class Solution {
 public:
-  const vector<string> keyboard { "0", "1", "abc", "def", 
-      "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
-  vector<string> letterCombinations (const string &digits) {
+  vector<string> letterCombinations(string digits) {
     vector<string> result;
-    dfs(digits, 0, "", result);
+    if (digits.empty()) {
+      return result;
+    }
+    backtrack(digits, 0, "", result);
     return result;
   }
-  void dfs(const string &digits, size_t curr, string path, vector<string> &result) {
-    if (curr == digits.size()) {
+  void backtrack(const string &digits, int level, string path, vector<string> &result) {
+    if (level == digits.size()) {
       result.push_back(path);
       return;
     }
-    for (auto c : keyboard[digits[curr] - '0']) {
-      dfs(digits, curr + 1, path + c, result);
+    string str = keyboard[digits[level] - '2'];
+    for (auto & c : str) {
+      path.push_back(c);
+      backtrack(digits, level + 1, path, result);
+      path.pop_back();
     }
   }
+
+private:
+  const vector<string> keyboard = {"abc", "def", 
+				   "ghi", "jkl", "mno",
+				   "pqrs", "tuv", "wxyz" };
 };
 
 // iterative
 class Solution {
 public:
-    vector<string> letterCombinations(string digits) {
-      const string letters[] = {"0", "1", "abc", "def", "ghi", 
-        "jkl", "mno", "pqrs", "tuv", "wxyz"}; 
-      vector<string> ret(1, "");
-      for (int i = 0; i < digits.size(); ++i) {
-        const string &s = letters[digits[i] - '0'];
-    	for (int j = ret.size() - 1; j >= 0; --j) {
-    	  for (int k = s.size() - 1; k >= 0; --k) {
-    	    if (k > 0) {
-    	      ret.push_back(ret[j] + s[k]);
-    	    } else {
-    	      ret[j] += s[k];
-    	    }
-    	  }
-    	}
-      }  
-      return ret;
+  vector<string> letterCombinations(string digits) {
+    vector<string> result;
+    if (digits.empty()) {
+      return result;
     }
+    result.emplace_back("");
+    for (int i = 0; i < digits.size(); ++i) {
+      int n = result.size();
+      string str = dict[digits[i] - '2'];
+      for (int j = 0; j < n; ++j) {
+	string tmp = result.front();
+	result.erase(result.begin());
+	for (int k = 0; k < str.size(); ++k) {
+	  result.emplace_back(tmp + str[k]);
+	}
+      }
+    }
+    return result;
+  }
+
+private:
+  const vector<string> dict = {"abc", "def",
+			       "ghi", "jkl", "mno",
+			       "pqrs", "tuv", "wxyz"};
 };
