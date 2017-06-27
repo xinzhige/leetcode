@@ -8,7 +8,7 @@
  * };
  */
 class Solution {
-  public:
+public:
   TreeNode* upsideDownBinaryTree(TreeNode* root) {
     if (root == nullptr || root->left == nullptr) {
       return root; 
@@ -19,5 +19,24 @@ class Solution {
     root->left = nullptr;
     root->right = nullptr;
     return new_root;
+  }
+};
+
+// Iterative
+class Solution {
+public:
+  TreeNode *upsideDownBinaryTree(TreeNode *root) {
+    TreeNode* node = root;
+    TreeNode* parent = nullptr;
+    TreeNode* right_node = nullptr;
+    while (node != nullptr) {
+      TreeNode* left_node = node->left;
+      node->left = right_node;
+      right_node = node->right;
+      node->right = parent;
+      parent = node;
+      node = left_node;
+    }
+    return parent;
   }
 };
