@@ -7,8 +7,8 @@ public:
     if (k >= prices.size()) {
       return solveMaxProfit(prices);
     }
-    int global[k + 1] = {0};
-    int local[k + 1] = {0};
+    vector<int> global(k + 1, 0);
+    vector<int> local(k + 1, 0);
     for (int i = 0; i < prices.size() - 1; ++i) {
       int diff = prices[i + 1] - prices[i];
       for (int j = k; j >= 1; --j) {
