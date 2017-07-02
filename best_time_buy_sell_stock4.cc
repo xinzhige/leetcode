@@ -1,4 +1,4 @@
-ass Solution {
+class Solution {
 public:
   int maxProfit(int k, vector<int>& prices) {
     if (prices.empty()) {
