@@ -1,3 +1,5 @@
+// the first and last elements can not be included at the same time
+// so the array can be divided into 0...n-2 and 1...n-1.
 class Solution {
 public:
   int rob(vector<int>& nums) {
