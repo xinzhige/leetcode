@@ -9,7 +9,7 @@ public:
     return (c == '+' || c == '-' || c == '*');
   }
 
-  vector<int> diffWaysToComputeHelper(string input, unordered_map<string, vector<int>> mymap) {
+  vector<int> diffWaysToComputeHelper(string input, unordered_map<string, vector<int>> &mymap) {
     if (mymap.find(input) != mymap.end()) {
       return mymap[input];
     }
