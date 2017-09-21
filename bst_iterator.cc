@@ -14,11 +14,10 @@ public:
             mystack.emplace(curr); 
 	        curr = curr->left; 
         }
-        curr = mystack.top();
+        auto tmp = mystack.top();
         mystack.pop();
-        const auto node = curr;
-        curr = curr->right;
-        return node->val;
+        curr = tmp->right;
+        return tmp->val;
     }
 private:
     stack<TreeNode *> mystack;
