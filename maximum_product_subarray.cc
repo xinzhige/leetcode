@@ -9,9 +9,9 @@ public:
     int curr_max = nums[0];
     int curr_min = nums[0];
     for (int i = 1; i < len; ++i) {
-      int tmp = curr_max;
-      curr_max = max(max(nums[i] * curr_max, nums[i]), nums[i] * curr_min);
-      curr_min = min(min(nums[i] * tmp, nums[i]), nums[i] * curr_min);
+      int tmp_max = curr_max;
+      curr_max = max(max(nums[i] * tmp_max, nums[i]), nums[i] * curr_min);
+      curr_min = min(min(nums[i] * tmp_max, nums[i]), nums[i] * curr_min);
       result = max(curr_max, result);
     }
     return result;
