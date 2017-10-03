@@ -1,21 +1,30 @@
+// Recursive
 class Solution {
 public:
-  ListNode *reverseBetween(ListNode *head, int m, int n) {
-    ListNode dummy(0);
-    dummy.next = head;
-    ListNode *prev = &dummy;
-    for (int i = 0; i < m-1; ++i) {
-      prev = prev->next;
+  ListNode* reverseList(ListNode* head) {
+    if (head == nullptr || head->next == nullptr) {
+      return head;
     }
-    ListNode *head2 = prev;
-    prev = head2->next;
-    ListNode *curr = prev->next;
-    for (int i = m; i < n; ++i) {
-      prev->next = curr->next; 
-      curr->next = head2->next; 
-      head2->next = curr;
-      curr = prev->next;
+    ListNode* post = reverseList(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+    return post;
+  }
+};
+
+// Iterative
+class Solution {
+public:
+  ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+    ListNode* post = nullptr;
+    while (curr) {
+      post = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = post;
     }
-    return dummy.next;
+    return prev;
   }
 };
