@@ -3,28 +3,24 @@ public:
   int atoi(const char *str) {
     int result = 0;
     int sign = 1;
-    while(*str == ' ') {
-      str++;
+    int i = 0;
+    size_t len = str.size();
+    for (; i < len && str[i] == ' '; ++i);
+    if (str[i] == '-' || str[i] == '+') {
+      sign = 1 - 2 * (str[i] == '-');
+      ++i;
     }
-    if (*str == '+') {
-        ++str;
-    }
-    if (*str == '-') {
-	  sign = -1;
-      ++str;
-    }
-    while (*str != '\0') {
-      if (*str < '0' || *str > '9') {
+    for (; i < len; ++i) {
+      if (str[i] < '0' || str[i] > '9') {
         break;
       }
-      int digit = *str - '0';
-      if (result > INT_MAX / 10  || 
-        (result == INT_MAX / 10 && digit > INT_MAX % 10)) {
-	    return sign == 1 ? INT_MAX : INT_MIN;
+      int num = str[i] - '0';
+      if (result > INT_MAX / 10 ||
+          (result == INT_MAX / 10 && num > INT_MAX % 10)) {
+        return (sign == 1 ? INT_MAX : INT_MIN);
       }
-      result = 10*result + digit;
-      ++str;
+      result = 10 * result + num;
     }
-    return sign*result;
+    return sign * result;
   }
 };
