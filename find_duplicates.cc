@@ -1,15 +1,49 @@
+// Binary search
 class Solution {
 public:
-    vector<int> findDuplicates(vector<int>& nums) {
-        vector<int> result;
-        for (int i = 0; i < nums.size(); ++i) {
-            int num_index = abs(nums[i]) - 1;
-            if (nums[num_index] > 0) {
-                nums[num_index] = -nums[num_index]; 
-            } else {
-                result.push_back(abs(nums[i])); 
-            } 
+  vector<int> findDuplicates(vector<int>& nums) {
+    int low = 1;
+    int high = nums.size() - 1;
+    while (low < high) {
+      int mid = low + (high - low) / 2;
+      int count = 0;
+      for (auto &i : nums) {
+        if (i <= mid) {
+          count++;
         }
-        return result;
+      }
+      if (count <= mid) {
+        low = mid + 1;
+      } else {
+        high = mid;
+      }
     }
+    return low;
+  }
 };
+
+
+// Linked list cycle 2 like algorithm
+class Solution {
+public:
+  vector<int> findDuplicates(vector<int>& nums) {
+    int slow = 0, fast = 0;
+    while (true) {
+      slow = nums[slow];
+      fast = nums[nums[fast]];
+      if (slow == fast) {
+        break;
+      }
+    }
+    fast = 0;
+    while (true) {
+      slow = nums[slow];
+      fast = nums[fast];
+      if (slow == fast) {
+        break;
+      }
+    }
+    return slow;
+  }
+};
+
