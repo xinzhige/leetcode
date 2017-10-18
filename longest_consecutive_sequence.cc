@@ -8,21 +8,19 @@ public:
     int result = 0;
     for (auto curr : num) {
       if (used[curr]) {
-	    continue;
+        continue;
       }
-      int max = 1;      
+      int curr_max = 1;
       used[curr] = true;
       for (int i = curr + 1; used.find(i) != used.end(); ++i) {
-    	used[i] = true;
-    	++max;
+        used[i] = true;
+        ++curr_max;
       }
       for (int i = curr - 1; used.find(i) != used.end(); --i) {
-    	used[i] = true;
-    	++max;
+        used[i] = true;
+        ++curr_max;
       }
-      if (max > result) {
-	    result = max;
-      }
+      result = max(curr_max, result);
     }
     return result;
   }
