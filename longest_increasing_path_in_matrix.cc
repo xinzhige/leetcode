@@ -16,7 +16,7 @@ public:
     return result;
   }
 
-  int dfs(vector<vector<int>>& matrix, int i, int j, vector<vector<int>>& cache) {
+  int dfs(vector<vector<int>>& matrix, int i, int j, vector<vector<int>>& cache, vector<vector<int>>& visited) {
     if (cache[i][j] > 0) {
       return cache[i][j];
     }
@@ -36,3 +36,4 @@ private:
   int m;
   int n;
 };
+
