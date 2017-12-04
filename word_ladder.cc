@@ -1,31 +1,31 @@
 class Solution {
 public:
   int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-    unordered_map<string, int> m;
-    unordered_map<string, bool> wordDict;
-    for (const auto & w : wordList) {
-      wordDict[w] = true;
+    unordered_map<string, int> wordLevel;
+    unordered_map<string, bool> dict;
+    for (const auto &word : wordList) {
+      dict[word] = true;
     }
     queue<string> q;
-    m[beginWord] = 1;
-    q.push(beginWord);
+    q.emplace(beginWord);
+    wordLevel[beginWord] = 1;
     while (!q.empty()) {
-      string word = q.front(); 
+      string currWord = q.front();
       q.pop();
-      for (int i = 0; i < word.size(); ++i) {
-	string newWord = word;
-	for (char ch = 'a'; ch <= 'z'; ++ch) {
-	  newWord[i] = ch;
-	  if (wordDict.count(newWord)) {
-	    if (newWord == endWord) {
-	      return m[word] + 1;
-	    }
-	    if (m.count(newWord) == 0) {
-	      q.emplace(newWord);
-	      m[newWord] = m[word] + 1;
-	    }
-	  }   
-	}
+      for (int i = 0; i < currWord.size(); ++i) {
+        string newWord = currWord;
+        for (char ch = 'a'; ch < 'z'; ++ch) {
+          newWord[i] = ch;
+          if (dict.count(newWord) > 0) {
+            if (newWord == endWord) {
+              return wordLevel[currWord] + 1;
+            }
+            if (wordLevel.count(newWord) == 0) {
+              q.emplace(newWord);
+              wordLevel[newWord] = wordLevel[currWord] + 1;
+            }
+          }
+        }
       }
     }
     return 0;
