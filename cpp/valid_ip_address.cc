@@ -46,8 +46,8 @@ public:
         return "Neither";
       }
       for (auto &ch : t) {
-        if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'f') &&
-            !(ch >= 'A' && ch <= 'F')) {
+        if ((ch < '0' || ch > '9') && (ch < 'a' || ch > 'f') &&
+            (ch < 'A' || ch > 'F')) {
           return "Neither";
         }
       }
