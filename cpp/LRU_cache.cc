@@ -1,34 +1,39 @@
 class LRUCache{
-private:
-  struct CacheNode{
-    int key, val;
-    CacheNode(int k, int v):key(k),val(v) {}
-  };
-  list<CacheNode> cache;
-  unordered_map<int, list<CacheNode>::iterator> my_map;
-  int cap;
 public:
-  LRUCache(int capacity):cache(),my_map(),cap(capacity) {
+  LRUCache(int capacity) : cache(), mymap(), maxCapacity(capacity) {
+
   }
+
   int get(int key) {
-    if (my_map.find(key) == my_map.end()) {
-      return -1;
+    if (mymap.count(key) > 0) {
+      cache.splice(cache.begin(), cache, mymap[key]);
+      mymap[key] = cache.begin();
+      return mymap[key]->value;
     } else {
-      cache.splice(cache.begin(), cache, my_map[key]); // move the current node to the begin
-      my_map[key] = cache.begin();
-      return my_map[key]->val;
+      return -1;
     }
   }
-  void set(int key, int value) {
-    if(get(key) != -1) {
-      my_map[key]->val = value;
+
+  void put(int key, int value) {
+    if (get(key) != -1) {
+      mymap[key]->value = value;
     } else {
-      cache.push_front(CacheNode(key, value));
-      my_map[key] = cache.begin();
-      if (cache.size() > cap) {
-	my_map.erase(cache.back().key);
-	cache.pop_back();
+      cache.emplace_front(key, value);
+      mymap[key] = cache.begin();
+      if (cache.size() > maxCapacity) {
+        mymap.erase(cache.back().key);
+        cache.pop_back();
       }
     }
   }
+
+private:
+  struct cacheNode {
+    int key;
+    int value;
+    cacheNode(int k, int v): key(k), value(v) { }
+  };
+  list<cacheNode> cache;
+  unordered_map<int, list<cacheNode>::iterator> mymap;
+  int maxCapacity;
 };
