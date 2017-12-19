@@ -1,27 +1,34 @@
 class Solution {
 public:
-    int search(vector<int>& nums, int target) {
-        int left = 0;
-        int right = nums.size() - 1;
-        while (left <= right) {
-            int mid = left + ((right - left) / 2);
-            if (A[mid] == target) {
-                return mid;
-            }
-            if (A[left] <= A[mid]) {  // left side is sorted
-                if (A[left] <= target && target < A[mid]) {  // to decide if target is in between left and mid, for example, 4 5 6 7 0 1 2, left=0, mid=3, target=1, where 1 is not in between left and mid and A[left] <= target is needed.
-                    right = mid - 1;
-                } else {
-                    left = mid + 1;
-                }
-            } else {  
-                if (A[mid] < target && target <= A[right]) {
-                    left = mid + 1;
-                } else {
-                    right = mid - 1;
-                }
-            }
+  int search(vector<int>& nums, int target) {
+    int begin = 0;
+    int end = nums.size() - 1;
+    int mid = 0;
+    while (begin <= end) {
+      mid = begin + (end - begin) / 2;
+      if (nums[mid] == target) {
+        return mid;
+      } else if (nums[begin] <= nums[mid]) {
+        // 1. If nums[begin] <= nums[mid] then the begin part must be sorted is
+        // because a. if pivot is in between begin and mid, then nums[begin]
+        // must be larger than nums[mid], which is contradictory with
+        // the condition. b. if pivot is not in between, then the begin part
+        // is clearly sorted.
+        // 2. To decide if target is in between begin and mid, for example,
+        // 4 5 6 7 0 1 2, begin=0, mid=3, target=1, then nums[begin] <= target is needed.
+        if (nums[begin] <= target && target < nums[mid]) {
+          end = mid - 1;
+        } else {
+          begin = mid + 1;
         }
-        return -1;
+      } else {
+        if (nums[mid] < target && target <= nums[end]) {
+          begin = mid + 1;
+        } else {
+          end = mid - 1;
+        }
+      }
     }
+    return -1;
+  }
 };
