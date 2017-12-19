@@ -9,10 +9,10 @@ public:
       if (nums[mid] == target) {
         return mid;
       } else if (nums[begin] <= nums[mid]) {
-        // 1. If nums[begin] <= nums[mid] then the begin part must be sorted is
+        // 1. If nums[begin] <= nums[mid] then the left part must be sorted is
         // because a. if pivot is in between begin and mid, then nums[begin]
         // must be larger than nums[mid], which is contradictory with
-        // the condition. b. if pivot is not in between, then the begin part
+        // the condition. b. If pivot is not in between, then the left part
         // is clearly sorted.
         // 2. To decide if target is in between begin and mid, for example,
         // 4 5 6 7 0 1 2, begin=0, mid=3, target=1, then nums[begin] <= target is needed.
