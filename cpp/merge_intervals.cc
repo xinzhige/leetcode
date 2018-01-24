@@ -17,19 +17,15 @@ public:
     vector<Interval> result{intervals[0]};
     for (int i = 1; i < intervals.size(); ++i) {
       if (intervals[i].start <= result.back().end) {
-	result.back().end = max(intervals[i].end, result.back().end); 
+	      result.back().end = max(intervals[i].end, result.back().end); 
       } else {
-	result.emplace_back(intervals[i]); 
+	      result.emplace_back(intervals[i]); 
       } 
     }
     return result;
   }
 
-private:
-  class Compare {
-  public:
-    bool operator() (const Interval& a, const Interval& b) {
-      return a.start < b.start; 
-    }        
-  }mycompare;
+  static bool mycompare(const Interval& a, const Interval& b) {
+    return a.start < b.start; 
+  }        
 };
