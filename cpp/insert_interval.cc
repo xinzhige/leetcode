@@ -10,22 +10,20 @@
 class Solution {
 public:
   vector<Interval> insert(vector<Interval> &intervals, Interval newInterval) {
-    // Start typing your C/C++ solution below
-    // DO NOT write int main() function
-    Interval temp = newInterval;
-    vector<Interval> v;
-    for(int i = 0; i < intervals.size(); i++) {
-      if(intervals[i].start > temp.end) {   // temp is before current
-	v.push_back(temp);
-	temp = intervals[i];
-      } else if (intervals[i].end < temp.start) {  // temp is after current
-	v.push_back(intervals[i]);
-      } else {                                     // overlap
-	temp.start = min(temp.start, intervals[i].start);
-	temp.end = max(temp.end, intervals[i].end);
+    Interval tmp = newInterval;
+    vector<Interval> result;
+    for (auto & curr : intervals) {
+      if (tmp.end < intervals[i].start) {
+        result.push_back(tmp);
+        tmp = intervals[i];
+      } else if (intervals[i].end < temp.start) {
+        result.push_back(intervals[i]);
+      } else {
+        tmp.start = min(tmp.start, intervals[i].start);
+        tmp.end = max(tmp.end, intervals[i].end);
       }
     }
-    v.push_back(temp);
-    return v;
+    result.push_back(temp);
+    return result;
   }
 };
