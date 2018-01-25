@@ -1,38 +1,39 @@
 class Solution {
 public:
-    int skipwhitespace(const char *p) {
-        int i = 0;
-        while (*(p+i) == ' ') i++;
-        return i;
-    }
-    int skipsign(const char *p) {
-        if ((*p == '+') || (*p == '-')) return 1;
-        return 0;
-    }
-    int skipdigit(const char *p) {
-        int i = 0;
-        while (isdigit(*(p + i))) i++;
-        return i;
-    }
-    bool isNumber(const char *s) {
-        const char *p = s;
-        if(p == nullptr) return false;
-        p += skipwhitespace(p);
-        p += skipsign(p);
-        int n1 = skipdigit(p);
-        p += n1;
-        if(*p == '.') p++;
-        int n2 = skipdigit(p);
-        if(n1 == 0 && n2 == 0) return false;
-        p += n2;
-        if((*p == 'e') || (*p == 'E')) {
-            p++;
-            p += skipsign(p);
-            int n3 = skipdigit(p);
-            if(n3 == 0) return false;
-            p += n3;
+  bool isNumber(string s) {
+    bool num = false;
+    bool numAfterE = true;
+    bool dot = false;
+    bool exp = false;
+    bool sign = false;
+    for (int i = 0; i < s.size(); ++i) {
+      if (s[i] == ' ') {
+        if (i < s.size() - 1 && s[i + 1] != ' ' && (num || dot || exp || sign)) {
+          return false;
         }
-        p += skipwhitespace(p);
-        return *p == '\0';
+      } else if (s[i] == '+' || s[i] == '-') {
+        if (i > 0 && s[i - 1] != 'e' && s[i - 1] != ' ') {
+          return false;
+        }
+        sign = true;
+      } else if (isdigit(s[i])) {
+        num = true;
+        numAfterE = true;
+      } else if (s[i] == '.') {
+        if (dot || exp) {
+          return false;
+        }
+        dot = true;
+      } else if (s[i] == 'e') {
+        if (exp || !num) {
+          return false;
+        }
+        exp = true;
+        numAfterE = false;
+      } else {
+        return false;
+      }
     }
+    return num && numAfterE;
+  }
 };
