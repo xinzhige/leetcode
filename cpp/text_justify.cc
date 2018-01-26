@@ -1,18 +1,36 @@
 class Solution {
 public:
-  vector<string> fullJustify(vector<string> &words, int L) {
-    int words_counts = words.size();
+  vector<string> fullJustify(vector<string>& words, int maxWidth) {
     vector<string> result;
-    int curr_length = 0;
-    int last_i = 0;
-    for (int i = 0; i <= words_counts; ++i) {
-      
+    if (maxWidth == 0) {
+      return {""};
     }
-  }
-private:
-  void addSpace(string &s, int count) {
-    for (int i = 0; i < count; ++i) {
-      s.push_back(' ');
+    int i = 0;
+    int j = 0;
+    while(j != words.size()){
+      int len = -1;
+      while(j < words.size() && len + words[j].size() + 1 <= maxWidth) {
+        len += words[j++].size() + 1;
+      }
+      int space = maxWidth - len + j - i - 1;
+      int k = i;
+      while(space){
+        words[k++] += " ";
+        space--;
+        if (j != words.size() && (k == j - 1 || k == j)) {
+          k = i;
+        }
+        if (j == words.size() && k == j) {
+          k = j - 1;
+        }
+      }
+      string line = "";
+      for(int l = i; l < j; l++) {
+        line += words[l];
+      }
+      result.push_back(line);
+      i = j;
     }
+    return result;
   }
 };
