@@ -1,3 +1,16 @@
+// By sqrt function
+class Solution {
+public:
+  bool judgeSquareSum(int c) {
+    for (long a = 0; a * a <= c; ++a) {
+      double b = sqrt(c - a * a);
+      if (b == (int) b)
+        return true;
+    }
+    return false;
+  }
+};
+
 // Binary search
 class Solution {
 public:
@@ -11,7 +24,6 @@ public:
     return false;
   }
 
-private:
   bool binary_search(long n, long begin, long end) {
     while (begin <= end) {
       long mid = begin + (end - begin) / 2;
