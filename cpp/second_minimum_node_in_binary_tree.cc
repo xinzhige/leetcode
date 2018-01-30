@@ -26,17 +26,18 @@ public:
   int findSecondMinimumValue(TreeNode* root) {
     int first = root->val;
     int second = INT_MAX;
-    queue<TreeNode*> q{{root}};
+    queue<TreeNode *> q;
+    q.push(root);
     while (!q.empty()) {
       auto t = q.front();
       q.pop();
       if (t->val != first && t->val < second) {
         second = t->val;
       }
-      if (t->left) {
+      if (t->left != nullptr) {
         q.push(t->left);
       }
-      if (t->right) {
+      if (t->right != nullptr) {
         q.push(t->right);
       }
     }
