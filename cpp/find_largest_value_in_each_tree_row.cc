@@ -35,11 +35,11 @@ public:
     }
     while (!q.empty()) {
       int n = q.size();
-      int max_so_far = INT_MIN;
+      int currMax = INT_MIN;
       for (int i = 0; i < n; ++i) {
         auto curr = q.front();
         q.pop();
-        max_so_far = max(max_so_far, curr->val);
+        currMax = max(currMax, curr->val);
         if (curr->left != nullptr) {
           q.push(curr->left);
         }
@@ -47,7 +47,7 @@ public:
           q.push(curr->right);
         }
       }
-      result.emplace_back(max_so_far);
+      result.emplace_back(currMax);
     }
     return result;
   }
