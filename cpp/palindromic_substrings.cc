@@ -27,7 +27,7 @@ public:
     str[1] = '#';
     str[str.size() - 1] = '$';
     int t = 2;
-    for (auto &c : s) {
+    for (const auto &c : s) {
       str[t++] = c;
       str[t++] = '#';
     }
