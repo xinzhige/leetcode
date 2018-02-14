@@ -9,7 +9,8 @@ public:
     }
     int fac = 1;
     // The second loop is to compute the multiplication of post numbers
-    // and the result.
+    // and the result. Note that i starts with n - 2 because the last element
+    // of result has been already the final value.
     for (int i = n - 2; i >= 0; --i) {
       fac *= nums[i+1];
       result[i] *= fac;
