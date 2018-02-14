@@ -8,7 +8,7 @@
  * };
  */
 class Solution {
-public:
+:
   vector<Interval> merge(vector<Interval> &intervals) {
     if (intervals.size() == 0) {
       return intervals;
@@ -25,6 +25,9 @@ public:
     return result;
   }
 
+  // Note myfunc should be static because it is not object dependent.
+  // And it should compare start not end because it would fail if
+  // the intervals is [[1, 4], [0, 4]].
   static bool myfunc(const Interval& a, const Interval& b) {
     return a.start < b.start;
   }
