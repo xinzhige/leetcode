@@ -1,8 +1,11 @@
 class Solution {
 public:
   vector<int> searchRange(vector<int>& nums, int target) {
+ vector<int> searchRange(vector<int>& nums, int target) {
     vector<int> result{-1, -1};
     int leftIndex = binarySearch(nums, target, true);
+    // assert that leftIndex is within the array bounds and that
+    // target is actually in nums.
     if (leftIndex == nums.size() || nums[leftIndex] != target) {
       return result;
     }
