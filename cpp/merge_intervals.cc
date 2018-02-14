@@ -11,21 +11,21 @@ class Solution {
 public:
   vector<Interval> merge(vector<Interval> &intervals) {
     if (intervals.size() == 0) {
-      return intervals; 
+      return intervals;
     }
     sort(intervals.begin(), intervals.end(), myfunc);
     vector<Interval> result{intervals[0]};
     for (int i = 1; i < intervals.size(); ++i) {
-      if (intervals[i].start <= result.back().end) {
-	      result.back().end = max(intervals[i].end, result.back().end); 
+      if (result.back().end < intervals[i].start) {
+	      result.emplace_back(intervals[i]);
       } else {
-	      result.emplace_back(intervals[i]); 
-      } 
+	      result.back().end = max(intervals[i].end, result.back().end);
+      }
     }
     return result;
   }
 
-  static bool mycompare(const Interval& a, const Interval& b) {
-    return a.start < b.start; 
-  }        
+  static bool myfunc(const Interval& a, const Interval& b) {
+    return a.start < b.start;
+  }
 };
