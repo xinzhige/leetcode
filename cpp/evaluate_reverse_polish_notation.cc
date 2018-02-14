@@ -21,14 +21,18 @@ public:
     return (s == "+" || s == "-" || s == "*" || s == "/");
   }
   int operation(const int &left, const int &right, const string &s) {
-    if (s == "+") {
-      return left + right;
-    } else if (s == "-") {
-      return left - right;
-    } else if (s == "*") {
-      return left * right;
+    if (isOperator(s)) {
+      if (s == "+") {
+        return left + right;
+      } else if (s == "-") {
+        return left - right;
+      } else if (s == "*") {
+        return left * right;
+      } else {
+        return left / right;
+      }
     } else {
-      return left / right;
+      return INT_MIN;
     }
   }
 };
