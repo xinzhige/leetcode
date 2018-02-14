@@ -2,7 +2,7 @@ class Solution {
 public:
   bool isNumber(string s) {
     bool num = false;
-    bool numAfterE = true;
+    bool numAfterE = false;
     bool dot = false;
     bool exp = false;
     bool sign = false;
