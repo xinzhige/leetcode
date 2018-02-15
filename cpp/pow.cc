@@ -5,8 +5,8 @@ public:
         unsigned int m = (n > 0 ? n : -n);
         while (m > 0) {
             if (m & 1) {
-                result *= x; 
-            } 
+                result *= x;
+            }
             x *= x;
             m >>= 1;
         }
