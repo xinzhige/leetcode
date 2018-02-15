@@ -1,16 +1,12 @@
 class Solution {
 public:
   int mySqrt(int x) {
-    int y = 1;
-    int n = x;
-    while (n > y) {
-      if (n % 2 && y % 2) {
-        n = n / 2 + y / 2 + 1;
-      } else {
-        n = n / 2 + y / 2;
-      }
-      y = x / n;
+    int y = x;
+    int n = 1;
+    while (y > n) {
+      y = n + (y - n) / 2;
+      n = x / y;
     }
-    return n;
+    return y;
   }
 };
