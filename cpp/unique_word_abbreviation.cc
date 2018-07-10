@@ -26,7 +26,7 @@ public:
     if (n < 3) {
       return word;
     } else {
-      return word[0] + to_string(len-2) + word[len -1];
+      return word[0] + to_string(n-2) + word[n-1];
     }
   }
 
