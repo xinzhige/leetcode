@@ -6,17 +6,14 @@ public:
     if (n == 0) {
       return 0;
     }
-    vector<int> dp(n, 0);
-    dp[0] = 1;
+    vector<int> dp(n, 1);
     int result = 1;
     for (int i = 1; i < n; ++i) {
-      int maxLen = 0;
       for (int j = 0; j < i; ++j) {
-        if (nums[i] > nums[j]) {
-          maxLen = max(maxLen, dp[j]);
+        if (nums[j] < nums[i]) {
+          dp[i] = max(dp[i], dp[j] + 1);
         }
       }
-      dp[i] = maxLen + 1;
       result = max(result, dp[i]);
     }
     return result;
@@ -29,23 +26,48 @@ class Solution {
 public:
   int lengthOfLIS(vector<int>& nums) {
     vector<int> dp;
-    for (int i = 0; i < nums.size(); ++i) {
-      int left = 0;
-      int right = dp.size();
-      while (left < right) {
-        int mid = left + (right - left) / 2;
-        if (dp[mid] < nums[i]) {
-          left = mid + 1;
-        } else {
-          right = mid;
-        }
-      }
-      if (right >= dp.size()) {
-        dp.push_back(nums[i]);
+    int len = 0;
+    for (const auto &x : nums) {
+      int i = binarySearch(dp, 0, len, x);
+      if (i >= len) {
+        dp.push_back(x);
+        len += 1;
       } else {
-        dp[right] = nums[i];
+        dp[i] = x;
       }
     }
-    return dp.size();
+    return len;
+  }
+
+  int binarySearch(vector<int>& nums, int begin, int end, int x) {
+    while (begin < end) {
+      int mid = begin + (end - begin) / 2;
+      if (nums[mid] < x) {
+        begin = mid + 1;
+      } else {
+        end = mid;
+      }
+    }
+    return end;
+  }
+};
+
+
+// Use lower_bound
+class Solution {
+public:
+  int lengthOfLIS(vector<int>& nums) {
+    vector<int> result;
+    int len = 0;
+    for (const auto &x : nums) {
+      auto it = lower_bound(result.begin(), result.end(), x);
+      if (it == result.end()) {
+        result.push_back(x);
+        len += 1;
+      } else {
+        *it = x;
+      }
+    }
+    return len;
   }
 };
