@@ -8,7 +8,9 @@ public:
     // the first buy can be made
     dp[0][0] = INT_MIN;
     for (int i = 1; i <= n; ++i) {
+      // Have to rest before buy
       dp[i][0] = max(dp[i-1][2] - prices[i-1], dp[i-1][0]);
+      // Have to buy before sell
       dp[i][1] = max(dp[i-1][0] + prices[i-1], dp[i-1][1]);
       dp[i][2] = max(dp[i-1][1], dp[i-1][2]);
     }
