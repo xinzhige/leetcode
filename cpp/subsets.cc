@@ -9,7 +9,8 @@ public:
   }
 
 private:
-  void dfs(vector<int> &nums, int start, vector<int> &sub, vector<vector<int>> &result) {
+  void dfs(vector<int> &nums, int start, vector<int> &sub,
+           vector<vector<int>> &result) {
     result.push_back(sub);
     for (int i = start; i < nums.size(); ++i) {
       sub.push_back(nums[i]);
