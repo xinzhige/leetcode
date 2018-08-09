@@ -1,30 +1,29 @@
 class Solution {
 public:
-  void combinationSumHelper(vector<vector<int> > &result, vector<int> &temp, 
-			    vector<int> &nums, int index, int target){
-    if (target == 0) {
-      result.push_back(temp);
-      return;
-    }
-    int prev = 0;
-    for (int i = index; i < nums.size(); ++i) {
-      if (prev == nums[i]) {  // skip duplicates, for example, [1,1] and 1
-	continue;
-      }
-      if (target < nums[i]) {
-	return;
-      }
-      prev = nums[i];
-      temp.push_back(nums[i]);
-      combinationSumHelper(result, temp, nums, i+1, target-nums[i]);
-      temp.pop_back();
-    }
-  }
-  vector<vector<int> > combinationSum2(vector<int> &nums, int target) {
-    sort(nums.begin(), nums.end());
-    vector<vector<int> > result;
-    vector<int> temp;
-    combinationSumHelper(result, temp, nums, 0, target);
+  vector<vector<int>> combinationSum2(vector<int> &candidates, int target) {
+    sort(candidates.begin(), candidates.end());
+    vector<vector<int>> result;
+    vector<int> tmp;
+    backtrack(candidates, 0, target, tmp, result);
     return result;
+  }
+
+private:
+  void backtrack(vector<int> &nums, int pos, int target,
+                 vector<int> &tmp, vector<vector<int>> &result) {
+    if (target == 0) {
+      result.push_back(tmp);
+    } else {
+      for (int i = pos; i < nums.size(); ++i) {
+        if (target < nums[i]) {
+          return;
+        }
+        if (i == pos || nums[i] != nums[i-1]) {
+          tmp.push_back(nums[i]);
+          backtrack(nums, i + 1, target-nums[i], tmp, result);
+          tmp.pop_back();
+        }
+      }
+    }
   }
 };
