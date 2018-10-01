@@ -51,7 +51,9 @@ public:
       } else if (c == ']') {
         int n = s_num.top();
         s_num.pop();
-        for (int i = 0; i < n; ++i) s_str.top() += t;
+        for (int i = 0; i < n; ++i) {
+          s_str.top() += t;
+        }
         t = s_str.top();
         s_str.pop();
       }
