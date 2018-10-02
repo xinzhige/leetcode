@@ -8,6 +8,7 @@ public:
       if(idx.count(gap) > 0) {
         result.emplace_back(idx[gap]);
         result.emplace_back(i);
+        break;
       } else {
         idx[nums[i]] = i;
       }
