@@ -22,16 +22,14 @@ public:
     long long t = n;
     int count = 0;
     while (t > 1) {
-      ++count;
-      if (t & 1) {
-        if ((t & 2) && (t != 3)) {
-          ++t;
-        } else {
-          --t;
-        }
-      } else {
+      if ((t & 1) == 0) {
         t >>= 1;
+      } else if (t == 3 || ((t >> 1) & 1) == 0) {
+        --t;
+      } else {
+        ++t;
       }
+      ++count;
     }
     return count;
   }
