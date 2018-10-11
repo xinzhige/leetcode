@@ -2,8 +2,8 @@ class Solution {
 public:
   int consecutiveNumbersSum(int N) {
     int result = 1;
-    for (int k = 2; k * (k / 2) < N; ++k) {
-      if ((N - ((k * (k - 1)) / 2)) % k == 0) {
+    for (int i = 2; i * (i / 2) < N; ++i) {
+      if ((N - ((i * (i - 1)) / 2)) % i == 0) {
         result += 1;
       }
     }
