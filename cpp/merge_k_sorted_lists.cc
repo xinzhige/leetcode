@@ -4,13 +4,12 @@ public:
     if (lists.size() == 0) {
       return nullptr;
     }
-    int n = lists.size();
-    while (n > 1) {
-      int k = (n + 1) / 2;
+    int k = 0;
+    for (int n = lists.size(); n > 1; n = k) {
+      k = (n + 1) / 2;
       for (int i = 0; i < n / 2; ++i) {
         lists[i] = mergeTwoLists(lists[i], lists[i+k]);
       }
-      n = k;
     }
     return lists[0];
   }
@@ -35,4 +34,46 @@ public:
     }
     return dummy.next;
   }
+};
+
+
+// If the input is arrays
+class Solution {
+public:
+  vector<int> mergekSortedArrays(vector<vector<int>>& arrays) {
+    vector<int> result;
+    if (arrays.empty()) {
+      return result;
+    }
+    priority_queue<Node, vector<Node>, mycomparison> pq;
+    for(int i = 0; i < arrays.size(); i++) {
+      if(!arrays[i].empty()) {
+        pq.emplace(i, 0, arrays[i][0]);
+      }
+    }
+    while(!pq.empty()) {
+      Node curr = pq.top();
+      result.emplace_back(curr.val);
+      pq.pop();
+      if(curr.col < arrays[curr.row].size() - 1)
+        pq.emplace(curr.row, curr.col + 1,
+                   arrays[curr.row][curr.col+1]);
+    }
+    return result;
+  }
+
+  class Node {
+  public:
+    Node (int r, int c, int v) : row(r), col(c), val(v) {};
+    int row;
+    int col;
+    int val;
+  };
+
+  class mycomparison {
+  public:
+    bool operator() (const Node & a, const Node &b) {
+      return a.val > b.val;
+    }
+  };
 };
