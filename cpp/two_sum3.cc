@@ -13,8 +13,8 @@ public:
   bool find(int value) {
     for (const auto &curr : nums) {
       int diff = value - curr.first;
-      if (nums.count(diff) > 0 &&
-          (curr.first != diff || curr.second > 1)) {
+      if ((curr.first == diff && curr.second >= 2) ||
+          (curr.first != diff && nums.count(diff) > 0)) {
         return true;
       }
     }
