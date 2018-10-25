@@ -19,7 +19,7 @@ public:
 };
 
 
-// Use stack and unordered_map
+// Use stack and unordered_map, time: O(m+n)
 class Solution {
 public:
   vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
