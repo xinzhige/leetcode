@@ -1,30 +1,19 @@
 class Solution {
 public:
   bool isReflected(vector<pair<int, int>>& points) {
-    if (points.size() == 0 || points.size() == 1) {
-      return true;
-    }
-    int left = INT_MAX;
-    int right = INT_MIN;
     unordered_map<int, set<int>> mymap;
+    int max_x = INT_MIN;
+    int min_x = INT_MAX;
     for (const auto &p : points) {
-      left = min(left, p.first);
-      right = max(right, p.first);
-      mymap[p.second].insert(p.first);
+      max_x = max(max_x, p.first);
+      min_x = min(min_x, p.first);
+      mymap[p.first].insert(p.second);
     }
-    double line = (left + right) / 2.0;
-    for (auto it = mymap.begin(); it != mymap.end(); ++it) {
-      auto currSet = it->second;
-      auto start = currSet.begin();
-      auto end = currSet.end();
-      for (; start != end; ++start) {
-        end -= 1;
-        if ((*start + *end) / 2.0 != line) {
-          return false;
-        }
-        if (start == end) {
-          break;
-        }
+    int y = max_x + min_x;
+    for (const auto &p : points) {
+      int t = y - p.first;
+      if (mymap.count(t) == 0 || mymap[t].count(p.second) == 0) {
+        return false;
       }
     }
     return true;
