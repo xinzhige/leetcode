@@ -5,6 +5,8 @@ public:
     int n = p.size();
     int i = 0;
     int j = 0;
+    // asterisk points to the last position of '*' in p and
+    // match points to the corresponding position in s.
     int asterisk = -1;
     int match = 0;
     while (i < m) {
