@@ -15,8 +15,8 @@ public:
   }
 
   ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    ListNode dummy(0);
-    ListNode *head = &dummy;
+    auto dummy = new ListNode(0);
+    auto head = dummy;
     while (l1 != nullptr && l2 != nullptr) {
       if (l1->val < l2->val) {
         head->next = l1;
@@ -32,7 +32,7 @@ public:
     } else {
       head->next = l1;
     }
-    return dummy.next;
+    return dummy->next;
   }
 };
 
@@ -70,8 +70,7 @@ public:
     int val;
   };
 
-  class mycomparison {
-  public:
+  struct mycomparison {
     bool operator() (const Node & a, const Node &b) {
       return a.val > b.val;
     }
