@@ -4,7 +4,7 @@ public:
     if (root == nullptr) {
       return nullptr;
     }
-    Node *dummy = new Node(0, nullptr, nullptr);
+    auto dummy = new Node(0, nullptr, nullptr);
     prev = dummy;
     inorder(root);
     prev->right = dummy->right;
