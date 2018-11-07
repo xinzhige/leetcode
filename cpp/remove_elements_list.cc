@@ -12,7 +12,7 @@ public:
     auto dummy = new ListNode(0);
     dummy->next = head;
     auto prev = dummy;
-    for (auto curr = head; curr != nullptr; curr = prev->next) {
+    for (auto curr = head; curr != nullptr; curr = curr->next) {
       if (curr->val == val) {
         prev->next = curr->next;
       } else {
