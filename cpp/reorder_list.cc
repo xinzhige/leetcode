@@ -17,8 +17,8 @@ private:
     if (head == nullptr) {
       return nullptr;
     }
-    ListNode *slow = head;
-    ListNode *fast = head->next;
+    auto slow = head;
+    auto fast = head->next;
     while (fast != nullptr && fast->next != nullptr) {
       fast = fast->next->next;
       slow = slow->next;
@@ -28,15 +28,15 @@ private:
 
   void merge(ListNode *head1, ListNode *head2) {
     int index = 0;
-    ListNode dummy(0);
-    ListNode *head = &dummy;
+    auto dummy = new ListNode(0);
+    auto head = dummy;
     while (head1 != nullptr && head2 != nullptr) {
       if (index % 2 == 0) {
-	    head->next = head1;
-	    head1 = head1->next;
+        head->next = head1;
+        head1 = head1->next;
       } else {
-    	head->next = head2;
-    	head2 = head2->next;
+        head->next = head2;
+        head2 = head2->next;
       }
       head = head->next;
       index += 1;
@@ -53,8 +53,8 @@ public:
     if (head == nullptr || head->next == nullptr) {
       return;
     }
-    ListNode *middle = find_middle(head);
-    ListNode *tail = reverseList(middle->next);
+    auto middle = find_middle(head);
+    auto tail = reverseList(middle->next);
     middle->next = nullptr;
     merge(head, tail);
   }
