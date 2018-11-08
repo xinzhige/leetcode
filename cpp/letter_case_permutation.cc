@@ -35,7 +35,7 @@ public:
         for (int i = 0; i < len; ++i) {
           result.push_back(result[i]);
           result[i].push_back(c);
-          result[len + i].push_back(c ^ (1 << 5));
+          result.back().push_back(c ^ (1 << 5));
         }
       }
     }
