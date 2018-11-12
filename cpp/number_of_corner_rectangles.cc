@@ -57,7 +57,7 @@ public:
           }
           int found = 0;
           for (int c2 : rows[r2]) {
-            if (target.count(c2)) {
+            if (target.count(c2) > 0) {
               ++found;
             }
           }
