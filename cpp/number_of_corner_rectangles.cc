@@ -56,7 +56,7 @@ public:
             continue;
           }
           int found = 0;
-          for (int c2 : rows[r2]) {
+          for (const auto &c2 : rows[r2]) {
             if (target.count(c2) > 0) {
               ++found;
             }
