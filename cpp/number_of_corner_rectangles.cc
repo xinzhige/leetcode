@@ -69,7 +69,7 @@ public:
           for (int i2 = i1 + 1; i2 < rows[r].size(); ++i2) {
             int c2 = rows[r][i2];
             int tmp = 200*c1 + c2;
-            int ct = count.count(tmp) ? count[tmp] : 0;
+            int ct = (count.count(tmp) > 0) ? count[tmp] : 0;
             result += ct;
             count[tmp] =  ct + 1;
           }
