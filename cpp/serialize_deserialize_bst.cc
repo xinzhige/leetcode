@@ -51,7 +51,7 @@ public:
     ostringstream os;
     queue<TreeNode *> q;
     q.push(root);
-    if (!q.empty()) {
+    while (!q.empty()) {
       auto t = q.front();
       q.pop();
       if (t != nullptr) {
