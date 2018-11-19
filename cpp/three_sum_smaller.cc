@@ -1,20 +1,21 @@
 class Solution {
 public:
-    int threeSumSmaller(vector<int>& nums, int target) {
-        if (nums.size() < 3) {
-            return 0;
+  int threeSumSmaller(vector<int>& nums, int target) {
+    int count = 0;
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+    for(int i = 0; i < n - 2; ++i) {
+      int left = i + 1;
+      int right = n - 1;
+      while (left < right) {
+        if (nums[i] + nums[left] + nums[right] < target) {
+          count += right - left;
+          left += 1;
+        } else {
+          right -= 1;
         }
-        sort(nums.begin(), nums.end());
-        int count = 0;
-        for(int i = 0; i < nums.size() - 2; ++i){
-            if (nums[i] + nums[i+1] + nums[i+2] < target) {
-                int k = nums.size() - 1;
-                for (int j = i + 1; j < k; ++j){
-                    for (; j < k && nums[i] + nums[j] + nums[k] >= target; --k); 
-                    count += k - j;
-                }
-            }
-        }
-        return count;
+      }
     }
+    return count;
+  }
 };
