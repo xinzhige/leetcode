@@ -10,23 +10,20 @@
 class Solution {
 public:
   UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
-    unordered_map<int, UndirectedGraphNode*> mymap;
-    return clone(node, mymap);
-  }
-  UndirectedGraphNode *clone(UndirectedGraphNode *node, unordered_map<int, UndirectedGraphNode*> &mymap) {
     if (node == nullptr) {
-      return node;
+      return nullptr;
     }
-    if (mymap.count(node->label)) {
-      return mymap[node->label];
+    if (copied.count(node) == 0) {
+      copied[node] = new UndirectedGraphNode(node->label);
+      for (const auto &neighbor : node->neighbors) {
+        copied[node]->neighbors.push_back(cloneGraph(neighbor));
+      }
     }
-    UndirectedGraphNode *newNode = new UndirectedGraphNode(node->label);
-    mymap[node->label] = newNode;
-    for (int i = 0; i < node->neighbors.size(); ++i) {
-      (newNode->neighbors).emplace_back(clone(node->neighbors[i], mymap));
-    }
-    return newNode;
-  } 
+    return copied[node];
+  }
+
+private:
+  unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> copied;
 };
 
 // BFS, time: O(n), space: O(n)
@@ -36,25 +33,22 @@ public:
     if (node == nullptr) {
       return nullptr;
     }
-    unordered_map<int, UndirectedGraphNode *> copied;
-    copied[node->label] = new UndirectedGraphNode(node->label);
+    unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> copied;
+    copied[node] = new UndirectedGraphNode(node->label);
     queue<UndirectedGraphNode *> q;
     q.emplace(node);
     while (!q.empty()) {
-      UndirectedGraphNode *curr = q.front();
+      auto curr_node = q.front();
       q.pop();
-      for (const auto & nbr : curr->neighbors) {
-    	if (copied.find(nbr->label) != copied.end()) {
-    	  copied[curr->label]->neighbors.emplace_back(copied[nbr->label]);
-    	} else {
-    	  UndirectedGraphNode *newNode =
-    	    new UndirectedGraphNode(nbr->label);
-    	  copied[nbr->label] = newNode;
-    	  copied[curr->label]->neighbors.emplace_back(newNode);
-    	  q.emplace(nbr);
-    	}
-      } 
+      for (const auto & neighbor : curr_node->neighbors) {
+        if (copied.count(neighbor) == 0) {
+          auto neighbor_copy = new UndirectedGraphNode(neighbor->label);
+          copied[neighbor] = neighbor_copy;
+          q.emplace(neighbor);
+        }
+        copied[curr_node]->neighbors.emplace_back(copied[neighbor]);
+      }
     }
-    return copied[node->label];
+    return copied[node];
   }
 };
