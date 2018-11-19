@@ -1,15 +1,16 @@
 class Solution {
 public:
-  int removeElement(int A[], int n, int elem) {
-    // Start typing your C/C++ solution below
-    // DO NOT write int main() function
-    int len = 0;
-    for (int i = 0; i < n; ++i) {   
-      if (A[i] != elem) {
-	  A[len] = A[i];
-	  ++len;
+  int removeElement(vector<int>& nums, int val) {
+    int i = 0;
+    int n = nums.size();
+    while (i < n) {
+      if (nums[i] == val) {
+        nums[i] = nums[n - 1];
+        --n;
+      } else {
+        ++i;
       }
     }
-    return len;
+    return n;
   }
 };
