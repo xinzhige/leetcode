@@ -6,7 +6,6 @@ public:
     dfs(nums, 0, result);
     return result;
   }
-private:
   void dfs(vector<int> nums, int start, vector<vector<int> > &result) {
     if (start == nums.size() - 1) {
       result.push_back(nums);
@@ -15,6 +14,7 @@ private:
         if (i == start || nums[i] != nums[start]) {
           swap(nums[i], nums[start]);
           dfs(nums, start + 1, result);
+          swap(nums[i], nums[start]);
         }
       }
     }
