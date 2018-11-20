@@ -73,18 +73,12 @@ public:
     while (!q.empty()) {
       TreeNode *t = q.front();
       q.pop();
-      if (!(in >> val)) {
-        break;
-      }
-      if (val != "#") {
+      if (in >> val && val != "#") {
         curr = new TreeNode(stoi(val));
         q.push(curr);
         t->left = curr;
       }
-      if (!(in >> val)) {
-        break;
-      }
-      if (val != "#") {
+      if (in >> val && val != "#") {
         curr = new TreeNode(stoi(val));
         q.push(curr);
         t->right = curr;
