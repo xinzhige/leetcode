@@ -17,35 +17,35 @@
  */
 class NestedIterator {
 public:
-    NestedIterator(vector<NestedInteger> &nestedList) {
-        for (int i = nestedList.size() - 1; i >= 0; --i) {
-            mystack.emplace(nestedList[i]);
-        }
+  NestedIterator(vector<NestedInteger> &nestedList) {
+    for (int i = nestedList.size() - 1; i >= 0; --i) {
+      mystack.emplace(nestedList[i]);
     }
+  }
 
-    int next() {
-        auto curr = mystack.top();
-        mystack.pop();
-        return curr.getInteger();
-    }
+  int next() {
+    auto curr = mystack.top();
+    mystack.pop();
+    return curr.getInteger();
+  }
 
-    bool hasNext() {
-        while (!mystack.empty()) {
-            auto curr = mystack.top();
-            if (curr.isInteger()) {
-                return true;
-            }
-            mystack.pop();
-            auto currList = curr.getList();
-            for (int i = currList.size() - 1; i >= 0; --i) {
-                mystack.emplace(currList[i]);
-            }
-        }
-        return false;
+  bool hasNext() {
+    while (!mystack.empty()) {
+      auto curr = mystack.top();
+      if (curr.isInteger()) {
+        return true;
+      }
+      mystack.pop();
+      auto currList = curr.getList();
+      for (int i = currList.size() - 1; i >= 0; --i) {
+        mystack.emplace(currList[i]);
+      }
     }
-    
+    return false;
+  }
+
 private:
-    stack<NestedInteger> mystack;
+  stack<NestedInteger> mystack;
 };
 
 /**
