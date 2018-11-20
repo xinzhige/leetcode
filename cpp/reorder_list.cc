@@ -14,11 +14,8 @@ private:
   }
 
   ListNode *find_middle(ListNode *head) {
-    if (head == nullptr) {
-      return nullptr;
-    }
     auto slow = head;
-    auto fast = head->next;
+    auto fast = head;
     while (fast != nullptr && fast->next != nullptr) {
       fast = fast->next->next;
       slow = slow->next;
@@ -27,11 +24,11 @@ private:
   }
 
   void merge(ListNode *head1, ListNode *head2) {
-    int index = 0;
+    bool even = true;
     auto dummy = new ListNode(0);
     auto head = dummy;
     while (head1 != nullptr && head2 != nullptr) {
-      if (index % 2 == 0) {
+      if (even) {
         head->next = head1;
         head1 = head1->next;
       } else {
@@ -39,7 +36,7 @@ private:
         head2 = head2->next;
       }
       head = head->next;
-      index += 1;
+      even = !even;
     }
     if (head1 != nullptr) {
       head->next = head1;
@@ -50,7 +47,7 @@ private:
 
 public:
   void reorderList(ListNode *head) {
-    if (head == nullptr || head->next == nullptr) {
+    if (head == nullptr) {
       return;
     }
     auto middle = find_middle(head);
