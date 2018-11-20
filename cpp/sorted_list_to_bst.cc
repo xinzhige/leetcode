@@ -10,7 +10,7 @@ public:
     }
     ListNode *slow = begin;
     ListNode *fast = begin;
-    while (fast != nullptr && fast->next != nullptr) {
+    while (fast != end && fast->next != end) {
       slow = slow->next;
       fast = fast->next->next;
     }
