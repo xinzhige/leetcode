@@ -21,22 +21,22 @@ private:
     if (head == nullptr) {
       return nullptr;
     }
-    auto slow = head;
-    auto fast = head;
-    while (fast->next && fast->next->next) {
+    ListNode *prev = nullptr;
+    ListNode *slow = head;
+    ListNode *fast = head;
+    while (fast != nullptr && fast->next != nullptr) {
+      prev = slow;
       slow = slow->next;
       fast = fast->next->next;
     }
-    fast = slow;
-    ListNode* mid = slow->next;
-    fast->next = nullptr;
-    return mid;
+    prev->next = nullptr;
+    return slow;
   }
 
   ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    ListNode dummy{0};
+    ListNode dummy(0);
     auto curr = &dummy;
-    while (l1 && l2) {
+    while (l1 != nullptr && l2 != nullptr) {
       if (l1->val < l2->val) {
         curr->next = l1;
         l1 = l1->next;
