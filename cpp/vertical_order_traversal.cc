@@ -9,30 +9,28 @@
  */
 class Solution {
 public:
-    vector<vector<int>> verticalOrder(TreeNode* root) {
-        unordered_map<int, vector<int>> cols;
-        queue<pair<TreeNode *, int>> q;
-        q.emplace(root, 0);
-        for (; !q.empty(); q.pop()) {
-            TreeNode *node;
-            int j;
-            tie(node, j) = q.front();
-            if (node != nullptr) {
-                cols[j].emplace_back(node->val);
-                q.emplace(node->left, j - 1);
-                q.emplace(node->right, j + 1);
-            }
-        }
-        int min_idx = numeric_limits<int>::max();
-        int max_idx = numeric_limits<int>::min();
-        for (const auto& col : cols) {
-            min_idx = min(min_idx, col.first);
-            max_idx = max(max_idx, col.first);
-        }
-        vector<vector<int>> result;
-        for (int i = min_idx; i <= max_idx; ++i) {
-            result.emplace_back(cols[i]);
-        }
-        return result;        
+  vector<vector<int>> verticalOrder(TreeNode* root) {
+    vector<vector<int>> result;
+    if (root == nullptr) {
+      return result;
     }
+    map<int, vector<int>> m;
+    queue<pair<int, TreeNode *>> q;
+    q.push({0, root});
+    while (!q.empty()) {
+      auto t = q.front();
+      q.pop();
+      m[t.first].push_back(t.second->val);
+      if (t.second->left) {
+        q.push({t.first - 1, t.second->left});
+      }
+      if (t.second->right) {
+        q.push({t.first + 1, t.second->right});
+      }
+    }
+    for (auto &t : m) {
+      result.push_back(t.second);
+    }
+    return result;
+  }
 };
