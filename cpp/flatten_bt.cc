@@ -1,22 +1,17 @@
-// recursive
+// renodesive
 class Solution {
 public:
   void flatten(TreeNode *root) {
-    if (root == NULL) {
+    if (root == nullptr) {
       return;
     }
     flatten(root->left);
     flatten(root->right);
-    if (root->left == NULL) {
-      return;
-    }
-    TreeNode *p = root->left;
-    while (p->right) {
-            p = p->right;
-    }
-    p->right = root->right;
+    TreeNode *tmp = root->right;
     root->right = root->left;
-    root->left = NULL;
+    root->left = nullptr;
+    for (; root->right != nullptr; root = root->right);
+    root->right = tmp;
   }
 };
 
@@ -24,24 +19,18 @@ public:
 class Solution {
 public:
   void flatten(TreeNode *root) {
-    if (root == NULL) {
-      return;
-    }
-    stack<TreeNode*> my_stack;
-    my_stack.push(root);
-    while (!my_stack.empty()) {
-      TreeNode *curr = my_stack.top();
-      my_stack.pop();
-      if (curr->right != NULL) {
-	my_stack.push(curr->right);
+    TreeNode *node = root;
+    while (node != nullptr) {
+      if (node->left != nullptr) {
+        TreeNode *p = node->left;
+        while (p->right != nullptr) {
+          p = p->right;
+        }
+        p->right = node->right;
+        node->right = node->left;
+        node->left = nullptr;
       }
-      if (curr->left != NULL) {
-	my_stack.push(curr->left);
-      }
-      curr->left = NULL;
-      if (!my_stack.empty()) {
-	curr->right = my_stack.top();
-      }
+      node = node->right;
     }
   }
 };
