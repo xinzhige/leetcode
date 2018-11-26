@@ -1,18 +1,19 @@
 class Solution {
 public:
-    string addBinary(string a, string b) {
-        string s("");
-        long c = 0;
-        long i = a.size() - 1;
-	long j = b.size() - 1;
-        while (i >= 0 || j >= 0 || c == 1) {
-            c += i >= 0 ? a[i] - '0' : 0;
-	    i -= 1;
-            c += j >= 0 ? b[j] - '0' : 0;
-	    j -= 1;
-            s = std::to_string(c % 2) + s;
-            c /= 2;
-        }
-        return s;
+  string addBinary(string a, string b) {
+    string result("");
+    long carry = 0;
+    long i = a.size() - 1;
+    long j = b.size() - 1;
+    while (i >= 0 || j >= 0 || carry == 1) {
+      int x = (i >= 0 ? a[i] - '0' : 0);
+      int y = (j >= 0 ? b[j] - '0' : 0);
+      int sum = x + y + carry;
+      result.insert(result.begin(), '0' + (sum % 2));
+      carry = sum / 2;
+      --i;
+      --j;
     }
+    return result;
+  }
 };
