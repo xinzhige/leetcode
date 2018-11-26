@@ -1,18 +1,18 @@
+// Trick: if the carry is 0, then it is not necessary to calculate the sum.
 class Solution {
 public:
   vector<int> plusOne(vector<int> &digits) {
-    int i;
-    for(i = digits.size()-1; i >= 0; --i){
-      if(digits[i] != 9){
-    	++digits[i];
-    	return digits;
+    vector<int> result;
+    int carry = 1;
+    for (long i = digits.size() - 1; i >= 0 || carry == 1; --i) {
+      if (carry == 1) {
+        int sum = (i >= 0 ? digits[i] + carry : carry);
+        result.insert(result.begin(), sum % 10);
+        carry = sum / 10;
       } else {
-	    digits[i] = 0;
+        result.insert(result.begin(), digits[i]);
       }
     }
-    if(i < 0) {
-      digits.insert(digits.begin(), 1);
-    }
-    return digits;
+    return result;
   }
 };
