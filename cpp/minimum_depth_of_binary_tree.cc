@@ -22,11 +22,10 @@ public:
 class Solution {
 public:
   int minDepth(TreeNode *root) {
-    if (root == nullptr) {
-      return 0;
-    }
     queue<DepthNode> q;
-    q.emplace(root, 1);
+    if (root != nullptr) {
+      q.emplace(root, 1);
+    }
     while (!q.empty()) {
       auto curr = q.front();
       q.pop();
