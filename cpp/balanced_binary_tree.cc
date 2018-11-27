@@ -2,9 +2,6 @@
 class Solution {
 public:
   bool isBalanced(TreeNode *root) {
-    if (root == nullptr) {
-      return true;
-    }
     return depth(root) != -1;
   }
 
