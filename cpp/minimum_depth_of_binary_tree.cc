@@ -22,30 +22,28 @@ public:
 class Solution {
 public:
   int minDepth(TreeNode *root) {
-    queue<DepthNode> q;
+    queue<TreeNode *> q;
     if (root != nullptr) {
-      q.emplace(root, 1);
+      q.emplace(root);
     }
+    int result = 0;
     while (!q.empty()) {
-      auto curr = q.front();
-      q.pop();
-      TreeNode* node = curr.node;
-      if (node->left == nullptr && node->right == nullptr) {
-        return curr.depth;
-      }
-      if (node->left != nullptr) {
-        q.emplace(node->left, 1 + curr.depth);
-      }
-      if (node->right != nullptr) {
-        q.emplace(node->right, 1 + curr.depth);
+      result += 1;
+      int n = q.size();
+      for (int i = 0; i < n; ++i) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (node->left != nullptr) {
+          q.emplace(node->left);
+        }
+        if (node->right != nullptr) {
+          q.emplace(node->right);
+        }
+        if (node->left == nullptr && node->right == nullptr) {
+          return result;
+        }
       }
     }
     return 0;
   }
-private:
-  struct DepthNode {
-    TreeNode* node;
-    int depth;
-    DepthNode(TreeNode* n, int d) : node(n), depth(d) { }
-  };
 };
