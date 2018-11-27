@@ -26,8 +26,7 @@ public:
       return 0;
     }
     queue<DepthNode> q;
-    DepthNode curr(root, 1);
-    q.emplace(curr);
+    q.emplace(root, 1);
     while (!q.empty()) {
       auto curr = q.front();
       q.pop();
@@ -36,12 +35,10 @@ public:
         return curr.depth;
       }
       if (node->left != nullptr) {
-        DepthNode curr_left(node->left, 1 + curr.depth);
-        q.emplace(curr_left);
+        q.emplace(node->left, 1 + curr.depth);
       }
       if (node->right != nullptr) {
-        DepthNode curr_right(node->right, 1 + curr.depth);
-        q.emplace(curr_right);
+        q.emplace(node->right, 1 + curr.depth);
       }
     }
     return 0;
