@@ -5,15 +5,15 @@ public:
     if (root == nullptr) {
       return 0;
     }
-    int left_height = minDepth(root->left);
-    int right_height = minDepth(root->right);
+    int left_depth = minDepth(root->left);
+    int right_depth = minDepth(root->right);
     if (root->left == nullptr) {
-      return 1 + right_height;
+      return 1 + right_depth;
     }
     if (root->right == nullptr) {
-      return 1 + left_height;
+      return 1 + left_depth;
     }
-    return 1 + min(left_height, right_height);
+    return 1 + min(left_depth, right_depth);
   }
 };
 
