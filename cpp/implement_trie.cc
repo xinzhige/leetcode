@@ -13,11 +13,11 @@ public:
   // Inserts a word into the trie.
   void insert(string word) {
     TrieNode *node = root;
-    for (int i = 0; i< word.size(); i++) {
-      if (node->children.count(word[i]) == 0){
-        node->children[word[i]] = new TrieNode();
+    for (const char &c : word) {
+      if (node->children.count(c) == 0){
+        node->children[c] = new TrieNode();
       }
-      node = node->children[word[i]];
+      node = node->children[c];
     }
     node->is_word = true;
   }
@@ -36,15 +36,15 @@ public:
 private:
   TrieNode* root;
   bool retrieve(const string& key, bool is_word) {
-    if (key.size() <= 0) {
+    if (key.empty()) {
       return false;
     }
     TrieNode *node = root;
-    for (int i = 0; i < key.length(); i++) {
-      if (node->children.count(key[i]) == 0) {
+    for (const char &c : key) {
+      if (node->children.count(c) == 0) {
         return false;
       }
-      node = node->children[key[i]];
+      node = node->children[c];
     }
     return is_word ? node->is_word : true;
   }
