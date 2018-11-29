@@ -1,9 +1,7 @@
 class TrieNode {
 public:
-  // Initialize your data structure here.
-  TrieNode():is_word(false){ }
   unordered_map<char, TrieNode*> children;
-  bool is_word;
+  bool is_word = false;
 };
 
 class Trie {
