@@ -1,6 +1,6 @@
 class Solution {
 public:
-  double mySqrt(double x,double e) {
+  double mySqrt(double x, double e) {
     double y = 1.0;
     doulbe n = x;
     while (n - y > e) {
