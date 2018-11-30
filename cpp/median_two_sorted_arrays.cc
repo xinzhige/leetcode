@@ -1,3 +1,9 @@
+// Idea: split the two arrays into four parts [..., i-1 | i,...] and
+// [..., j-1 | j, ...] such that they have the following two properties:
+// 1: i + j = (m + n + 1) / 2;
+// 2: nums1[i-1] < nums2[j] and nums[j-1] < nums1[i].
+// Then, use binary search to find i between imin and imax until it satisfies
+// the previous properties.
 class Solution {
 public:
   double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
