@@ -1,7 +1,7 @@
+// Idea: search for lower bound and upper bound.
 class Solution {
 public:
   vector<int> searchRange(vector<int>& nums, int target) {
- vector<int> searchRange(vector<int>& nums, int target) {
     vector<int> result{-1, -1};
     int leftIndex = binarySearch(nums, target, true);
     // assert that leftIndex is within the array bounds and that
