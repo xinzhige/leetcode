@@ -1,21 +1,22 @@
+// Idea: sum the two numbers at the begin and end and find their location.
 class Solution {
 public:
   vector<int> twoSum(vector<int>& numbers, int target) {
-    int head = 0;
-    int tail = numbers.size() - 1;
+    int begin = 0;
+    int end = numbers.size() - 1;
     vector<int> result;
-    while (head < tail) {
-      int curr_sum = numbers[head] + numbers[tail];
-      if (curr_sum > target) {
-        tail -= 1;
-      } else if (curr_sum < target) {
-        head += 1;
+    while (begin < end) {
+      int sum = numbers[begin] + numbers[end];
+      if (sum > target) {
+        end -= 1;
+      } else if (sum < target) {
+        begin += 1;
       } else {
-        result.push_back(head + 1);
-        result.push_back(tail + 1);
-        break;
+        result.push_back(begin + 1);
+        result.push_back(end + 1);
+        return result;
       }
     }
-    return result;
+    return {-1, -1};
   }
 };
