@@ -1,4 +1,6 @@
 // Idea: search for lower bound and upper bound.
+// Note: in binary search, the high must be nums.size() because the target
+// might not be in the array.
 class Solution {
 public:
   vector<int> searchRange(vector<int>& nums, int target) {
