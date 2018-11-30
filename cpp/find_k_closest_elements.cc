@@ -1,6 +1,7 @@
 // Idea: binary-search for where the resulting elements start in the array.
 // It's the first index i such that arr[i] is better than arr[i+k] (with
-// "better" meaning closer to or equally close to x)
+// "better" meaning closer to or equally close to x).
+// 0... M...|...M+k...n-k.
 class Solution {
 public:
   vector<int> findClosestElements(vector<int>& arr, int k, int x) {
