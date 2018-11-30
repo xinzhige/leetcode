@@ -1,21 +1,18 @@
+// Idea: compare the element with its right neighbor to check whether the
+// local sequence is ascending or descending.
 class Solution {
 public:
-  int findPeakElement(const vector<int> &num) {
-    int N = num.size();
-	int begin = 0;
-	int end = N - 1;
-	int mid = 0;
-	while (begin <= end) {
-      mid = begin + (end - begin) / 2;
-	  if ((mid == 0 || num[mid] > num[mid - 1]) &&
-		  (mid == N - 1 || num[mid] > num[mid + 1])) {
-	    return mid;		  
-	  } else if (mid > 0 && num[mid] < num[mid - 1]) {
-	    end = mid - 1;		  
-	  } else {
-	    begin = mid + 1;		  
-	  }	
-	}		 
-	return mid; 
+  int findPeakElement(vector<int>& nums) {
+    int begin = 0;
+    int end = nums.size() - 1;
+    while (begin < end) {
+      int mid = begin + (end - begin) / 2;
+      if (nums[mid] > nums[mid + 1]) {
+        end = mid;
+      } else {
+        begin = mid + 1;
+      }
+    }
+    return begin;
   }
 };
