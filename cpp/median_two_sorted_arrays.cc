@@ -4,6 +4,7 @@
 // 2: nums1[i-1] < nums2[j] and nums[j-1] < nums1[i].
 // Then, use binary search to find i between imin and imax until it satisfies
 // the previous properties.
+// Note that m must be less than or equal to n, otherwise j might be overflow.
 class Solution {
 public:
   double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
