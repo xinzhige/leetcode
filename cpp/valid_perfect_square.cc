@@ -2,8 +2,10 @@ class Solution {
 public:
   bool isPerfectSquare(int num) {
     int x = num;
-    while (x > num / x) {
-      x = (x + num / x) / 2;
+    int n = 1;
+    while (x > n) {
+      x = n + (x - n) / 2;
+      n = num / x;
     }
     return x * x == num;
   }
