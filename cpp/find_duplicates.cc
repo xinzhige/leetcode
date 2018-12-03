@@ -23,7 +23,10 @@ public:
 };
 
 
-// Linked list cycle 2 like algorithm
+// Idea: like finding the starting point of cycle linked list problem.
+// Trick 1: each element can be value and index so the duplicates point total
+// the same number that is the starting point.
+// Trick 2: 0 is not in the array but can be used as the first pointer.
 class Solution {
 public:
   vector<int> findDuplicates(vector<int>& nums) {
