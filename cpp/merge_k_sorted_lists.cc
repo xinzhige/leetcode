@@ -6,6 +6,7 @@ public:
     }
     int k = 0;
     for (int n = lists.size(); n > 1; n = k) {
+      // If n is odd, k should be (n+1)/2 to avoid merging the middle.
       k = (n + 1) / 2;
       for (int i = 0; i < n / 2; ++i) {
         lists[i] = mergeTwoLists(lists[i], lists[i+k]);
@@ -37,7 +38,7 @@ public:
 };
 
 
-// If the input is arrays
+// The input is arrays.
 class Solution {
 public:
   vector<int> mergekSortedArrays(vector<vector<int>>& arrays) {
