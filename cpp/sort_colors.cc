@@ -1,19 +1,19 @@
+// Idea: use three pointers, r for red that is the most right index of red,
+// w for white that is the current index and b for blue that is the most
+// left index of blue.
 class Solution {
 public:
-  void sortColors(int A[], int n) {
-    int r = 0;  // the most right index of red
-    int w = 0;  // current index
-    int b = n-1; // the most left index of blue
-    while (w <= b) {
-      if(A[w] == 0) {
-	swap(A[r], A[w]); 
-	++r;
-	++w;
-      } else if (A[w] == 2) {
-	swap(A[b], A[w]);
-	--b;
-      } else {
-    	++w;
+  void sortColors(vector<int>& nums) {
+    int r = 0;
+    int b = nums.size() - 1;
+    for (int w = 0; w <= b; ++w) {
+      if (nums[w] == 0) {
+        swap(nums[w], nums[r]);
+        ++r;
+      } else if (nums[w] == 2) {
+        swap(nums[w], nums[b]);
+        --b;
+        --w;
       }
     }
   }
