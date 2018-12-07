@@ -1,11 +1,4 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+// Note: store the previous pointer of middle node and let its next be nullptr.
 class Solution {
 public:
   ListNode* sortList(ListNode* head) {
@@ -18,9 +11,6 @@ public:
 
 private:
   ListNode* midNode(ListNode* head) {
-    if (head == nullptr) {
-      return nullptr;
-    }
     ListNode *prev = nullptr;
     ListNode *slow = head;
     ListNode *fast = head;
@@ -34,19 +24,19 @@ private:
   }
 
   ListNode *mergeTwoLists(ListNode *l1, ListNode *l2) {
-    ListNode dummy(0);
-    auto curr = &dummy;
+    ListNode *dummy = new ListNode(0);
+    ListNode *l = dummy;
     while (l1 != nullptr && l2 != nullptr) {
       if (l1->val < l2->val) {
-        curr->next = l1;
+        l->next = l1;
         l1 = l1->next;
       } else {
-        curr->next = l2;
+        l->next = l2;
         l2 = l2->next;
       }
-      curr = curr->next;
+      l = l->next;
     }
-    curr->next = l1 ? l1 : l2;
-    return dummy.next;
+    l->next = (l1 != nullptr ? l1 : l2);
+    return dummy->next;
   }
 };
