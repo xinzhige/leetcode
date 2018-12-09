@@ -1,3 +1,5 @@
+// Idea: use priority queue to store the character and its frequency.
+// Each time pop two element in the queue and insert them into the result.
 class Solution {
 public:
   string reorganizeString(string S) {
@@ -37,6 +39,11 @@ public:
 };
 
 
+// Idea: use an integer to store each char and its frequency.
+// For example, 'b' appears 9 times, its value is 100*9+('b'-'a').
+// It is also easy to decode.
+// Note: the first index to insert is 1 because 0 is reserver for the
+// most frequent character.
 class Solution {
 public:
   string reorganizeString(string S) {
