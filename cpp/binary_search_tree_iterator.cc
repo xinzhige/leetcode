@@ -1,9 +1,8 @@
+// Idea: use stack and do inorder traversal.
 class BSTIterator {
 public:
   BSTIterator(TreeNode *root) {
-    for (; root != nullptr; root = root->left) {
-      nodes.push(root);
-    }
+    pushAll(root);
   }
 
   /** @return whether we have a next smallest number */
