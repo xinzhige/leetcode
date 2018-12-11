@@ -1,3 +1,6 @@
+// Idea: use positive value and negative value to represent player 1 and
+// player 2. If rows[0] == N, then player 1 has won because the first row
+// is occupied by him. So it is applied to cols, diag and anti_diag.
 class TicTacToe {
 public:
   /** Initialize your data structure here. */
@@ -23,6 +26,9 @@ public:
   }
 
 private:
-  vector<int> rows, cols;
-  int diag, anti_diag, N;
+  vector<int> rows;
+  vector<int> cols
+  int diag;
+  int anti_diag;
+  int N;
 };
