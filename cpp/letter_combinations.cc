@@ -14,7 +14,7 @@ public:
       return;
     }
     string str = keyboard[digits[level] - '2'];
-    for (auto & c : str) {
+    for (char &c : str) {
       path.push_back(c);
       backtrack(digits, level + 1, path, result);
       path.pop_back();
@@ -22,9 +22,9 @@ public:
   }
 
 private:
-  const vector<string> keyboard = {"abc", "def", 
-				   "ghi", "jkl", "mno",
-				   "pqrs", "tuv", "wxyz" };
+  const vector<string> keyboard = {"abc", "def",
+                                   "ghi", "jkl", "mno",
+                                   "pqrs", "tuv", "wxyz" };
 };
 
 // iterative
@@ -38,20 +38,20 @@ public:
     result.emplace_back("");
     for (int i = 0; i < digits.size(); ++i) {
       int n = result.size();
-      string str = dict[digits[i] - '2'];
+      string str = keyboard[digits[i] - '2'];
       for (int j = 0; j < n; ++j) {
-	string tmp = result.front();
-	result.erase(result.begin());
-	for (int k = 0; k < str.size(); ++k) {
-	  result.emplace_back(tmp + str[k]);
-	}
+        string tmp = result.front();
+        result.erase(result.begin());
+        for (int k = 0; k < str.size(); ++k) {
+          result.emplace_back(tmp + str[k]);
+        }
       }
     }
     return result;
   }
 
 private:
-  const vector<string> dict = {"abc", "def",
-			       "ghi", "jkl", "mno",
-			       "pqrs", "tuv", "wxyz"};
+  const vector<string> keyboard = {"abc", "def",
+                               "ghi", "jkl", "mno",
+                               "pqrs", "tuv", "wxyz"};
 };
