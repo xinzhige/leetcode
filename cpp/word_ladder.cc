@@ -1,8 +1,8 @@
 class Solution {
 public:
   int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-    unordered_map<string, int> wordLevel;
-    unordered_map<string, bool> dict;
+    map<string, int> wordLevel;
+    map<string, bool> dict;
     for (const auto &word : wordList) {
       dict[word] = true;
     }
