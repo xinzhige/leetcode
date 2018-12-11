@@ -1,8 +1,10 @@
+// Idea: go through each word in str and compare it to the corresponding
+// letter in pattern. Use two hash-table to store the index of them.
 class Solution {
 public:
   bool wordPattern(string pattern, string str) {
-    unordered_map<char, int> p2i;
-    unordered_map<string, int> w2i;
+    map<char, int> p2i;
+    map<string, int> w2i;
     istringstream in(str);
     int i = 0;
     int n = pattern.size();
