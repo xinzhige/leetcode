@@ -1,4 +1,4 @@
-// Idea: like fibonacci, use c1 and c2 to decode ways of s[i-2] and s[i-1].
+// Idea: like fibonacci, use c1 and c2 to decode ways of s[i-1] and s[i-2].
 // When meet zero, c1 is 0 because zero can not be used separately.
 class Solution {
 public:
