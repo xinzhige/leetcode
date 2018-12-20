@@ -1,4 +1,4 @@
 SELECT FirstName, LastName, City, State
 FROM Person
 LEFT Join Address
-ON Person.PersonId=Address.PersonId
+ON Person.PersonId=Address.PersonId;
