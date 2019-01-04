@@ -6,8 +6,6 @@ public:
     }
     vector<bool> prime(n, true);
     int count = 0;
-    prime[0] = false;
-    prime[1] = false;
     for (int i = 2; i < sqrt(n); ++i) {
       if (prime[i]) {
         for (int j = i * i; j < n; j += i) {
