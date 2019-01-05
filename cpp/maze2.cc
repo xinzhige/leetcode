@@ -1,48 +1,13 @@
-// DFS
-class Solution {
-public:
-  int shortestDistance(vector<vector<int>>& maze, vector<int>& start,
-                       vector<int>& destination) {
-    m = maze.size();
-    n = maze[0].size();
-    vector<vector<int>> dist(m, vector<int>(n, INT_MAX));
-    dist[start[0]][start[1]] = 0;
-    dfs(maze, start, dist);
-    return dist[destination[0]][destination[1]] == INT_MAX ? -1 :
-      dist[destination[0]][destination[1]];
-  }
-  void dfs(vector<vector<int>>& maze, vector<int> &start,
-           vector<vector<int>> &dist) {
-    for (const auto &dir : dirs) {
-      int x = start[0] + dir[0];
-      int y = start[1] + dir[1];
-      int count = 0;
-      while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0) {
-        x += dir[0];
-        y += dir[1];
-        count += 1;
-      }
-      if (dist[start[0]][start[1]] + count <
-          dist[x - dir[0]][y - dir[1]]) {
-        dist[x - dir[0]][y - dir[1]] = dist[start[0]][start[1]] + count;
-        vector<int> tmp{x - dir[0], y - dir[1]};
-        dfs(maze, tmp, dist);
-      }
-    }
-  }
-
-private:
-  vector<vector<int>> dirs{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
-  int m = 0;
-  int n = 0;
-};
-
-
 // Dijkstra and priority queue, time: O(mnlg(mn)), space: O(mn)
+// Note: priority queue contains all the vertices that have shortest
+// distance from start.
 class Solution {
 public:
   int shortestDistance(vector<vector<int>>& maze, vector<int>& start,
                        vector<int>& destination) {
+    if (maze.empty()) {
+      return -1;
+    }
     m = maze.size();
     n = maze[0].size();
     vector<vector<int>> dist(m, vector<int>(n, INT_MAX));
@@ -55,22 +20,25 @@ public:
                 vector<vector<int>>& dist) {
     priority_queue<State, vector<State>, MyComparison> pq;
     pq.emplace(start[0], start[1], 0);
+    vector<vector<int>> dirs{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     while (!pq.empty()) {
       auto t = pq.top();
       pq.pop();
       if (dist[t.x][t.y] >= t.d) {
         for (const auto &dir : dirs) {
-          int x = t.x + dir[0];
-          int y = t.y + dir[1];
+          int x = t.x;
+          int y = t.y;
           int count = 0;
-          while (x >= 0 && x < m && y >= 0 && y < n && maze[x][y] == 0) {
+          while (x + dir[0] >= 0 && x + dir[0] < m &&
+                 y + dir[1] >= 0 && y + dir[1]< n &&
+                 maze[x + dir[0]][y + dir[1]] == 0) {
             x += dir[0];
             y += dir[1];
             count += 1;
           }
-          if (dist[t.x][t.y] + count < dist[x - dir[0]][y - dir[1]]) {
-            dist[x - dir[0]][y - dir[1]] = dist[t.x][t.y] + count;
-            pq.emplace(x - dir[0], y - dir[1], dist[x - dir[0]][y - dir[1]]);
+          if (dist[t.x][t.y] + count < dist[x][y]) {
+            dist[x][y] = dist[t.x][t.y] + count;
+            pq.emplace(x, y, dist[x][y]);
           }
         }
       }
@@ -90,7 +58,6 @@ private:
       return s1.d < s2.d;
     }
   };
-  vector<vector<int>> dirs{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
   int m = 0;
   int n = 0;
 };
