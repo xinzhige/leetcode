@@ -15,7 +15,7 @@ public:
       st.emplace(num);
     }
     for (const auto &elem : findNums) {
-      int tmp = (next.count(elem) > 0 ? -1 : next[elem]);
+      int tmp = (next.count(elem) == 0 ? -1 : next[elem]);
       result.emplace_back(tmp);
     }
     return result;
