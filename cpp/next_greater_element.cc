@@ -1,40 +1,21 @@
-// Brute force, time: O(mn)
+// Idea: go through nums and build a hash table with current numbers
+// as keys and next greater numbers as values.
+// Time: O(m+n).
 class Solution {
 public:
   vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
     vector<int> result;
-    for (const auto &num : findNums) {
-      int i = 0;
-      for (; i < nums.size() && nums[i] != num; ++i);
-      int j = i + 1;
-      for (; j < nums.size() && nums[j] < num; ++j);
-      if (j == nums.size()) {
-        result.emplace_back(-1);
-      } else {
-        result.emplace_back(nums[j]);
-      }
-    }
-    return result;
-  }
-};
-
-
-// Use stack and unordered_map, time: O(m+n)
-class Solution {
-public:
-  vector<int> nextGreaterElement(vector<int>& findNums, vector<int>& nums) {
-    vector<int> result;
-    stack<int> mystack;
-    unordered_map<int, int> next_greater;
+    stack<int> st;
+    unordered_map<int, int> next;
     for (const auto &num : nums) {
-      while (!mystack.empty() && mystack.top() < num) {
-        next_greater[mystack.top()] = num;
-        mystack.pop();
+      while (!st.empty() && st.top() < num) {
+        next[st.top()] = num;
+        st.pop();
       }
-      mystack.emplace(num);
+      st.emplace(num);
     }
     for (const auto &elem : findNums) {
-      int tmp = (next_greater.count(elem) > 0 ? -1 : next_greater[elem]);
+      int tmp = (next.count(elem) > 0 ? -1 : next[elem]);
       result.emplace_back(tmp);
     }
     return result;
