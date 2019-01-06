@@ -1,3 +1,9 @@
+// Idea: find the largest digit at i from the end of number.
+// If i is 0, then return -1. Otherwise, find the first digit
+// at j that is larger than the digit at i-1. Sort the range
+// [i, end].
+// Note: before sorting, [i, end] must be in non-increasing order,
+// which can guarantee the final result is next greater.
 class Solution {
 public:
   int nextGreaterElement(int n) {
