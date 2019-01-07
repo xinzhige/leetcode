@@ -1,7 +1,9 @@
-// Idea: dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])
+// Idea: the effective score for the current player only depends on
+// the elements within the range [x,y]
+// dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])
 // Note: in dp, only the next row i+1, the same column j and the previous
-// column j-1, the same row i are needed. We can calculate dp from the end
-// of the array to make sure dp[i+1][j] can be calculated before dp[i][j].
+// column j-1 and the same row i are needed. We build dp from the end of
+// the array to make sure dp[i+1][j] can be calculated before dp[i][j].
 class Solution {
 public:
   bool PredictTheWinner(vector<int>& nums) {
