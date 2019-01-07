@@ -1,7 +1,7 @@
 // Idea: there should not be any node after empty one.
 // Once meeting null node, stop the first loop and if any node's left is
 // empty but right is not, return false. The second loop is used to decide
-// if there is any node below the last level.
+// if there is any node after the empty node in the last level.
 class Solution {
 public:
   bool isCompleteTree(TreeNode* root) {
