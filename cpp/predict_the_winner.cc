@@ -1,5 +1,6 @@
 // Idea: the effective score for the current player only depends on
-// the elements within the range [x,y]
+// the elements within the current range [i, j]. Let dp[i][j] be the
+// effective score for the range [i, j],
 // dp[i][j] = max(nums[i] - dp[i+1][j], nums[j] - dp[i][j-1])
 // Note: in dp, only the next row i+1, the same column j and the previous
 // column j-1 and the same row i are needed. We build dp from the end of
