@@ -1,3 +1,4 @@
+// Backtracking
 class Solution {
 public:
   vector<string> letterCombinations(string digits) {
@@ -14,7 +15,7 @@ public:
       return;
     }
     string str = keyboard[digits[level] - '2'];
-    for (char &c : str) {
+    for (const char &c : str) {
       path.push_back(c);
       backtrack(digits, level + 1, path, result);
       path.pop_back();
@@ -27,31 +28,31 @@ private:
                                    "pqrs", "tuv", "wxyz" };
 };
 
-// iterative
+
+// Iterative
 class Solution {
 public:
   vector<string> letterCombinations(string digits) {
-    vector<string> result;
     if (digits.empty()) {
-      return result;
+      return {};
     }
-    result.emplace_back("");
-    for (int i = 0; i < digits.size(); ++i) {
-      int n = result.size();
-      string str = keyboard[digits[i] - '2'];
-      for (int j = 0; j < n; ++j) {
-        string tmp = result.front();
-        result.erase(result.begin());
-        for (int k = 0; k < str.size(); ++k) {
-          result.emplace_back(tmp + str[k]);
+    vector<string> result;
+    result.push_back("");
+    for (const char &d : digits) {
+      vector<string> tmp;
+      int i = d - '2';
+      for (const string &s : result) {
+        for (const char &c : keyboard[i]) {
+          tmp.push_back(s + c);
         }
       }
+      result = tmp;
     }
     return result;
   }
 
 private:
   const vector<string> keyboard = {"abc", "def",
-                               "ghi", "jkl", "mno",
-                               "pqrs", "tuv", "wxyz"};
+                                   "ghi", "jkl", "mno",
+                                   "pqrs", "tuv", "wxyz"};
 };
