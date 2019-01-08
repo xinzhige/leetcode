@@ -4,12 +4,10 @@ class Solution {
 public:
   bool checkEqualTree(TreeNode* root) {
     int total = sumTree(root);
-    seen.pop();
+    seen.pop_back();
     if (total % 2 == 0) {
-      while (!seen.empty()) {
-        auto t = seen.top();
-        seen.pop();
-        if (t == total / 2) {
+      for (const int &s: seen) {
+        if (s == total / 2) {
           return true;
         }
       }
@@ -20,9 +18,9 @@ public:
     if (root == nullptr) {
       return 0;
     }
-    seen.emplace(root->val + sumTree(root->left) + sumTree(root->right));
-    return seen.top();
+    seen.emplace_back(root->val + sumTree(root->left) + sumTree(root->right));
+    return seen.back();
   }
 private:
-  stack<int> seen;
+  vector<int> seen;
 };
