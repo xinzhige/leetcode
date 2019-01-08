@@ -1,54 +1,53 @@
 // Recursive
 class Path {
 public:
-  void constructPaths(TreeNode* root, string path, vector<string>& result) {
+  vector<string> binaryTreePaths(TreeNode* root) {
+    vector<string> result;
+    dfs(root, "", result);
+    return result;
+  }
+  void dfs(TreeNode* root, string path, vector<string>& result) {
     if (root != nullptr) {
-      path = path + to_string(root->val);
+      path += to_string(root->val);
       if (root->left == nullptr && root->right == nullptr) {
         result.push_back(path);
       } else {
-        path = path + "->";
-        constructPaths(root->left, path, result);
-        constructPaths(root->right, path, result);
+        path += "->";
+        dfs(root->left, path, result);
+        dfs(root->right, path, result);
       }
     }
-  }
-  vector<string> binaryTreePaths(TreeNode* root) {
-    vector<string> result;
-    string path;
-    constructPaths(root, path, result);
-    return result;
   }
 };
 
 
-// Iterative
+// Iterative, key: two stacks, one is for nodes and the other one is for paths
 class Path {
 public:
   vector<string> binaryTreePaths(TreeNode* root) {
-    vector<string> result;
     if (root == nullptr) {
-      return result;
+      return {};
     }
-    stack<TreeNode *> node_st;
-    stack<string> path_st;
-    node_st.push(root);
-    path_st.push(to_string(root->val));
-    while (!node_st.empty()) {
-      TreeNode *node = node_st.top();
-      node_st.pop();
-      string path = path_st.top();
-      path_st.pop();
+    vector<string> result;
+    stack<TreeNode *> nodes;
+    stack<string> paths;
+    nodes.push(root);
+    paths.push(to_string(root->val));
+    while (!nodes.empty()) {
+      auto node = nodes.top();
+      nodes.pop();
+      string path = paths.top();
+      paths.pop();
       if (node->left == nullptr && node->right == nullptr) {
         result.push_back(path);
       }
       if (node->left != nullptr) {
-        node_st.push(node->left);
-        path_st.push(path + "->" + to_string(node->left->val));
+        nodes.push(node->left);
+        paths.push(path + "->" + to_string(node->left->val));
       }
       if (node->right != nullptr) {
-        node_st.push(node->right);
-        path_st.push(path + "->" + to_string(node->right->val));
+        nodes.push(node->right);
+        paths.push(path + "->" + to_string(node->right->val));
       }
     }
     return result;
