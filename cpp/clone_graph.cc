@@ -29,17 +29,16 @@ public:
     unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> copied;
     copied[node] = new UndirectedGraphNode(node->label);
     queue<UndirectedGraphNode *> q;
-    q.emplace(node);
+    q.push(node);
     while (!q.empty()) {
       auto curr = q.front();
       q.pop();
       for (const auto & neighbor : curr->neighbors) {
         if (copied.count(neighbor) == 0) {
-          auto neighbor_copy = new UndirectedGraphNode(neighbor->label);
-          copied[neighbor] = neighbor_copy;
-          q.emplace(neighbor);
+          copied[neighbor] = new UndirectedGraphNode(neighbor->label);
+          q.push(neighbor);
         }
-        copied[curr]->neighbors.emplace_back(copied[neighbor]);
+        copied[curr]->neighbors.push_back(copied[neighbor]);
       }
     }
     return copied[node];
