@@ -83,16 +83,16 @@ public:
     count = 0;
     int m = grid.size();
     int n = grid[0].size();
-      for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < n; ++j) {
-          if (grid[i][j] == '1') {
-            parent.push_back(i * n + j);
-            count += 1;
-          } else {
-            parent.push_back(-1);
-          }
-          rank.push_back(0);
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (grid[i][j] == '1') {
+          parent.push_back(i * n + j);
+          count += 1;
+        } else {
+          parent.push_back(-1);
         }
+        rank.push_back(0);
+      }
     }
   }
 
@@ -138,17 +138,18 @@ public:
     int m = grid.size();
     int n = grid[0].size();
     UnionFind uf(grid);
-    int num_islands = 0;
     for (int i = 0; i < m; ++i) {
       for (int j = 0; j < n; ++j) {
         if (grid[i][j] == '1') {
           grid[i][j] = '0';
+          int prev = i*n + j;
           for (const auto &dir : dirs) {
             int x = i + dir[0];
             int y = j + dir[1];
             if (x >= 0 && x < m && y >= 0 && y < n &&
                 grid[x][y] == '1') {
-              uf.runUnion(i * n + j, x * n + y);
+              int curr = x*n + y;
+              uf.runUnion(i*n + j, x*n + y);
             }
           }
         }
