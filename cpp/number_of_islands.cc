@@ -2,10 +2,10 @@
 class Solution {
 public:
   int numIslands(vector<vector<char>>& grid) {
-    m = grid.size();
-    if (m == 0) {
+    if (grid.empty() || grid[0].empty()) {
       return 0;
     }
+    m = grid.size();
     n = grid[0].size();
     int result = 0;
     for (int i = 0; i < m; ++i) {
@@ -19,12 +19,11 @@ public:
     return result;
   }
   void dfs(vector<vector<char>>& grid, int i, int j) {
-    if (i < 0 || i > m - 1 || j < 0 || j > n - 1 || grid[i][j] == '0') {
-      return;
-    }
-    grid[i][j] = '0';
-    for (const auto &dir : dirs) {
-      dfs(grid, i + dir[0], j + dir[1]);
+    if (i >= 0 && i < m && j >= 0 && j < n && grid[i][j] == '1') {
+      grid[i][j] = '0';
+      for (const auto &dir : dirs) {
+        dfs(grid, i + dir[0], j + dir[1]);
+      }
     }
   }
 private:
@@ -38,10 +37,10 @@ private:
 class Solution {
 public:
   int numIslands(vector<vector<char>>& grid) {
-    m = grid.size();
-    if (m == 0) {
+    if (grid.empty() || grid[0].empty()) {
       return 0;
     }
+    m = grid.size();
     n = grid[0].size();
     int result = 0;
     for (int i = 0; i < m; ++i) {
@@ -56,32 +55,107 @@ public:
   }
   void bfs(vector<vector<char>>& grid, int i, int j) {
     grid[i][j] = '0';
-    queue<pair<int, int>> neighbors;
-    neighbors.emplace(i, j);
-    while (!neighbors.empty()) {
-      const auto neighbor = neighbors.front();
-      neighbors.pop();
-      int x = neighbor.first;
-      int y = neighbor.second;
-      if (x >= 1 && grid[x-1][y] == '1') {
-        neighbors.emplace(x-1, y);
-        grid[x-1][y] = '0';
-      }
-      if (x < m - 1 && grid[x+1][y] == '1') {
-        neighbors.emplace(x+1, y);
-        grid[x+1][y] = '0';
-      }
-      if (y >= 1 && grid[x][y-1] == '1') {
-        neighbors.emplace(x, y-1);
-        grid[x][y-1] = '0';
-      }
-      if (y < n - 1 && grid[x][y+1] == '1') {
-        neighbors.emplace(x, y+1);
-        grid[x][y+1] = '0';
+    queue<pair<int, int>> q;
+    q.emplace(i, j);
+    while (!q.empty()) {
+      auto neighbor = q.front();
+      q.pop();
+      for (const auto &dir : dirs) {
+        int x = neighbor.first + dir[0];
+        int y = neighbor.second + dir[1];
+        if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == '1') {
+          q.emplace(x, y);
+          grid[x][y] = '0';
+        }
       }
     }
   }
 private:
   int m = 0;
   int n = 0;
+};
+
+
+// Union find
+class UnionFind {
+public:
+  UnionFind(vector<vector<char>>& grid) {
+    count = 0;
+    int m = grid.size();
+    int n = grid[0].size();
+      for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
+          if (grid[i][j] == '1') {
+            parent.push_back(i * n + j);
+            count += 1;
+          } else {
+            parent.push_back(-1);
+          }
+          rank.push_back(0);
+        }
+    }
+  }
+
+  int find(int i) { // path compression
+    if (parent[i] != i) {
+      parent[i] = find(parent[i]);
+    }
+    return parent[i];
+  }
+
+  void runUnion(int x, int y) { // union with rank
+    int rootx = find(x);
+    int rooty = find(y);
+    if (rootx != rooty) {
+      if (rank[rootx] > rank[rooty]) {
+        parent[rooty] = rootx;
+      } else if (rank[rootx] < rank[rooty]) {
+        parent[rootx] = rooty;
+      } else {
+        parent[rooty] = rootx;
+        rank[rootx] += 1;
+      }
+      count -= 1;
+    }
+  }
+
+  int getCount() const {
+    return count;
+  }
+
+private:
+  vector<int> parent;
+  vector<int> rank;
+  int count; // # of connected components
+};
+
+class Solution {
+public:
+  int numIslands(vector<vector<char>>& grid) {
+    if (grid.empty()) {
+      return 0;
+    }
+    int nr = grid.size();
+    int nc = grid[0].size();
+    UnionFind uf(grid);
+    int num_islands = 0;
+    for (int r = 0; r < nr; ++r) {
+      for (int c = 0; c < nc; ++c) {
+        if (grid[r][c] == '1') {
+          grid[r][c] = '0';
+          for (const auto &dir : dirs) {
+            int x = r + dir[0];
+            int y = c + dir[1];
+            if (x >= 0 && x < nr && y >= 0 && y < nc &&
+                grid[x][y] == '1') {
+              uf.runUnion(r * nc + c, x * nc + y);
+            }
+          }
+        }
+      }
+    }
+    return uf.getCount();
+  }
+private:
+  vector<vector<int>> dirs{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
 };
