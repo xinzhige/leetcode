@@ -97,10 +97,10 @@ public:
   }
 
   int find(int i) { // path compression
-    if (parent[i] != i) {
-      parent[i] = find(parent[i]);
+    while (parent[i] != i) {
+      i = parent[parent[i]];
     }
-    return parent[i];
+    return i;
   }
 
   void runUnion(int x, int y) { // union with rank
@@ -135,20 +135,20 @@ public:
     if (grid.empty()) {
       return 0;
     }
-    int nr = grid.size();
-    int nc = grid[0].size();
+    int m = grid.size();
+    int n = grid[0].size();
     UnionFind uf(grid);
     int num_islands = 0;
-    for (int r = 0; r < nr; ++r) {
-      for (int c = 0; c < nc; ++c) {
-        if (grid[r][c] == '1') {
-          grid[r][c] = '0';
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (grid[i][j] == '1') {
+          grid[i][j] = '0';
           for (const auto &dir : dirs) {
-            int x = r + dir[0];
-            int y = c + dir[1];
-            if (x >= 0 && x < nr && y >= 0 && y < nc &&
+            int x = i + dir[0];
+            int y = j + dir[1];
+            if (x >= 0 && x < m && y >= 0 && y < n &&
                 grid[x][y] == '1') {
-              uf.runUnion(r * nc + c, x * nc + y);
+              uf.runUnion(i * n + j, x * n + y);
             }
           }
         }
