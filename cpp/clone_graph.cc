@@ -1,12 +1,5 @@
-/**
- * Definition for undirected graph.
- * struct UndirectedGraphNode {
- *     int label;
- *     vector<UndirectedGraphNode *> neighbors;
- *     UndirectedGraphNode(int x) : label(x) {};
- * };
- */
-// DFS, time: O(n), space: O(n)
+// Idea: build a hash-table (old node => new node) and DFS,
+// time: O(n), space: O(n)
 class Solution {
 public:
   UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
@@ -38,15 +31,15 @@ public:
     queue<UndirectedGraphNode *> q;
     q.emplace(node);
     while (!q.empty()) {
-      auto curr_node = q.front();
+      auto curr = q.front();
       q.pop();
-      for (const auto & neighbor : curr_node->neighbors) {
+      for (const auto & neighbor : curr->neighbors) {
         if (copied.count(neighbor) == 0) {
           auto neighbor_copy = new UndirectedGraphNode(neighbor->label);
           copied[neighbor] = neighbor_copy;
           q.emplace(neighbor);
         }
-        copied[curr_node]->neighbors.emplace_back(copied[neighbor]);
+        copied[curr]->neighbors.emplace_back(copied[neighbor]);
       }
     }
     return copied[node];
