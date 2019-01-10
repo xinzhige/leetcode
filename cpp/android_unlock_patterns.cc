@@ -3,7 +3,7 @@ class Solution {
 public:
   int numberOfPatterns(int m, int n) {
     int result = 0;
-    vector<bool> visited(9, false);
+    vector<int> visited(9, 0);
     vector<vector<int>> jumps(10, vector<int>(10, 0));
     jumps[1][3] = jumps[3][1] = 2;
     jumps[4][6] = jumps[6][4] = 5;
@@ -18,7 +18,7 @@ public:
     return result;
   }
   int backtrack(int num, int len, int m, int n, int result,
-                vector<bool> &visited, vector<vector<int>> &jumps) {
+                vector<int> &visited, vector<vector<int>> &jumps) {
     if (len >= m) {
       result += 1;
     }
@@ -29,11 +29,11 @@ public:
     visited[num] = true;
     for (int next = 1; next <= 9; ++next) {
       int jump = jumps[num][next];
-      if (!visited[next] && (jump == 0 || visited[jump])) {
+      if (visited[next] == 0 && (jump == 0 || visited[jump] == 1)) {
         result = backtrack(next, len, m, n, result, visited, jumps);
       }
     }
-    visited[num] = false;
+    visited[num] = 0;
     return result;
   }
 };
