@@ -58,13 +58,11 @@ public:
     UnionFind uf (m*n);
     vector<vector<int>> dirs = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
     for (const auto& pos : positions) {
-      int i = pos.first;
-      int j = pos.second;
-      int prev_id = i*n + j;
+      int prev_id = n*pos.first + pos.second;
       uf.setParent(prev_id);
       for (const auto &dir : dirs) {
-        int x = i + dir[0];
-        int y = j + dir[1];
+        int x = pos.first + dir[0];
+        int y = pos.second + dir[1];
         int curr_id = x*n + y;
         if (x >= 0 && x < m && y >= 0 && y < n && uf.isValid(curr_id)) {
           uf.runUnion(prev_id, curr_id);
