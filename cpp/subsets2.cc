@@ -8,13 +8,13 @@ public:
     sub(nums, 0, sub, result);
     return result;
   }
-  void dfs(vector<int> &s, int start, vector<int> &sub,
-           vector<vector<int>> &result) {
+  void backtrack(vector<int> &s, int start, vector<int> &sub,
+                 vector<vector<int>> &result) {
     result.push_back(sub);
     for (int i = start; i < s.size(); ++i) {
       if (i == start || s[i] != s[i - 1]) {
         sub.push_back(s[i]);
-        dfs(s, i + 1, sub, result);
+        backtrack(s, i + 1, sub, result);
         sub.pop_back();
       }
     }
