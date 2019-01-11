@@ -11,14 +11,14 @@ public:
     }
     return true;
   }
-  bool valid(vector<vector<int>>& graph, int color, int curr,
+  bool valid(vector<vector<int>>& graph, int color, int node,
              vector<int>& colors) {
-    if (colors[curr] != 0) {
-      return colors[curr] == color;
+    if (colors[node] != 0) {
+      return colors[node] == color;
     }
-    colors[curr] = color;
-    for (const auto &i : graph[curr]) {
-      if (!valid(graph, -1 * color, i, colors)) {
+    colors[node] = color;
+    for (const int &neighbor : graph[curr]) {
+      if (!valid(graph, -1 * color, neighbor, colors)) {
         return false;
       }
     }
@@ -38,13 +38,13 @@ public:
         queue<int> q;
         q.push(i);
         while (!q.empty()) {
-          auto t = q.front();
+          int node = q.front();
           q.pop();
-          for (const auto &n : graph[t]) {
-            if (colors[n] == 0) {
-              colors[n] = -1 * colors[t];
-              q.push(n);
-            } else if (colors[n] == colors[t]) {
+          for (const int &neighbor : graph[node]) {
+            if (colors[neighbor] == 0) {
+              colors[neighbor] = -1 * colors[node];
+              q.push(neighbor);
+            } else if (colors[neighbor] == colors[node]) {
               return false;
             }
           }
