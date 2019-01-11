@@ -1,31 +1,33 @@
+// Backtracking + Bitmask
 class Solution {
 public:
-  bool isValid(vector<int>& A, int row) {
-    for (int i = 0; i < row; ++i) {
-      if ((A[row] == A[i]) || 
-	  (abs(A[row] - A[i]) == row - i)) {
-        return false;
-      }
-    }
-    return true;
+  int totalNQueens(int n) {
+    int result = 0;
+    set<int> cols;
+    set<int> diagonal;
+    set<int> anti_diagonal;
+    totalNQueensHelper(n, 0, cols, diagonal, anti_diagonal, result);
+    return result;
   }
-  void nQueens(vector<int> A, int row, int n, int& result) {
+private:
+  void totalNQueensHelper(const int& n, int row, set<int>& cols,
+                          set<int>& diagonal, set<int>& anti_diagonal,
+                          int& result) {
     if (row == n) {
       result += 1;
       return;
-    } else {
-      for (int col = 0; col < n; col++) {
-        A[row] = col;
-	if (isValid(A, row)){
-	  nQueens(A, row + 1, n, result);
-	}
+    }
+    for (int col = 0; col < n; ++col) {
+      if (cols.count(col) == 0 && diagonal.count(row - col) == 0 &&
+          anti_diagonal.count(row + col) == 0) {
+        cols.insert(col);
+        diagonal.insert(row - col);
+        anti_diagonal.insert(row + col);
+        totalNQueensHelper(n, row + 1, cols, diagonal, anti_diagonal, result);
+        cols.erase(col);
+        diagonal.erase(row - col);
+        anti_diagonal.erase(row + col);
       }
     }
-  }
-  int totalNQueens(int n) {
-    int result = 0;
-    vector<int> A(n, 0);
-    nQueens(A, 0, n, result);
-    return result;
   }
 };
