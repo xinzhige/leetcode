@@ -21,17 +21,17 @@ private:
     }
     for (int col = 0; col < n; ++col) {
       if (flag_col[col] == 1 &&
-          diagonal[n - 1 - row + col] == 1 &&
+          diagonal[n - 1 + row - col] == 1 &&
           anti_diagonal[row + col] == 1) {
         flag_col[col] = 0;
-        diagonal[n - 1 - row + col] = 0;
+        diagonal[n - 1 + row - col] = 0;
         anti_diagonal[row + col] = 0;
         nQueens[row][col] = 'Q';
         solveNQueens(n, row + 1, nQueens, flag_col, diagonal, anti_diagonal,
                      result);
         nQueens[row][col] = '.';
         flag_col[col] = 1;
-        diagonal[n - 1 - row + col] = 1;
+        diagonal[n - 1 + row - col] = 1;
         anti_diagonal[row + col] = 1;
       }
     }
