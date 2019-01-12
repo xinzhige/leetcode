@@ -1,20 +1,21 @@
 class Solution {
 public:
   bool wordBreak(string s, vector<string>& wordDict) {
-    vector<bool> result(s.size() + 1, false);
-    unordered_map<string, bool> mymap;
+    int n = s.size();
+    vector<int> result(n + 1, 0);
+    unordered_set<string> dict;
     for (const auto & word : wordDict) {
-      mymap[word] = true;
+      dict.insert(word);
     }
-    result[0] = true;
-    for (int i = 0; i <= s.size(); ++i) {
+    result[0] = 1;
+    for (int i = 0; i <= n; ++i) {
       for (int j = 0; j < i; ++j) {
-	if (result[j] && mymap.count(s.substr(j, i-j))) {
-	  result[i] = true;
-	  break;
-	}
+        if (result[j] == 1 && dict.count(s.substr(j, i - j)) > 0) {
+          result[i] = 1;
+          break;
+        }
       }
     }
-    return result[s.size()];
+    return result[n] == 1;
   }
 };
