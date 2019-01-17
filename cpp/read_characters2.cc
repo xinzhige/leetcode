@@ -23,7 +23,7 @@ public:
     return i;
   }
 private:
-  char buf4[4];
-  int i4 = 0;
-  int n4 = 0;
+  char buf4[4]; // what read4 read last time
+  int i4 = 0; // where read4 read last time
+  int n4 = 0; // how many read4 read last time
 };
