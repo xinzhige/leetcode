@@ -1,6 +1,7 @@
-// Idea: two pointers point to the begin and the end of current subarray
+// Idea: two pointers point to the begin and the end of current subarray,
 // every time increment the end and decrease the begin until the sum is
 // less than s.
+// Time: O(n), because each element at most visited twice.
 class Solution {
 public:
   int minSubArrayLen(int s, vector<int>& nums) {
