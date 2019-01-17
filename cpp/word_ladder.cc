@@ -1,13 +1,15 @@
+// Idea: BFS, use a hashmap to store the level (distance) of the word from
+// the beginWord.
 class Solution {
 public:
   int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
-    map<string, int> wordLevel;
-    map<string, bool> dict;
+    set<string> dict;
     for (const auto &word : wordList) {
-      dict[word] = true;
+      dict.insert(word);
     }
     queue<string> q;
-    q.emplace(beginWord);
+    q.push(beginWord);
+    map<string, int> wordLevel;
     wordLevel[beginWord] = 1;
     while (!q.empty()) {
       string currWord = q.front();
@@ -21,7 +23,7 @@ public:
               return wordLevel[currWord] + 1;
             }
             if (wordLevel.count(newWord) == 0) {
-              q.emplace(newWord);
+              q.push(newWord);
               wordLevel[newWord] = wordLevel[currWord] + 1;
             }
           }
