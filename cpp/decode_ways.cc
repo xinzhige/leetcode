@@ -1,5 +1,6 @@
 // Idea: like fibonacci, use c1 and c2 to decode ways of s[i-1] and s[i-2].
-// When meet zero, c1 is 0 because zero can not be used separately.
+// When meet zero, c1 is 0 because zero can not be used separately and it
+// will be assigned c2 if previous digit is 1 or 2.
 class Solution {
 public:
   int numDecodings(string s) {
