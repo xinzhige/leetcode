@@ -1,3 +1,4 @@
+// Idea: use deque that is efficient when operating on its head and tail.
 class Solution {
 public:
   vector<int> maxSlidingWindow(vector<int>& nums, int k) {
@@ -12,7 +13,7 @@ public:
       if (i >= k - 1) {
         result.push_back(nums[dq.front()]);
       }
-      // delete numbers out of range k
+      // delete the front when the window size is k
       if (i - dq.front() + 1 >= k) {
         dq.pop_front();
       }
