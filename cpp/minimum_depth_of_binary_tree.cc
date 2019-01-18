@@ -1,4 +1,6 @@
-// If one node has not left child, then its minDepth must be the minDepth of its right child and so does its right child.
+// If one node has not left child, then its minDepth must be the
+// minDepth of its right child and so does its right child.
+// Space: O(lgn)
 class Solution {
 public:
   int minDepth(TreeNode *root) {
@@ -7,10 +9,10 @@ public:
     }
     int left_depth = minDepth(root->left);
     int right_depth = minDepth(root->right);
-    if (root->left == nullptr) {
+    if (left_depth == 0) {
       return 1 + right_depth;
     }
-    if (root->right == nullptr) {
+    if (right_depth == 0) {
       return 1 + left_depth;
     }
     return 1 + min(left_depth, right_depth);
