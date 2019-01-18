@@ -9,7 +9,8 @@ public:
     backtrack(digits, 0, "", result);
     return result;
   }
-  void backtrack(const string &digits, int level, string path, vector<string> &result) {
+  void backtrack(const string &digits, int level, string path,
+                 vector<string> &result) {
     if (level == digits.size()) {
       result.push_back(path);
       return;
