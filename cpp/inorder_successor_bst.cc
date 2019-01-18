@@ -1,12 +1,7 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+// Idea: 1. if p has right child, the successor is left-most leaf of the
+// right subtree.
+// 2. if p has no right child, the successor is its parent.
+// 3. Otherwise, null.
 class Solution {
 public:
   TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
