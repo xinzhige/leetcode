@@ -1,4 +1,5 @@
-// Forward declaration of the knows API.
+// Idea: first, select a candidate in the first round;
+// second, try to determine if there is no such celebrity.
 bool knows(int a, int b);
 
 class Solution {
