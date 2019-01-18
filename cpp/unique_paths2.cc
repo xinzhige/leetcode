@@ -1,7 +1,7 @@
 // Idea: if the current cell i is 0 then dp[i] = 0.
 class Solution {
 public:
-  int uniquePathsWithObstacles(vector<vector<int> > &obstacleGrid) {
+  int uniquePathsWithObstacles(vector<vector<int>> &obstacleGrid) {
     if (obstacleGrid.empty() || obstacleGrid[0].empty() ||
         obstacleGrid[0][0] == 1) {
       return 0;
