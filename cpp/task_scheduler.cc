@@ -1,5 +1,6 @@
 // Idea: first guess the maximum idle slots by (maxTaskSize-1)*n.
 // Then, reduce this number by each rest task size.
+// Note: at last, add idle slots number only if it is positive.
 class Solution {
 public:
   int leastInterval(vector<char>& tasks, int n) {
