@@ -6,20 +6,20 @@ class Solution {
 public:
   string removeDuplicateLetters(string s) {
     unordered_map<char, int> freq;
-    unordered_map<char, bool> visited;
+    unordered_set<char> visited;
     for (const char &ch : s) {
       freq[ch] += 1;
     }
     string result = "0";
     for (const char &ch : s) {
       freq[ch] -= 1;
-      if (!visited[ch]) {
+      if (visited.count(ch) == 0) {
         while (result.back() > ch && freq[result.back()] > 0) {
-          visited[result.back()] = false;
+          visited.erase(result.back());
           result.pop_back();
         }
+        visited.insert(ch);
         result += ch;
-        visited[ch] = true;
       }
     }
     return result.substr(1);
