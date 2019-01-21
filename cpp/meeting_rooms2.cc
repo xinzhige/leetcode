@@ -1,9 +1,7 @@
-/* Load all intervals to the TreeMap, where keys are intervals' start/end
- *  boundaries, and values accumulate the changes at that point in time.
- * Traverse the TreeMap (in other words, sweep the timeline). If a new
- * interval starts, increase the counter (k value) by 1, and the counter
- * decreases by 1, if an interval has finished.
- * Calculate the number of the active ongoing intervals.
+/* Load all intervals to the hashmap, where keys are intervals' start/end
+ * and values are +1 for start and -1 for end.
+ * Traverse the hashmap (in other words, sweep the timeline).
+ * Calculate the number of the active ongoing intervals and the least rooms.
 */
 class Solution {
 public:
