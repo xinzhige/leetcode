@@ -1,3 +1,6 @@
+// Idea: fill out the most frequent letter to the least one, use max heap
+// to store all the (frequency, letter) pairs and each time reduce the
+// frequency of top by 1.
 class Solution {
 public:
   string rearrangeString(string s, int k) {
