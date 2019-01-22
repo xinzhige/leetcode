@@ -44,11 +44,7 @@ public:
       result.push_back({});
     }
     result[level].push_back(root->val);
-    if (root->left != nullptr) {
-      levelOrderHelper(root->left, level + 1, result);
-    }
-    if (root->right != nullptr) {
-      levelOrderHelper(root->right, level + 1, result);
-    }
+    levelOrderHelper(root->left, level + 1, result);
+    levelOrderHelper(root->right, level + 1, result);
   }
 };
