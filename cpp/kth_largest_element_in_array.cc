@@ -1,23 +1,28 @@
-// Priority queue, time: O(nlgk)
+// Priority queue, time: O(nlgk), space: O(k)
 class Solution {
 public:
   int findKthLargest(vector<int>& nums, int k) {
-    priority_queue<int> pq(nums.begin(), nums.end());
-    for (int i = 0; i < k - 1; i++) {
-      pq.pop();
+    priority_queue<int, vector<int>, greater<int>> pq;
+    for (const int &x : nums) {
+      pq.push(x);
+      if (pq.size() > k) {
+        pq.pop();
+      }
     }
     return pq.top();
   }
 };
 
-// Quick sort like, time: O(n)
+
+// Quick sort like, time: O(n), space: O(1)
 class Solution {
 public:
   int findKthLargest(vector<int>& nums, int k) {
+    random_shuffle(nums.begin(), nums.end());
     int left = 0;
     int right = nums.size() - 1;
     int pos = 0;
-    while (true) {
+    while (left < right) {
       pos = partition(nums, left, right);
       if (pos == k - 1) {
         break;
