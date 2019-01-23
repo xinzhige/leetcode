@@ -40,7 +40,7 @@ public:
     if (left == 0 && left == right) {
       return "Infinite solutions";
     }
-    if (left == 0 && left != right) {
+    if (left == 0 && right != 0) {
       return "No solution";
     }
     return "x=" + to_string(-right / left);
