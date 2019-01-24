@@ -1,20 +1,21 @@
 class Solution {
 public:
-    ListNode *deleteDuplicates(ListNode *head) {
-        ListNode dummy(0);
-        auto prev = &dummy;	
-        auto curr = head;
-        while (curr) {
-	        if (curr->next && curr->next->val == curr->val) {
-                auto val = curr->val; 
-                for (; curr && curr->val == val; curr = curr->next); 
-                prev->next = curr;
-            } else {
-                prev->next = curr;
-                prev = curr;
-                curr = curr->next;
-            } 
-        }
-        return dummy.next; 
+  ListNode *deleteDuplicates(ListNode *head) {
+    ListNode *dummy = new ListNode(0);
+    dummy->next = head;
+    auto prev = dummy;
+    auto curr = head;
+    while (curr != nullptr) {
+      while (curr->next != nullptr && curr->val == curr->next->val) {
+        curr = curr->next;
+      }
+      if (prev->next == curr) {
+        prev = prev->next;
+      } else {
+        prev->next = curr->next;
+      }
+      curr = curr->next;
     }
+    return dummy->next;
+  }
 };
