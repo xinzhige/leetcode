@@ -3,13 +3,13 @@ class WordDictionary {
 public:
   /** Initialize your data structure here. */
   struct TrieNode {
-    bool isString;
+    bool isWord;
     unordered_map<char, TrieNode*> children;
   };
 
   WordDictionary() {
     root = new TrieNode();
-    root->isString = true;
+    root->isWord = true;
   }
 
   // Adds a word into the data structure.
@@ -21,7 +21,7 @@ public:
       }
       p = p->children[c];
     }
-    p->isString = true;
+    p->isWord = true;
   }
 
   // Returns if the word is in the data structure. A word could
@@ -30,15 +30,15 @@ public:
     return searchWord(word, root, 0);
   }
 
-  bool searchWord(string word, TrieNode* node, int level) {
+  bool searchWord(string &word, TrieNode* root, int level) {
     if (word.size() == level) {
-      return node->isString;
+      return root->isWord;
     }
-    if (node->children.count(word[level]) > 0) {
-      return searchWord(word, node->children[word[level]], level + 1);
+    if (root->children.count(word[level]) > 0) {
+      return searchWord(word, root->children[word[level]], level + 1);
     } else if (word[level] == '.') {
-      for (const auto& curr : node->children) {
-        if (searchWord(word, curr.second, level + 1)) {
+      for (const auto& node: root->children) {
+        if (searchWord(word, node.second, level + 1)) {
           return true;
         }
       }
