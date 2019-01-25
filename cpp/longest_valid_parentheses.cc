@@ -1,27 +1,37 @@
 class Solution {
 public:
   int longestValidParentheses(string s) {
-    int max_len = 0;
-    // Use a variable last to store the last non-matching ')'
-    int last = -1;
-    // Use a stack to store the non-matching '(' and
-    stack<int> lefts;
+    int left = 0;
+    int right = 0;
+    int maxLength = 0;
     for (int i = 0; i < s.size(); ++i) {
-      if (s[i] =='(') {
-	lefts.push(i);
+      if (s[i] == '(') {
+        left += 1;
       } else {
-	if (lefts.empty()) {
-	  last = i;
-	} else {
-	  lefts.pop();
-	  if (lefts.empty()) {
-	    max_len = max(max_len, i-last);
-	  } else {
-	    max_len = max(max_len, i-lefts.top());
-	  }
-	}
+        right += 1;
+      }
+      if (left == right) {
+        maxLength = max(maxLength, 2*right);
+      } else if (left <= right) {
+        left = 0;
+        right = 0;
       }
     }
-    return max_len;
+    left = 0;
+    right = 0;
+    for (int i = s.size()- 1; i >= 0; --i) {
+      if (s[i] == ')') {
+        right += 1;
+      } else {
+        left += 1;
+      }
+      if (left == right) {
+        maxLength = max(maxLength, 2*left);
+      } else if (left >= right) {
+        left = 0;
+        right = 0;
+      }
+    }
+    return maxLength;
   }
 };
