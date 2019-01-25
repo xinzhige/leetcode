@@ -45,6 +45,7 @@ public:
 };
 
 
+// Idea: if p="()", delete redundant ")"; if p=")(", delete redundant "(".
 class Solution {
 public:
   vector<string> removeInvalidParentheses(string s) {
