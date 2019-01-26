@@ -40,33 +40,33 @@ public:
     if (arrays.empty()) {
       return {};
     }
-    vector<int> result;
-    priority_queue<Node, vector<Node>, mycomparison> pq;
+    priority_queue<Node, vector<Node>, Comparison> pq;
     for(int i = 0; i < arrays.size(); i++) {
       if(!arrays[i].empty()) {
         pq.emplace(i, 0, arrays[i][0]);
       }
     }
+    vector<int> result;
     while(!pq.empty()) {
-      Node curr = pq.top();
-      result.emplace_back(curr.val);
+      Node node = pq.top();
+      result.push_back(node.val);
       pq.pop();
-      if(curr.col < arrays[curr.row].size() - 1)
-        pq.emplace(curr.row, curr.col + 1,
-                   arrays[curr.row][curr.col+1]);
+      // Note it determines if there is a "next" element.
+      if(node.col < arrays[node.row].size() - 1)
+        pq.emplace(node.row, node.col + 1,
+                   arrays[node.row][node.col+1]);
     }
     return result;
   }
 
-  class Node {
-  public:
+  struct Node {
     Node (int r, int c, int v) : row(r), col(c), val(v) {};
     int row;
     int col;
     int val;
   };
 
-  struct mycomparison {
+  struct Comparison {
     bool operator() (const Node & a, const Node &b) {
       return a.val > b.val;
     }
