@@ -48,21 +48,21 @@ public:
     if (root == nullptr) {
       return "";
     }
-    ostringstream os;
+    ostringstream out;
     queue<TreeNode *> q;
     q.push(root);
     while (!q.empty()) {
-      auto t = q.front();
+      TreeNode *t = q.front();
       q.pop();
       if (t != nullptr) {
-        os << t->val << " ";
+        out << t->val << " ";
         q.push(t->left);
         q.push(t->right);
       } else {
-        os << "# ";
+        out << "# ";
       }
     }
-    return os.str();
+    return out.str();
   }
 
   // Decodes your encoded data to tree.
@@ -70,28 +70,22 @@ public:
     if (data.empty()) {
       return nullptr;
     }
-    istringstream is(data);
+    istringstream in(data);
     queue<TreeNode *> q;
     string val("");
-    is >> val;
-    auto node = new TreeNode(stoi(val));
-    auto curr = node;
+    in >> val;
+    TreeNode *node = new TreeNode(stoi(val));
+    TreeNode *curr = node;
     q.push(curr);
     while (!q.empty()) {
       auto t = q.front();
       q.pop();
-      if (!(is >> val)) {
-        break;
-      }
-      if (val != "#") {
+      if (in >> val && val != "#") {
         curr = new TreeNode(stoi(val));
         q.push(curr);
         t->left = curr;
       }
-      if (!(is >> val)) {
-        break;
-      }
-      if (val != "#") {
+      if (in >> val && val != "#") {
         curr = new TreeNode(stoi(val));
         q.push(curr);
         t->right = curr;
