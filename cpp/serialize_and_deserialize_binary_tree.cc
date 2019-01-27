@@ -67,23 +67,23 @@ public:
     queue<TreeNode *> q;
     string val;
     in >> val;
-    TreeNode *result = new TreeNode(stoi(val));
-    TreeNode *curr = result;
-    q.push(curr);
+    TreeNode *root = new TreeNode(stoi(val));
+    TreeNode *node = root;
+    q.push(node);
     while (!q.empty()) {
       TreeNode *t = q.front();
       q.pop();
       if (in >> val && val != "#") {
-        curr = new TreeNode(stoi(val));
-        q.push(curr);
-        t->left = curr;
+        node = new TreeNode(stoi(val));
+        q.push(node);
+        t->left = node;
       }
       if (in >> val && val != "#") {
-        curr = new TreeNode(stoi(val));
-        q.push(curr);
-        t->right = curr;
+        node = new TreeNode(stoi(val));
+        q.push(node);
+        t->right = node;
       }
     }
-    return result;
+    return root;
   }
 };
