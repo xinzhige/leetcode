@@ -19,26 +19,26 @@ class NestedIterator {
 public:
   NestedIterator(vector<NestedInteger> &nestedList) {
     for (int i = nestedList.size() - 1; i >= 0; --i) {
-      mystack.emplace(nestedList[i]);
+      mystack.push(nestedList[i]);
     }
   }
 
   int next() {
-    auto curr = mystack.top();
+    NestedInteger curr = mystack.top();
     mystack.pop();
     return curr.getInteger();
   }
 
   bool hasNext() {
     while (!mystack.empty()) {
-      auto curr = mystack.top();
+      NestedInteger curr = mystack.top();
       if (curr.isInteger()) {
         return true;
       }
       mystack.pop();
       auto currList = curr.getList();
       for (int i = currList.size() - 1; i >= 0; --i) {
-        mystack.emplace(currList[i]);
+        mystack.push(currList[i]);
       }
     }
     return false;
