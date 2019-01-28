@@ -6,7 +6,7 @@ public:
     vector<int> indegrees = compute_indegree(graph);
     for (int i = 0; i < numCourses; ++i) {
       int j = 0;
-      for (; j < numCourses; j++) {
+      for (; j < numCourses; ++j) {
         if (indegrees[j] == 0) {
           break;
         }
