@@ -1,33 +1,33 @@
 class Solution {
 public:
   vector<int> findOrder(int numCourses, vector<pair<int, int>>& prerequisites) {
-    vector<int> result;
-    vector<vector<int> > graph(numCourses, vector<int>(0));
-    vector<int> in(numCourses, 0);
-    for (const auto & a : prerequisites) {
-      graph[a.second].emplace_back(a.first);
-      in[a.first] += 1;
+    vector<vector<int>> graph(numCourses);
+    vector<int> indegrees(numCourses, 0);
+    for (const auto &pre : prerequisites) {
+      graph[pre.second].push_back(pre.first);
+      indegrees[pre.first] += 1;
     }
     queue<int> q;
     for (int i = 0; i < numCourses; ++i) {
-      if (in[i] == 0) {
-    	q.emplace(i);
+      if (indegrees[i] == 0) {
+        q.push(i);
       }
     }
+    vector<int> result;
     while (!q.empty()) {
-      int t = q.front();
-      result.emplace_back(t);
+      int node = q.front();
+      result.push_back(node);
       q.pop();
-      for (const auto & a : graph[t]) {
-    	in[a] -= 1;
-    	if (in[a] == 0) {
-    	  q.emplace(a);
-    	}
+      for (const auto &neighbor : graph[node]) {
+        indegrees[neighbor] -= 1;
+        if (indegrees[neighbor] == 0) {
+          q.push(neighbor);
+        }
       }
     }
     if (result.size() != numCourses) {
-        result.clear();
+      result.clear();
     }
-    return result;        
+    return result;
   }
 };
