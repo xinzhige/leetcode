@@ -5,17 +5,16 @@
 class Solution {
 public:
   void connect(TreeLinkNode *root) {
-    if (root == nullptr) {
-      return;
+    if (root != nullptr) {
+      if (root->left != nullptr) {
+        root->left->next = root->right;
+      }
+      if (root->right != nullptr && root->next != nullptr) {
+        root->right->next = root->next->left;
+      }
+      connect(root->left);
+      connect(root->right);
     }
-    if (root->left != nullptr && root->right != nullptr) {
-      root->left->next = root->right;
-    }
-    if (root->right != nullptr && root->next != nullptr) {
-      root->right->next = root->next->left;
-    }
-    connect(root->left);
-    connect(root->right);
   }
 };
 
@@ -25,18 +24,15 @@ class Solution {
 public:
   void connect(TreeLinkNode *root) {
     if (root != nullptr) {
-      TreeLinkNode *pre = root;
-      TreeLinkNode *cur = nullptr;
-      while(pre->left != nullptr) {
-        cur = pre;
-        while(cur != nullptr) {
-          cur->left->next = cur->right;
-          if(cur->next != nullptr) {
+      for (TreeLinkNode *pre = root; pre->left != nullptr; pre = pre->left) {
+        for (TreeLinkNode *cur = pre; cur != nullptr; cur = cur->next) {
+          if (cur->left != nullptr) {
+            cur->left->next = cur->right;
+          }
+          if (cur->right != nullptr && cur->next != nullptr) {
             cur->right->next = cur->next->left;
           }
-          cur = cur->next;
         }
-        pre = pre->left;
       }
     }
   }
