@@ -25,6 +25,7 @@ public:
         }
       }
     }
+    // Note: there is no valid sequence.
     if (result.size() != numCourses) {
       result.clear();
     }
