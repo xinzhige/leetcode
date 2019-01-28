@@ -1,3 +1,4 @@
+// Time: O(n), space: O(n)
 class Solution {
 public:
   int longestConsecutive(vector<int> &nums) {
@@ -17,6 +18,32 @@ public:
         result = max(result, curLen);
       }
     }
+    return result;
+  }
+};
+
+
+// Time: O(nlogn), space: O(1)
+class Solution {
+public:
+  int longestConsecutive(vector<int> &nums) {
+    if (nums.empty()) {
+      return 0;
+    }
+    sort(nums.begin(), nums.end());
+    int result = 1;
+    int curLen = 1;
+    for (int i = 1; i < nums.size(); ++i) {
+      if (nums[i - 1] != nums[i]) {
+        if (nums[i] == nums[i - 1] + 1) {
+          curLen += 1;
+        } else {
+          result = max(result, curLen);
+          curLen = 1;
+        }
+      }
+    }
+    result = max(result, curLen);
     return result;
   }
 };
