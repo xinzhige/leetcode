@@ -1,34 +1,34 @@
-// recursive
+// Recursive
 class Solution {
 public:
   vector<string> findStrobogrammatic(int n) {
-    return helper(n, n);
+    return strobogrammaticNumber(n, n);
   }
 
-  vector<string> helper(int n, int m) {
+  vector<string> strobogrammaticNumber(int n, int m) {
     if (n == 0) {
-      return vector<string>{""};
+      return {""};
     }
     if (n == 1) {
-      return vector<string>{"0", "1", "8"};
+      return {"0", "1", "8"};
     }
-    vector<string> list = helper(n-2, m);
+    vector<string> rest = strobogrammaticNumber(n - 2, m);
     vector<string> result;
-    for (auto &s : list) {
+    for (const auto &s : rest) {
       if (n != m) {
-        result.emplace_back("0" + s + "0");
+        result.push_back("0" + s + "0");
       }
-      result.emplace_back("1" + s + "1");
-      result.emplace_back("6" + s + "9");
-      result.emplace_back("8" + s + "8");
-      result.emplace_back("9" + s + "6");
+      result.push_back("1" + s + "1");
+      result.push_back("6" + s + "9");
+      result.push_back("8" + s + "8");
+      result.push_back("9" + s + "6");
     }
     return result;
   }
 };
 
 
-// iterative
+// Iterative
 class Solution {
 public:
   vector<string> findStrobogrammatic(int n) {
@@ -40,14 +40,14 @@ public:
     }
     for (int i = (n % 2) + 2; i <= n; i += 2) {
       vector<string> tmp;
-      for (auto &s : result) {
+      for (const auto &s : result) {
         if (i != n) {
-          tmp.emplace_back("0" + s + "0");
+          tmp.push_back("0" + s + "0");
         }
-        tmp.emplace_back("1" + s + "1");
-        tmp.emplace_back("6" + s + "9");
-        tmp.emplace_back("8" + s + "8");
-        tmp.emplace_back("9" + s + "6");
+        tmp.push_back("1" + s + "1");
+        tmp.push_back("6" + s + "9");
+        tmp.push_back("8" + s + "8");
+        tmp.push_back("9" + s + "6");
       }
       result = tmp;
     }
