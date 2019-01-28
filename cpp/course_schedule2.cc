@@ -25,10 +25,10 @@ public:
         }
       }
     }
-    // Note: there is no valid sequence.
-    if (result.size() != numCourses) {
-      result.clear();
+    // Note: the length of valid sequence must be correct.
+    if (result.size() == numCourses) {
+      return result;
     }
-    return result;
+    return {};
   }
 };
