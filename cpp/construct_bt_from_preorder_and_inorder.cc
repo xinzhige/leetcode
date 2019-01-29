@@ -1,8 +1,8 @@
 class Solution {
 public:
   TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
-    return buildTree(preorder, 0, preorder.size() - 1, inorder, 0,
-                     inorder.size() - 1);
+    return buildTree(preorder, 0, preorder.size() - 1,
+                     inorder, 0, inorder.size() - 1);
   }
   TreeNode *buildTree(vector<int> &preorder, int pLeft, int pRight,
                       vector<int> &inorder, int iLeft, int iRight) {
@@ -15,11 +15,11 @@ public:
         break;
       }
     }
-    TreeNode *cur = new TreeNode(preorder[pLeft]);
-    cur->left = buildTree(preorder, pLeft + 1, pLeft + i - iLeft, inorder,
-                          iLeft, i - 1);
-    cur->right = buildTree(preorder, pLeft + i - iLeft + 1, pRight, inorder,
-                           i + 1, iRight);
-    return cur;
+    TreeNode *node = new TreeNode(preorder[pLeft]);
+    node->left = buildTree(preorder, pLeft + 1, pLeft + i - iLeft,
+                           inorder, iLeft, i - 1);
+    node->right = buildTree(preorder, pLeft + i - iLeft + 1, pRight,
+                            inorder, i + 1, iRight);
+    return node;
   }
 };
