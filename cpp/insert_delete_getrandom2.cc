@@ -7,23 +7,23 @@ public:
 
   /** Inserts a value to the collection. Returns true if the collection did not already contain the specified element. */
     bool insert(int val) {
-      m[val].insert(nums.size());
+      index[val].insert(nums.size());
       nums.push_back(val);
-      return m[val].size() == 1;
+      return index[val].size() == 1;
     }
 
   /** Removes a value from the collection. Returns true if the collection contained the specified element. */
     bool remove(int val) {
-      if (m[val].empty()) {
+      if (index[val].empty()) {
         return false;
       }
-      int idx = *m[val].begin();
-      m[val].erase(idx);
-      if (nums.size() - 1 != idx) {
+      int i = *index[val].begin();
+      index[val].erase(i);
+      if (nums.size() - 1 != i) {
         int t = nums.back();
-        nums[idx] = t;
-        m[t].erase(nums.size() - 1);
-        m[t].insert(idx);
+        nums[i] = t;
+        index[t].erase(nums.size() - 1);
+        index[t].insert(i);
       }
       nums.pop_back();
       return true;
@@ -36,5 +36,5 @@ public:
 
 private:
     vector<int> nums;
-    unordered_map<int, unordered_set<int>> m;
+    unordered_map<int, unordered_set<int>> index;
 };
