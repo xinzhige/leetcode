@@ -26,17 +26,17 @@ public:
     queue<TreeNode*> q;
     q.push(root);
     while (!q.empty()) {
-      auto curr = q.front();
+      auto node = q.front();
       q.pop();
-      if (nums.count(k - curr->val) > 0) {
+      if (nums.count(k - node->val) > 0) {
         return true;
       }
-      nums.insert(curr->val);
-      if (curr->left != nullptr) {
-        q.push(curr->left);
+      nums.insert(node->val);
+      if (node->left != nullptr) {
+        q.push(node->left);
       }
-      if (curr->right != nullptr) {
-        q.push(curr->right);
+      if (node->right != nullptr) {
+        q.push(node->right);
       }
     }
     return false;
