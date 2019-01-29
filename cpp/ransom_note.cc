@@ -1,23 +1,16 @@
 class Solution {
 public:
-    bool canConstruct(string ransomNote, string magazine) {
-        unordered_map<char, int> mymap;
-        for (auto c : magazine) {
-            if (mymap.find(c) == mymap.end()) {
-                mymap[c] = 1; 
-            } else {
-                mymap[c] += 1; 
-            } 
-        }
-        for (auto c : ransomNote) {
-            if (mymap.find(c) == mymap.end() ||
-                mymap[c] <= 0) {
-                
-                return false;
-            } else {
-                mymap[c] -= 1; 
-            }
-        }
-        return true;
+  bool canConstruct(string ransomNote, string magazine) {
+    vector<int> freq(26, 0);
+    for (int i = 0; i < magazine.size(); ++i) {
+      freq[magazine[i] - 'a'] += 1;
     }
+    for (int i = 0; i < ransomNote.size(); ++i) {
+      freq[ransomNote[i] - 'a'] -= 1;
+      if(freq[ransomNote[i] - 'a'] < 0) {
+        return false;
+      }
+    }
+    return true;
+  }
 };
