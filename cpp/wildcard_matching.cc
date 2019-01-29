@@ -25,9 +25,7 @@ public:
         return false;
       }
     }
-    while (j < n && p[j] == '*') {
-      ++j;
-    }
+    for (; j < n && p[j] == '*'; ++j);
     return j == n;
   }
 };
