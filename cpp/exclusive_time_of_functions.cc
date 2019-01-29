@@ -1,3 +1,6 @@
+// Idea: function a running time=b.start-a.start+a.end-z.end, where
+// b is next function called and z is the last function called.
+// Use stack to store all start time.
 class Solution {
 public:
   vector<int> exclusiveTime(int n, vector<string>& logs) {
