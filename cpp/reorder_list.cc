@@ -1,4 +1,20 @@
+/*
+ * Idea: 1. find the middle node.
+ * 2. reverse the last half part.
+ * 3. merge two lists one by one alternately.
+ */
 class Solution {
+public:
+  void reorderList(ListNode *head) {
+    if (head == nullptr) {
+      return;
+    }
+    ListNode* middle = find_middle(head);
+    ListNode* tail = reverseList(middle->next);
+    middle->next = nullptr;
+    merge(head, tail);
+  }
+
 private:
   ListNode *reverseList(ListNode *head) {
     ListNode *prev = nullptr;
@@ -14,8 +30,8 @@ private:
   }
 
   ListNode *find_middle(ListNode *head) {
-    auto slow = head;
-    auto fast = head;
+    ListNode* slow = head;
+    ListNode* fast = head;
     while (fast != nullptr && fast->next != nullptr) {
       fast = fast->next->next;
       slow = slow->next;
@@ -25,8 +41,8 @@ private:
 
   void merge(ListNode *head1, ListNode *head2) {
     bool even = true;
-    auto dummy = new ListNode(0);
-    auto head = dummy;
+    ListNode* dummy = new ListNode(0);
+    ListNode* head = dummy;
     while (head1 != nullptr && head2 != nullptr) {
       if (even) {
         head->next = head1;
@@ -43,16 +59,5 @@ private:
     } else {
       head->next = head2;
     }
-  }
-
-public:
-  void reorderList(ListNode *head) {
-    if (head == nullptr) {
-      return;
-    }
-    auto middle = find_middle(head);
-    auto tail = reverseList(middle->next);
-    middle->next = nullptr;
-    merge(head, tail);
   }
 };
