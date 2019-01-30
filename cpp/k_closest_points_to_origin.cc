@@ -38,7 +38,7 @@ private:
   }
 
   void partition(vector<vector<int>>& points, int l, int r, int K) {
-    if (l < r && l < K && K <= r) {
+    if (l < K && K <= r) {
       int x = l;
       int i = l;
       int j = r;
