@@ -1,3 +1,4 @@
+// Idea: for each subtree in s, compare it with t to determine if they are same.
 class Solution {
 public:
   bool isSametree(TreeNode* s, TreeNode* t) {
