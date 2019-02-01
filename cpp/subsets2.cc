@@ -26,6 +26,9 @@ public:
 class Solution {
 public:
   vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+    if (nums.empty()) {
+      return {};
+    }
     sort(nums.begin(), nums.end());
     vector<vector<int>> result = {{}, {nums[0]}};
     vector<vector<int>> sub = {{nums[0]}};
