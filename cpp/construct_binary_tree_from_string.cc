@@ -40,10 +40,10 @@ public:
     }
     stack<TreeNode *> st;
     for (int i = 0; i < s.size(); ++i) {
-      int j = i;
       if (s[i] == ')') {
         st.pop();
       } else if (isdigit(s[i]) || s[i] == '-') {
+        int j = i;
         for (; i < s.size() - 1 && isdigit(s[i + 1]); ++i);
         TreeNode *node = new TreeNode(stoi(s.substr(j, i - j + 1)));
         if (!st.empty()) {
