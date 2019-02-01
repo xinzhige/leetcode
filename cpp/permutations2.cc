@@ -1,19 +1,19 @@
 class Solution {
 public:
   vector<vector<int> > permuteUnique(vector<int> &nums) {
-    vector<vector<int>> result;
+    set<vector<int>> result;
     sort(nums.begin(), nums.end());
-    dfs(nums, 0, result);
-    return result;
+    backtrack(nums, 0, result);
+    return vector<vector<int>> (result.begin(), result.end());
   }
-  void dfs(vector<int> nums, int start, vector<vector<int> > &result) {
-    if (start == nums.size() - 1) {
-      result.push_back(nums);
+  void backtrack(vector<int> nums, int start, set<vector<int>> &result) {
+    if (start == nums.size()) {
+      result.insert(nums);
     } else {
       for (int i = start; i < nums.size(); ++i) {
-        if (i == start || nums[i] != nums[start]) {
+        if (i == start || nums[i - 1] != nums[i]) {
           swap(nums[i], nums[start]);
-          dfs(nums, start + 1, result);
+          backtrack(nums, start + 1, result);
           swap(nums[i], nums[start]);
         }
       }
