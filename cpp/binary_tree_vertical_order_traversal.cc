@@ -1,34 +1,27 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
+// Idea: assign each node with a column index, left child is current index i-1
+// and right child is i+1.
 class Solution {
 public:
   vector<vector<int>> verticalOrder(TreeNode* root) {
-    vector<vector<int>> result;
     if (root == nullptr) {
-      return result;
+      return {};
     }
-    map<int, vector<int>> m;
+    map<int, vector<int>> cols;
     queue<pair<int, TreeNode *>> q;
-    q.push({0, root});
+    vector<vector<int>> result;
+    q.emplace(0, root);
     while (!q.empty()) {
       auto t = q.front();
       q.pop();
-      m[t.first].push_back(t.second->val);
-      if (t.second->left) {
-        q.push({t.first - 1, t.second->left});
+      cols[t.first].push_back(t.second->val);
+      if (t.second->left != nullptr) {
+        q.emplace(t.first - 1, t.second->left);
       }
-      if (t.second->right) {
-        q.push({t.first + 1, t.second->right});
+      if (t.second->right != nullptr) {
+        q.emplace(t.first + 1, t.second->right);
       }
     }
-    for (auto &t : m) {
+    for (const auto &t : cols) {
       result.push_back(t.second);
     }
     return result;
