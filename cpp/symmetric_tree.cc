@@ -1,15 +1,14 @@
-// Recursive way
+// Recursive
 class Solution {
 public:
   bool isSymmetricHelper(TreeNode* l, TreeNode* r) {
     if (l == nullptr && r == nullptr) {
       return true;
-    } else if (l == nullptr || r == nullptr) {
-      return false;
-    } else if (l->val != r->val) {
+    }
+    if (l == nullptr || r == nullptr) {
       return false;
     }
-    return isSymmetricHelper(l->left, r->right) &&
+    return l->val == r->val && isSymmetricHelper(l->left, r->right) &&
       isSymmetricHelper(l->right, r->left);
   }
   bool isSymmetric(TreeNode *root) {
@@ -20,7 +19,7 @@ public:
   }
 };
 
-// Iterative way by queue
+// Iterative, queue
 class Solution {
 public:
   bool isSymmetric(TreeNode *root) {
