@@ -1,4 +1,4 @@
-// Recursive
+// Recursive, dfs, preorder traversal like.
 class Path {
 public:
   vector<string> binaryTreePaths(TreeNode* root) {
@@ -21,7 +21,7 @@ public:
 };
 
 
-// Iterative, key: two stacks, one is for nodes and the other one is for paths
+// Iterative, two stacks, one is for nodes and the other one is for paths
 class Path {
 public:
   vector<string> binaryTreePaths(TreeNode* root) {
