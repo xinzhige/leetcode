@@ -18,3 +18,31 @@ public:
     }
   }
 };
+
+
+// Iterative
+class Solution {
+public:
+  vector<vector<int>> permute(vector<int> &nums) {
+    if (nums.empty()) {
+      return {};
+    }
+    vector<vector<int>> result;
+    vector<int> sub;
+    sub.push_back(nums[0]);
+    result.push_back(sub);
+    for (int i = 1; i < nums.size(); ++i) {
+      int n = result.size();
+      for (int j = 0; j < n; ++j) {
+        int m = result[0].size();
+        for (int k = 0; k <= m; ++k) {
+          vector<int> temp = result[0];
+          temp.insert(temp.begin() + k, nums[i]);
+          result.push_back(temp);
+        }
+        result.erase(result.begin());
+      }
+    }
+    return result;
+  }
+};
