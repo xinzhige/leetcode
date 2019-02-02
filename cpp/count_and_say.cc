@@ -11,15 +11,15 @@ public:
       string t = "";
       int count = 1;
       for (int i = 1; i < result.size(); ++i) {
-	if (result[i] == result[i - 1]) {
-	  ++count;
-	} else {
-	  t += to_string(count) + result[i - 1];
-	  count = 1;
-	}
+        if (result[i] == result[i - 1]) {
+          ++count;
+        } else {
+          t += to_string(count) + result[i - 1];
+          count = 1;
+        }
       }
       result = t;
     }
-    return result;        
+    return result;
   }
 };
