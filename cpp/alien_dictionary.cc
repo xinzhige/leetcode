@@ -19,8 +19,7 @@ public:
       int len = min(cur.size(), nxt.size());
       for (int j = 0; j < len; ++j) {
         if (cur[j] != nxt[j]) {
-          unordered_set<char> nodes = graph[cur[j]];
-          if (nodes.count(nxt[j]) == 0) {
+          if (graph[cur[j]].count(nxt[j]) == 0) {
             graph[cur[j]].insert(nxt[j]);
             indegree[nxt[j]] += 1;
           }
