@@ -12,6 +12,7 @@ public:
       return result;
     }
     result[0] = leftIndex;
+    // Note: don't forget to minus 1!
     result[1] = binarySearch(nums, target, false) - 1;
     return result;
   }
