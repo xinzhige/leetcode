@@ -2,18 +2,14 @@ class Solution {
 public:
   vector<int> productExceptSelf(vector<int>& nums) {
     int n = nums.size();
+    int fromBegin = 1;
+    int fromLast = 1;
     vector<int> result(n, 1);
-    // The first loop is to compute the multiplication of previous numbers.
-    for (int i = 1; i < n; ++i) {
-      result[i] = result[i-1] * nums[i-1];
-    }
-    int fac = 1;
-    // The second loop is to compute the multiplication of post numbers
-    // and the result. Note that i starts with n - 2 because the last element
-    // of result has been already the final value.
-    for (int i = n - 2; i >= 0; --i) {
-      fac *= nums[i+1];
-      result[i] *= fac;
+    for(int i = 0; i < n; ++i){
+      result[i] *= fromBegin;
+      fromBegin *= nums[i];
+      result[n-1-i] *= fromLast;
+      fromLast *= nums[n-1-i];
     }
     return result;
   }
