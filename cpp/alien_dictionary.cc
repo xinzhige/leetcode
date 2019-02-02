@@ -15,14 +15,14 @@ public:
     // build graph and record indegree
     for (int i = 0; i < words.size() - 1; ++i) {
       string cur = words[i];
-      string nex = words[i + 1];
-      int len = min(cur.size(), nex.size());
+      string nxt = words[i + 1];
+      int len = min(cur.size(), nxt.size());
       for (int j = 0; j < len; ++j) {
-        if (cur[j] != nex[j]) {
+        if (cur[j] != nxt[j]) {
           unordered_set<char> nodes = graph[cur[j]];
-          if (nodes.count(nex[j]) == 0) {
-            graph[cur[j]].insert(nex[j]);
-            indegree[nex[j]] += 1;
+          if (nodes.count(nxt[j]) == 0) {
+            graph[cur[j]].insert(nxt[j]);
+            indegree[nxt[j]] += 1;
           }
           // If previous corresponding pair of letter are not same, then
           // it is impossible to determine the order of current pair. For
