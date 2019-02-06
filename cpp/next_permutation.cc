@@ -6,7 +6,7 @@ public:
     //step1
     for (int i = 0; i < num.size() - 1; ++i) {
       if (num[i] < num[i+1]) {
-	pivot = i;
+        pivot = i;
       }
     }
     if (pivot == -1) {
@@ -16,10 +16,10 @@ public:
     //step2
     for (int i = 0; i < num.size(); ++i){
       if (num[i] > num[pivot]){
-	change = i;
+        change = i;
       }
     }
-    //step3    
+    //step3
     swap(num[change], num[pivot]);
     //step4
     reverse(num.begin()+pivot+1, num.end());
