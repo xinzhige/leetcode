@@ -1,9 +1,9 @@
 class Solution {
 public:
   int calculate(string s) {
-    stack<int> st;  // Store all the numbers calculated by -, * or /
-    int num = 0;
-    char sign = '+';  // Store the previous operator
+    stack<int> st;  // all the numbers calculated by -, * or /
+    int num = 0;    // current number calculated by * and /
+    char sign = '+';  // the previous operator
     int n = s.size();
     for (int i = 0; i < n; ++i) {
       if (isdigit(s[i])) {
@@ -16,16 +16,15 @@ public:
         if (sign == '-') {
           st.push(-num);
         }
-        int tmp = 0;
         if (sign == '*') {
-          tmp = st.top() * num;
+          num = st.top() * num;
           st.pop();
-          st.push(tmp);
+          st.push(num);
         }
         if (sign == '/') {
-          tmp = st.top() / num;
+          num = st.top() / num;
           st.pop();
-          st.push(tmp);
+          st.push(num);
         }
         sign = s[i];
         num = 0;
