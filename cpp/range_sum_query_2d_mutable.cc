@@ -2,7 +2,7 @@
 class NumMatrix {
 public:
   NumMatrix(vector<vector<int>> matrix) {
-    if (matrix.empty()) {
+    if (matrix.empty() || matrix[0].empty()) {
       return;
     }
     m = matrix.size();
@@ -17,6 +17,9 @@ public:
   }
 
   void update(int row, int col, int val) {
+    if (m == 0 || n == 0) {
+      return;
+    }
     int delta = val - nums[row][col];
     nums[row][col] = val;
     for (int i = row + 1; i <= m; i += i & (-i)) {
@@ -27,6 +30,9 @@ public:
   }
 
   int sumRegion(int row1, int col1, int row2, int col2) {
+    if (m == 0 || n == 0) {
+      return 0;
+    }
     return sum(row2 + 1, col2 + 1) + sum(row1, col1) -
       sum(row1, col2 + 1) - sum(row2 + 1, col1);
   }
