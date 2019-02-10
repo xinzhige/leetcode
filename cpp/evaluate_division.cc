@@ -120,8 +120,7 @@ public:
       } else {
         auto rooti = uf.find(stringId[q.first]);
         auto rootj = uf.find(stringId[q.second]);
-        if (rooti.first == -1 || rootj.first == -1 ||
-            rooti.first != rootj.first) {
+        if (rooti.first != rootj.first) {
           result.push_back(-1.0);
         } else {
           result.push_back(rootj.second / rooti.second);
