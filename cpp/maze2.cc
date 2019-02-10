@@ -24,23 +24,20 @@ public:
     while (!pq.empty()) {
       auto t = pq.top();
       pq.pop();
-      /* */
-      if (dist[t.x][t.y] >= t.d) {
-        for (const auto &dir : dirs) {
-          int x = t.x;
-          int y = t.y;
-          int count = 0;
-          while (x + dir[0] >= 0 && x + dir[0] < m &&
-                 y + dir[1] >= 0 && y + dir[1]< n &&
-                 maze[x + dir[0]][y + dir[1]] == 0) {
-            x += dir[0];
-            y += dir[1];
-            count += 1;
-          }
-          if (dist[t.x][t.y] + count < dist[x][y]) {
-            dist[x][y] = dist[t.x][t.y] + count;
-            pq.emplace(x, y, dist[x][y]);
-          }
+      for (const auto &dir : dirs) {
+        int x = t.x;
+        int y = t.y;
+        int d = 0;
+        while (x + dir[0] >= 0 && x + dir[0] < m &&
+               y + dir[1] >= 0 && y + dir[1]< n &&
+               maze[x + dir[0]][y + dir[1]] == 0) {
+          x += dir[0];
+          y += dir[1];
+          d += 1;
+        }
+        if (dist[t.x][t.y] + d < dist[x][y]) {
+          dist[x][y] = dist[t.x][t.y] + d;
+          pq.emplace(x, y, dist[x][y]);
         }
       }
     }
