@@ -15,7 +15,7 @@ public:
       string prev = result.substr(result.size() - n + 1, n - 1);
       for (int j = k - 1; j >= 0; --j) {
         string curr = prev + to_string(j);
-        if (!visited.count(curr)) {
+        if (visited.count(curr) == 0) {
           visited.insert(curr);
           result += to_string(j);
           break;
@@ -38,7 +38,7 @@ public:
       }
     }
     string result = "";
-    for (int i = 0;i < M * k; ++i) {
+    for (int i = 0; i < M * k; ++i) {
       int j = i;
       while (P[j] >= 0) {
         result.append(to_string(j / M));
