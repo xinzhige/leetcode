@@ -8,7 +8,7 @@ public:
       }
     }
     queue<pair<int, int>> bfs;
-    bfs.push(make_pair(S, 0));
+    bfs.emplace(S, 0);
     unordered_set<int> seen = {S};
     while (!bfs.empty()) {
       int stop = bfs.front().first;
@@ -21,7 +21,7 @@ public:
         for (auto &next_stop : routes[route_i]) {
           if (seen.count(next_stop) == 0) {
             seen.insert(next_stop);
-            bfs.push(make_pair(next_stop, level + 1));
+            bfs.emplace(next_stop, level + 1);
           }
         }
         routes[route_i].clear();
