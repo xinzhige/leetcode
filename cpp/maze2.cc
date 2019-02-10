@@ -5,7 +5,7 @@ class Solution {
 public:
   int shortestDistance(vector<vector<int>>& maze, vector<int>& start,
                        vector<int>& destination) {
-    if (maze.empty()) {
+    if (maze.empty() || maze[0].empty()) {
       return -1;
     }
     m = maze.size();
@@ -18,12 +18,13 @@ public:
   }
   void dijkstra(vector<vector<int>>& maze, vector<int>& start,
                 vector<vector<int>>& dist) {
-    priority_queue<State, vector<State>, MyComparison> pq;
+    priority_queue<State, vector<State>, Comparison> pq;
     pq.emplace(start[0], start[1], 0);
     vector<vector<int>> dirs{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
     while (!pq.empty()) {
       auto t = pq.top();
       pq.pop();
+      /* */
       if (dist[t.x][t.y] >= t.d) {
         for (const auto &dir : dirs) {
           int x = t.x;
@@ -53,7 +54,7 @@ private:
     int d;
   };
 
-  struct MyComparison {
+  struct Comparison {
     bool operator() (const State &s1, const State &s2) {
       return s1.d < s2.d;
     }
