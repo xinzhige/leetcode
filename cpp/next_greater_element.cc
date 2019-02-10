@@ -12,11 +12,11 @@ public:
         next[st.top()] = num;
         st.pop();
       }
-      st.emplace(num);
+      st.push(num);
     }
     for (const auto &elem : findNums) {
       int tmp = (next.count(elem) == 0 ? -1 : next[elem]);
-      result.emplace_back(tmp);
+      result.push_back(tmp);
     }
     return result;
   }
