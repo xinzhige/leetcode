@@ -10,11 +10,11 @@ public:
   bool PredictTheWinner(vector<int>& nums) {
     int n = nums.size();
     vector<int> dp(n, 0);
-    for (int s = n - 2; s >= 0; --s) {
-      for (int e = s + 1; e < n; ++e) {
-        int a = nums[s] - dp[e];
-        int b = nums[e] - dp[e - 1];
-        dp[e] = max(a, b);
+    for (int i = n - 2; i >= 0; --i) {
+      for (int j = i + 1; j < n; ++j) {
+        int a = nums[i] - dp[j];
+        int b = nums[j] - dp[j - 1];
+        dp[j] = max(a, b);
       }
     }
     return dp[n - 1] >= 0;
