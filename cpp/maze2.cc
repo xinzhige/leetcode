@@ -53,7 +53,7 @@ private:
 
   struct Comparison {
     bool operator() (const State &s1, const State &s2) {
-      return s1.d < s2.d;
+      return s1.d > s2.d;
     }
   };
   int m = 0;
