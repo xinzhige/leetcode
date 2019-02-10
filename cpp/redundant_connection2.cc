@@ -19,7 +19,7 @@ public:
     }
     for (const auto &e : edges) {
       if (e[1] != 0) {
-        int p = find_root(parent, e[0]);
+        int p = find(parent, e[0]);
         if (p == e[1]) {
           if (first.empty()) {
             // has cycle without two parents
@@ -35,7 +35,7 @@ public:
     // no cycle but with two parents
     return second;
   }
-  int find_root(vector<int>& parent, int x) {
+  int find(vector<int>& parent, int x) {
     for (; x != parent[x]; x = parent[x]) {
       parent[x] = parent[parent[x]];
     }
