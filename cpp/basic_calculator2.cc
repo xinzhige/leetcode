@@ -12,6 +12,8 @@ public:
     int n = s.size();
     for (int i = 0; i < n; ++i) {
       if (isdigit(s[i])) {
+        // Note it must first calculate current digit otherwise it might be
+        // overflow to get num afterwards.
         int curr_digit = s[i] - '0'
         num = 10 * num + curr_digit;
       }
