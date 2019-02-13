@@ -7,7 +7,8 @@ public:
     int n = s.size();
     for (int i = 0; i < n; ++i) {
       if (isdigit(s[i])) {
-        num = 10 * num + (s[i] - '0');
+        int curr_digit = s[i] - '0';
+        num = 10 * num + curr_num;
       }
       if ((!isdigit(s[i]) && s[i] != ' ') || i == n - 1) {
         if (sign == '+') {
