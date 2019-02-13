@@ -1,27 +1,36 @@
 class Solution {
 public:
-    int calculate(string s) {
-        int result = 0; 
-        stack<int> sign;
-        sign.push(1);
-        sign.push(1);
-        for (int i = 0; i < s.size(); ++i) {
-            char c = s[i]; 
-            if (isdigit(c) {
-                int num = 0; 
-                for (; i < s.size() && isdigit(s[i]; ++i) {
-                    num = 10 * num + s[i] - '0'; 
-                }
-                result += sign.top() * num;
-                sign.pop();
-                --i;  // // Back one digit because of inner for loop
-            } else if (c == ')') {
-                sign.pop(); 
-            } else if (c != ' ') {
-                int curr = (c == '-' ? -1 : 1); 
-                sign.push(sign.top() * curr);
-            } 
-        }            
-        return result;
+  int calculate(string s) {
+    stack<int> st;
+    int result = 0;
+    int num = 0;  // current number
+    int sign = 1;  // previous sign
+    int n = s.size();
+    for (int i = 0; i < n; ++i){
+      if (isdigit(s[i])) {
+        num = 10 * num + (s[i] - '0');
+      } else if (s[i] == '+') {
+        result += sign * num;
+        num = 0;
+        sign = 1;
+      } else if (s[i] == '-') {
+        result += sign * num;
+        num = 0;
+        sign = -1;
+      } else if (s[i] == '(') {
+        st.push(result);
+        st.push(sign);
+        sign = 1;
+        result = 0;
+      } else if (s[i] == ')') {
+        result += sign * num;
+        num = 0;
+        result *= st.top();
+        st.pop();
+        result += st.top();
+        st.pop();
+      }
     }
-};
+    result += sign * num;
+    return result;
+  }
