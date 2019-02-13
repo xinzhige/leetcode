@@ -1,3 +1,8 @@
+/*
+ * Idea: think of 2-1 as 2+(-1), use two variables sign and num to represent * previous sign and current number. If sign is '+' or '-', push num into
+ * stack. If sign is '*' or '/', calculate previous number(stack top) and
+ * num and push its result into stack. Finally, sum all the elements in stack.
+ */
 class Solution {
 public:
   int calculate(string s) {
