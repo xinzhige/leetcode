@@ -12,8 +12,8 @@ public:
     int n = s.size();
     for (int i = 0; i < n; ++i) {
       if (isdigit(s[i])) {
-        int curr_digit = s[i] - '0';
-        num = 10 * num + curr_num;
+        int curr_digit = s[i] - '0'
+        num = 10 * num + curr_digit;
       }
       if ((!isdigit(s[i]) && s[i] != ' ') || i == n - 1) {
         if (sign == '+') {
