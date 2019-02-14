@@ -5,24 +5,23 @@ public:
     int result = 0;
     int num = 0;  // current number
     int sign = 1;  // previous sign
-    int n = s.size();
-    for (int i = 0; i < n; ++i){
-      if (isdigit(s[i])) {
-        num = 10 * num + (s[i] - '0');
-      } else if (s[i] == '+') {
+    for (const char &c : s){
+      if (isdigit(c)) {
+        num = 10 * num + (c - '0');
+      } else if (c == '+') {
         result += sign * num;
         num = 0;
         sign = 1;
-      } else if (s[i] == '-') {
+      } else if (c == '-') {
         result += sign * num;
         num = 0;
         sign = -1;
-      } else if (s[i] == '(') {
+      } else if (c == '(') {
         st.push(result);
         st.push(sign);
         sign = 1;
         result = 0;
-      } else if (s[i] == ')') {
+      } else if (c == ')') {
         result += sign * num;
         num = 0;
         result *= st.top();
@@ -31,6 +30,7 @@ public:
         st.pop();
       }
     }
+    // Note: do not forget to add the last number
     result += sign * num;
     return result;
   }
