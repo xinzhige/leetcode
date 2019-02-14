@@ -1,9 +1,9 @@
 class Solution {
 public:
   int calculate(string s) {
-    long level1 = 0;
+    long level1 = 0;  // partial result of operation on operator1 '+' or '-'
     long operator1 = 1;
-    long level2 = 1;
+    long level2 = 1;  // partial result of operation on operator2 '*' or '/'
     long operator2 = 1;
     stack<long> st;
     int n = s.size();
@@ -15,7 +15,7 @@ public:
           num = num * 10 + (s[i + 1] - '0');
         }
         level2 = (operator2 == 1 ? level2 * num : level2 / num);
-      } else if (s[i] == '(') {
+      } else if (s[i] == '(') {  // trigger pushing stack when meets '('
         st.push(level1);
         st.push(operator1);
         st.push(level2);
@@ -24,7 +24,7 @@ public:
         operator1 = 1;
         level2 = 1;
         operator2 = 1;
-      } else if (s[i] == ')') {
+      } else if (s[i] == ')') {  // trigger popping stack when meets ')'
         num = level1 + operator1 * level2;
         operator2 = st.top();
         st.pop();
