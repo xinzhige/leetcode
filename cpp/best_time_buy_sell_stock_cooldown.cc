@@ -1,39 +1,15 @@
-// Space: O(n)
 class Solution {
 public:
-  int maxProfit(vector<int>& prices) {
-    int n = prices.size();
-    vector<vector<int>> dp(n + 1, vector<int>(3, 0));
-    // Note: the buy must be initilized to be minimum such that
-    // the first buy can be made
-    dp[0][0] = INT_MIN;
-    for (int i = 1; i <= n; ++i) {
-      // Have to rest before buy
-      dp[i][0] = max(dp[i-1][2] - prices[i-1], dp[i-1][0]);
-      // Have to buy before sell
-      dp[i][1] = max(dp[i-1][0] + prices[i-1], dp[i-1][1]);
-      dp[i][2] = max(dp[i-1][1], dp[i-1][2]);
+    int maxProfit(vector<int>& prices) {
+        int sold = INT_MIN;
+        int held = INT_MIN;
+        int reset = 0;
+        for (int price : prices) {
+            int pre_sold = sold;
+            sold = held + price;
+            held = max(held, reset - price);
+            reset = max(reset, pre_sold);
+        }
+        return max(sold, reset); 
     }
-    return dp[n][1];
-  }
-};
-
-
-
-// Space: O(1)
-class Solution {
-public:
-  int maxProfit(vector<int>& prices) {
-    int buy = INT_MIN;
-    int sell = 0;
-    int prev_sell = 0;
-    int prev_buy = 0;
-    for (const auto &p : prices) {
-      prev_buy = buy;
-      buy = max(prev_sell - p, buy);
-      prev_sell = sell;
-      sell = max(prev_buy + p, sell);
-    }
-    return sell;
-  }
 };
