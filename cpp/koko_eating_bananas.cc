@@ -2,7 +2,7 @@ class Solution {
 public:
     int minEatingSpeed(vector<int>& piles, int H) {
         int left = 1;
-        int right = get_max(piles) + 1; 
+        int right = get_max(piles); 
         while (left < right) {
             int mid = (right - left) / 2 + left;
             if (!can_finish(piles, mid, H)) {
