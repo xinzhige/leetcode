@@ -1,36 +1,66 @@
 class Solution {
 public:
-  string findShortestWay(vector<vector<int>>& maze, vector<int>& ball,
-                         vector<int>& hole) {
-    pair<string, int> res = {"impossible", INT_MAX};
-    return roll(maze, ball, hole, 0, 0, 0, "", res);
-  }
-  string roll(vector<vector<int>>& maze, vector<int> ball,
-              const vector<int>& hole, int d_row, int d_col,
-              int steps, const string &path, pair<string, int> &res) {
-    if (steps < res.second) {
-      if (d_row != 0 || d_col != 0) {
-        while (ball[0] + d_row >= 0 &&
-               ball[1] + d_col >= 0 &&
-               ball[0] + d_row <  maze.size() &&
-               ball[1] + d_col < maze[0].size() &&
-               maze[ball[0] + d_row][ball[1] + d_col] != 1) {
-          ball[0] += d_row;
-          ball[1] += d_col;
-          steps += 1;
-          if (ball[0] == hole[0] && ball[1] == hole[1] && steps < res.second) {
-            res = {path, steps};
-          }
+    string findShortestWay(vector<vector<int>>& maze, vector<int>& ball, vector<int>& hole) {
+        vector<vector<int>> dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        vector<char> turns = {'d', 'u', 'r', 'l'};
+        int m= maze.size();
+        int n = maze[0].size();
+        vector<vector<bool>> visited(m, vector<bool>(n, false));
+        priority_queue<Point, vector<Point>, cmp> min_heap;
+        min_heap.emplace(ball[0], ball[1], 0, "");
+        while (!min_heap.empty()) {
+            Point cur_point = min_heap.top();
+            min_heap.pop();
+            int row = cur_point.row;
+            int col = cur_point.col;
+            if (row == hole[0] && col == hole[1]) {
+                return cur_point.path;
+            }
+            if (!visited[row][col]) {
+                visited[row][col] = true;
+                for (int i = 0; i < 4; i++) {
+                    int r = row;
+                    int c = col;
+                    int dist = cur_point.dist;
+                    while (r >= 0 && r < m && c >= 0 && c < n && maze[r][c] == 0 && (r != hole[0] || c != hole[1])) {
+                        r += dirs[i][0];
+                        c += dirs[i][1];
+                        dist++;
+                    }
+                    if (r != hole[0] || c != hole[1]) {
+                        r -= dirs[i][0];
+                        c -= dirs[i][1];
+                        dist--;
+                    }
+                    if (!visited[r][c]) {
+                        string cur_path = cur_point.path + turns[i];
+                        min_heap.emplace(r, c, dist, cur_path);
+                    }
+                }
+            }
         }
-      }
-      if (maze[ball[0]][ball[1]] == 0 || steps + 2 < maze[ball[0]][ball[1]]) {
-        maze[ball[0]][ball[1]] = steps + 2;
-        if (d_row == 0) roll(maze, ball, hole, 1, 0, steps, path + "d", res);
-        if (d_col == 0) roll(maze, ball, hole, 0, -1, steps, path + "l", res);
-        if (d_col == 0) roll(maze, ball, hole, 0, 1, steps, path + "r", res);
-        if (d_row == 0) roll(maze, ball, hole, -1, 0, steps, path + "u", res);
-      }
+        return "impossible";
     }
-    return res.first;
-  }
+private:
+    struct Point {
+        int row;
+        int col;
+        int dist;
+        string path;
+        Point(int r, int c, int d, string p) {
+            row = r;
+            col = c;
+            dist = d;
+            path = p; 
+        }
+    }; 
+    struct cmp {
+        bool operator()(const Point &p1, const Point &p2){
+            if (p1.dist == p2.dist) {
+                return p1.path > p2.path;
+            } else {
+                return p1.dist > p2.dist;
+            }
+        }
+    }; 
 };
